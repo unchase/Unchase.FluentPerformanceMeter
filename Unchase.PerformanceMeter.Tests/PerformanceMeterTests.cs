@@ -89,7 +89,7 @@ namespace Unchase.PerformanceMeter.Tests
             methodCallsAfterDispose.Method.Should().BeSameAs(performanceMeter.MethodInfo);
             methodCallsAfterDispose.MethodName.Should().Be(nameof(PublicClass.PublicVoidMethod));
             methodCallsAfterDispose.DurationMiliseconds.Should().BeGreaterThan(0);
-            methodCallsAfterDispose.CallerAddress.Should().Be(_httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString());
+            methodCallsAfterDispose.Caller.Should().Be(_httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString());
         }
     }
 }

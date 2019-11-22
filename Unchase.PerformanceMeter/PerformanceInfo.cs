@@ -123,10 +123,10 @@ namespace Unchase.PerformanceMeter
         public long DurationMiliseconds { get; set; }
 
         /// <summary>
-        /// Адрес вызывающего метод.
+        /// Вызывающмй клиент.
         /// </summary>
         [DataMember]
-        public string CallerAddress { get; set; }
+        public string Caller { get; set; }
 
         /// <summary>
         /// Дата начала вызова метода.
@@ -154,16 +154,16 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="m"><see cref="Method"/>.</param>
         /// <param name="duration"><see cref="DurationMiliseconds"/>.</param>
-        /// <param name="address"><see cref="CallerAddress"/>.</param>
+        /// <param name="caller"><see cref="Caller"/>.</param>
         /// <param name="ds"><see cref="StartTime"/>.</param>
         /// <param name="de"><see cref="EndTime"/>.</param>
-        public MethodCallInfo(T m, long duration, string address, DateTime ds, DateTime de)
+        public MethodCallInfo(T m, long duration, string caller, DateTime ds, DateTime de)
         {
             Method = m;
             if (m != null)
                 MethodName = m.Name;
             DurationMiliseconds = duration;
-            CallerAddress = address;
+            Caller = caller;
             StartTime = ds;
             EndTime = de;
         }
@@ -186,7 +186,6 @@ namespace Unchase.PerformanceMeter
         /// <remarks>
         /// <see cref="Enum"/>.
         /// </remarks>
-        //[DataMember]
         public T Method { get; set; }
 
         /// <summary>
