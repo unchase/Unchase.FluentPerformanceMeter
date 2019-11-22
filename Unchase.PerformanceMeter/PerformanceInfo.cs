@@ -11,7 +11,7 @@ namespace Unchase.PerformanceMeter
     /// </summary>
     /// <typeparam name="TClass">Класс с методами.</typeparam>
     [DataContract]
-    public class PerformanceInfo<TClass> : IPerformanceInfo where TClass : class
+    internal class PerformanceInfo<TClass> : IPerformanceInfo where TClass : class
     {
         #region Properties
 
@@ -107,7 +107,6 @@ namespace Unchase.PerformanceMeter
         /// <remarks>
         /// <see cref="MethodInfo"/>.
         /// </remarks>
-        //[DataMember]
         public T Method { get; set; }
 
         /// <summary>

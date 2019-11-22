@@ -8,7 +8,7 @@ namespace Unchase.PerformanceMeter
     /// Класс для производительности метода.
     /// </summary>
     /// <typeparam name="TClass">Класс с методами.</typeparam>
-    public static class Performance<TClass> where TClass : class
+    internal static class Performance<TClass> where TClass : class
     {
         #region Fields
 
@@ -24,7 +24,7 @@ namespace Unchase.PerformanceMeter
         /// <summary>
         /// Сведения о производительности метода.
         /// </summary>
-        public static IPerformanceInfo PerformanceInfo
+        internal static IPerformanceInfo PerformanceInfo
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Unchase.PerformanceMeter
         /// <remarks>
         /// <see cref="IPerformanceInfo.MethodCalls"/>.
         /// </remarks>
-        public static int MethodCallsCacheTime { get; set; } = 5;
+        internal static int MethodCallsCacheTime { get; set; } = 5;
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace Unchase.PerformanceMeter
         /// Установить свой обработчик получения данных о производительности методов.
         /// </summary>
         /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
-        public static void SetCustomPerformanceInfo(IPerformanceInfo performanceInfo)
+        internal static void SetCustomPerformanceInfo(IPerformanceInfo performanceInfo)
         {
             lock (PerformanceLock)
             {
@@ -77,7 +77,7 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="method">Метод типа <see cref="MethodInfo"/>.</param>
         /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
-        public static void Input(MethodInfo method, Action<Exception> exceptionHandler = null)
+        internal static void Input(MethodInfo method, Action<Exception> exceptionHandler = null)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Unchase.PerformanceMeter
         /// <param name="sw"><see cref="Stopwatch"/> для отслеживания времени работы метода.</param>
         /// <param name="dateStart">Дата начала выполнения метода.</param>
         /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
-        public static void Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null)
+        internal static void Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null)
         {
             try
             {
