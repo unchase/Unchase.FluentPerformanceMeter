@@ -12,7 +12,7 @@ namespace Unchase.PerformanceMeter
     /// Класс для запуска и остановки замера производительности метода.
     /// </summary>
     /// <typeparam name="TClass">Класс с методами.</typeparam>
-    public class PerformanceMeter<TClass> : IDisposable where TClass : class
+    public sealed class PerformanceMeter<TClass> : IDisposable where TClass : class
     {
         #region Fields
 
@@ -31,6 +31,8 @@ namespace Unchase.PerformanceMeter
         private Stopwatch _sw = new Stopwatch();
 
         private DateTime _dateStart = DateTime.Now;
+
+        private string _callerAddress = "unknown";
 
         private Action<Exception> _exceptionHandler { get; set; }
 
@@ -142,6 +144,15 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
+        /// Установить ip адрес вызывающего клиента.
+        /// </summary>
+        /// <param name="callerAddress">ip адрес вызывающего клиента.</param>
+        internal void SetCallerAddress(string callerAddress)
+        {
+            _callerAddress = callerAddress;
+        }
+
+        /// <summary>
         /// Установить свой обработчик получения данных о производительности методов.
         /// </summary>
         /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
@@ -195,7 +206,8 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         public void Dispose()
         {
-            Performance<TClass>.Output(_httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "unknown", _method, _sw, _dateStart, _exceptionHandler);
+            _callerAddress = _httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? _callerAddress;
+            Performance<TClass>.Output(_callerAddress, _method, _sw, _dateStart, _exceptionHandler);
         }
 
         #endregion
@@ -237,6 +249,21 @@ namespace Unchase.PerformanceMeter
         public static PerformanceMeter<TClass> With<TClass>(this PerformanceMeter<TClass> performanceMeter, Action<Exception> exceptionAction = null) where TClass : class
         {
             performanceMeter.SetExceptionHandler(exceptionAction);
+            return performanceMeter;
+        }
+
+        /// <summary>
+        /// Установить ip адрес вызывающего клиента.
+        /// </summary>
+        /// <typeparam name="TClass">Класс с методами.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="callerAddress">ip адрес вызывающего клиента.</param>
+        /// <returns>
+        /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> WithCallerAddress<TClass>(this PerformanceMeter<TClass> performanceMeter, string callerAddress) where TClass : class
+        {
+            performanceMeter.SetCallerAddress(callerAddress);
             return performanceMeter;
         }
 
