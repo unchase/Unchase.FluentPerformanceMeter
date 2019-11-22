@@ -46,7 +46,11 @@ namespace Unchase.PerformanceMeter.Tests
             PerformanceMeter<PublicClass> performanceMeter = null;
             
             // Act
-            using (performanceMeter = PerformanceMeter<PublicClass>.Watching(nameof(PublicClass.PublicVoidMethod)).With(_httpContextAccessor).Start())
+            using (performanceMeter = PerformanceMeter<PublicClass>
+                .Watching(nameof(PublicClass.PublicVoidMethod))
+                .With(_httpContextAccessor)
+                //.WithCaller("test")
+                .Start())
             {
                 // Arrange
                 var performanceInfo = PerformanceMeter<PublicClass>.GetPerformanceInfo();

@@ -94,12 +94,12 @@ namespace Unchase.PerformanceMeter
         /// <summary>
         /// Завершить отслеживание производительности метода.
         /// </summary>
-        /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/> для получения адреса вызывающего метод.</param>
+        /// <param name="caller">Вызывающий клиент.</param>
         /// <param name="method">Метод типа <see cref="MethodInfo"/>.</param>
         /// <param name="sw"><see cref="Stopwatch"/> для отслеживания времени работы метода.</param>
         /// <param name="dateStart">Дата начала выполнения метода.</param>
         /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
-        public static void Output(string callerAddress, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null)
+        public static void Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace Unchase.PerformanceMeter
                     var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
                     if (currentActivity != null)
                         currentActivity.CallsCount--;
-                    PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, callerAddress, dateStart, DateTime.Now));
+                    PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now));
                     var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
                     if (totalActivity != null)
                         totalActivity.CallsCount++;

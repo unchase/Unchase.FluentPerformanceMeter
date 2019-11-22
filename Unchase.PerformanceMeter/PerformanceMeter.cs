@@ -32,7 +32,7 @@ namespace Unchase.PerformanceMeter
 
         private DateTime _dateStart = DateTime.Now;
 
-        private string _callerAddress = "unknown";
+        private string _caller = "unknown";
 
         private Action<Exception> _exceptionHandler { get; set; }
 
@@ -144,12 +144,12 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Установить ip адрес вызывающего клиента.
+        /// Установить вызывающего клиента.
         /// </summary>
-        /// <param name="callerAddress">ip адрес вызывающего клиента.</param>
-        internal void SetCallerAddress(string callerAddress)
+        /// <param name="caller">Вызывающий клиент.</param>
+        internal void SetCallerAddress(string caller)
         {
-            _callerAddress = callerAddress;
+            _caller = caller;
         }
 
         /// <summary>
@@ -206,8 +206,8 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         public void Dispose()
         {
-            _callerAddress = _httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? _callerAddress;
-            Performance<TClass>.Output(_callerAddress, _method, _sw, _dateStart, _exceptionHandler);
+            _caller = _httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? _caller;
+            Performance<TClass>.Output(_caller, _method, _sw, _dateStart, _exceptionHandler);
         }
 
         #endregion
@@ -253,17 +253,17 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Установить ip адрес вызывающего клиента.
+        /// Установить вызывающего клиента.
         /// </summary>
         /// <typeparam name="TClass">Класс с методами.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="callerAddress">ip адрес вызывающего клиента.</param>
+        /// <param name="caller">Вызывающий клиент.</param>
         /// <returns>
         /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
-        public static PerformanceMeter<TClass> WithCallerAddress<TClass>(this PerformanceMeter<TClass> performanceMeter, string callerAddress) where TClass : class
+        public static PerformanceMeter<TClass> WithCaller<TClass>(this PerformanceMeter<TClass> performanceMeter, string caller) where TClass : class
         {
-            performanceMeter.SetCallerAddress(callerAddress);
+            performanceMeter.SetCallerAddress(caller);
             return performanceMeter;
         }
 
