@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -99,7 +100,8 @@ namespace Unchase.PerformanceMeter
         /// <param name="sw"><see cref="Stopwatch"/> для отслеживания времени работы метода.</param>
         /// <param name="dateStart">Дата начала выполнения метода.</param>
         /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
-        internal static void Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null)
+        /// <param name="customData">Дополнительные данные конкретного вызова метода.</param>
+        internal static void Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null, IDictionary<string, object> customData = null)
         {
             try
             {
@@ -110,7 +112,7 @@ namespace Unchase.PerformanceMeter
                     if (currentActivity != null)
                         currentActivity.CallsCount--;
                     if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
-                        PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now));
+                        PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now, customData));
                     var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
                     if (totalActivity != null)
                         totalActivity.CallsCount++;

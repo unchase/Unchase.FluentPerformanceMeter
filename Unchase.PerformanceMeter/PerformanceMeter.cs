@@ -14,7 +14,7 @@ namespace Unchase.PerformanceMeter
     /// <typeparam name="TClass">Класс с методами.</typeparam>
     public sealed class PerformanceMeter<TClass> : IDisposable where TClass : class
     {
-        #region Fields
+        #region Fields and Properties
 
         private IHttpContextAccessor _httpContextAccessor;
 
@@ -58,6 +58,16 @@ namespace Unchase.PerformanceMeter
         }
 
         private static ConcurrentDictionary<string, MethodInfo> _cachedMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
+
+        internal Dictionary<string, object> _customData = new Dictionary<string, object>();
+
+        /// <summary>
+        /// Время в минутах до обновления.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="IPerformanceInfo.MethodCalls"/>.
+        /// </remarks>
+        public int MethodCallsCacheTime => Performance<TClass>.MethodCallsCacheTime;
 
         #endregion
 
@@ -153,6 +163,22 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
+        /// Добавить дополнительные данные.
+        /// </summary>
+        /// <param name="key">Ключ.</param>
+        /// <param name="value">Значение.</param>
+        public static void AddCustomData(string key, object value)
+        {
+            lock(PerformanceMeterLock)
+            {
+                if (!Performance<TClass>.PerformanceInfo.CustomData.ContainsKey(key))
+                    Performance<TClass>.PerformanceInfo.CustomData.Add(key, value);
+                else
+                    Performance<TClass>.PerformanceInfo.CustomData[key] = value;
+            }
+        }
+
+        /// <summary>
         /// Установить свой обработчик получения данных о производительности методов.
         /// </summary>
         /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
@@ -207,7 +233,7 @@ namespace Unchase.PerformanceMeter
         public void Dispose()
         {
             _caller = _httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? _caller;
-            Performance<TClass>.Output(_caller, _method, _sw, _dateStart, _exceptionHandler);
+            Performance<TClass>.Output(_caller, _method, _sw, _dateStart, _exceptionHandler, _customData);
         }
 
         #endregion
@@ -264,6 +290,26 @@ namespace Unchase.PerformanceMeter
         public static PerformanceMeter<TClass> WithCaller<TClass>(this PerformanceMeter<TClass> performanceMeter, string caller) where TClass : class
         {
             performanceMeter.SetCallerAddress(caller);
+            return performanceMeter;
+        }
+
+        /// <summary>
+        /// Добавить дополнительные данные.
+        /// </summary>
+        /// <typeparam name="TClass">Класс с методами.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="key">Ключ.</param>
+        /// <param name="value">Значение.</param>
+        /// <returns>
+        /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> WithCustomData<TClass>(this PerformanceMeter<TClass> performanceMeter, string key, object value) where TClass : class
+        {
+            //ToDo: добавить lock?
+            if (!performanceMeter._customData.ContainsKey(key))
+                performanceMeter._customData.Add(key, value);
+            else
+                performanceMeter._customData[key] = value;
             return performanceMeter;
         }
 

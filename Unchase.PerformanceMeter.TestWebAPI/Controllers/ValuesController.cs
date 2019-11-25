@@ -13,10 +13,16 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        static ValuesController()
+        {
+            PerformanceMeter<ValuesController>.SetMethodCallsCacheTime(5);
+            PerformanceMeter<ValuesController>.AddCustomData("Tag", "CustomTag");
+            PerformanceMeter<ValuesController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
+        }
+
         public ValuesController(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            PerformanceMeter<ValuesController>.SetMethodCallsCacheTime(5);
         }
 
         /// <summary>
@@ -34,11 +40,11 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         [HttpGet("TestGet")]
-        public ActionResult<string> PublicTestGetMethod()
+        public ActionResult<string> PublicTestGetMethod(uint value)
         {
-            using (PerformanceMeter<ValuesController>.Watching(nameof(PublicTestGetMethod)).WithHttpContextAccessor(_httpContextAccessor).Start())
+            using (PerformanceMeter<ValuesController>.Watching(nameof(PublicTestGetMethod)).WithHttpContextAccessor(_httpContextAccessor).WithCustomData("value", value).Start())
             {
-                return "value";
+                return $"value-{value}";
             }
         }
 

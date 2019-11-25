@@ -47,5 +47,10 @@ namespace Unchase.PerformanceMeter
         /// Имена методов класса.
         /// </summary>
         List<string> MethodNames { get; set; }
+
+        /// <summary>
+        /// Дополнительные данные.
+        /// </summary>
+        IDictionary<string, object> CustomData { get; set; }
     }
 }

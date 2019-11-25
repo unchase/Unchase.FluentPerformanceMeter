@@ -20,6 +20,8 @@ namespace Unchase.PerformanceMeter.TestWebAPI
             public string ClassName { get => "SomeClasssName"; set { } }
 
             public List<string> MethodNames { get => new List<string>(); set { } }
+
+            IDictionary<string, object> IPerformanceInfo.CustomData { get => new Dictionary<string, object>(); set { } }
         }
 
         internal class GetPerformanceInfoResponse200Example : IExamplesProvider

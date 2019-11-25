@@ -67,6 +67,12 @@ namespace Unchase.PerformanceMeter
         [DataMember]
         public List<string> MethodNames { get; set; }
 
+        /// <summary>
+        /// Дополнительные данные.
+        /// </summary>
+        [DataMember]
+        public IDictionary<string, object> CustomData { get; set; }
+
         #endregion
 
         #region Constructors
@@ -90,6 +96,7 @@ namespace Unchase.PerformanceMeter
                 TotalActivity.Add(new MethodCallsCount<MethodInfo>(method));
                 CurrentActivity.Add(new MethodCallsCount<MethodInfo>(method));
             }
+            CustomData = new Dictionary<string, object>();
         }
 
         #endregion
@@ -142,6 +149,12 @@ namespace Unchase.PerformanceMeter
         [DataMember]
         public DateTime EndTime { get; set; }
 
+        /// <summary>
+        /// Дополнительные данные конкретного вызова метода.
+        /// </summary>
+        [DataMember]
+        public IDictionary<string, object> CustomData { get; set; }
+
         #endregion
 
         #region Constructors
@@ -159,7 +172,8 @@ namespace Unchase.PerformanceMeter
         /// <param name="caller"><see cref="Caller"/>.</param>
         /// <param name="ds"><see cref="StartTime"/>.</param>
         /// <param name="de"><see cref="EndTime"/>.</param>
-        public MethodCallInfo(T m, long duration, string caller, DateTime ds, DateTime de)
+        /// <param name="customData"><see cref="CustomData"/>.</param>
+        public MethodCallInfo(T m, long duration, string caller, DateTime ds, DateTime de, IDictionary<string, object> customData)
         {
             Method = m;
             if (m != null)
@@ -168,6 +182,7 @@ namespace Unchase.PerformanceMeter
             Caller = caller;
             StartTime = ds;
             EndTime = de;
+            CustomData = customData;
         }
 
         #endregion
