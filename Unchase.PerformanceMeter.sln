@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.PerformanceMeter", "Unchase.PerformanceMeter\Unchase.PerformanceMeter.csproj", "{A7B78715-3FB5-4BFE-8F50-91D0CBFA3F2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unchase.PerformanceMeter", "Unchase.PerformanceMeter\Unchase.PerformanceMeter.csproj", "{A7B78715-3FB5-4BFE-8F50-91D0CBFA3F2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.PerformanceMeter.Tests", "Unchase.PerformanceMeter.Tests\Unchase.PerformanceMeter.Tests.csproj", "{A744F33B-FCF3-4E12-A47D-1F3554087F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unchase.PerformanceMeter.Tests", "Unchase.PerformanceMeter.Tests\Unchase.PerformanceMeter.Tests.csproj", "{A744F33B-FCF3-4E12-A47D-1F3554087F85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.PerformanceMeter.TestWebAPI", "Unchase.PerformanceMeter.TestWebAPI\Unchase.PerformanceMeter.TestWebAPI.csproj", "{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A744F33B-FCF3-4E12-A47D-1F3554087F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A744F33B-FCF3-4E12-A47D-1F3554087F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A744F33B-FCF3-4E12-A47D-1F3554087F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

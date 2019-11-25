@@ -40,7 +40,7 @@ namespace Unchase.PerformanceMeter.Tests
         }
 
         [Fact]
-        public void PerformanceMeterStartReturnsSuccess()
+        public void PerformanceMeterStartWaychingPublicVoidMethodWithHttpContectAccessorReturnsSuccess()
         {
             // Arrange
             PerformanceMeter<PublicClass> performanceMeter = null;
@@ -59,9 +59,12 @@ namespace Unchase.PerformanceMeter.Tests
                 var methodCalls = performanceInfo.MethodCalls.Find(ca => ca.Method == performanceMeter.MethodInfo);
 
                 // Assert
-                performanceInfo.ClassName.Should().EndWith(typeof(PublicClass).Name);
+                performanceInfo.ClassName.Should().EndWith(typeof(PublicClass).Name, "class name should be known");
 
-                performanceInfo.MethodNames.Count.Should().Be(typeof(PublicClass).GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly).Where(mi => !mi.IsSpecialName).Count());
+                performanceInfo.MethodNames.Count.Should().Be(typeof(PublicClass)
+                    .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                    .Where(mi => !mi.IsSpecialName && mi.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
+                    .Count());
 
                 methodCurrentActivity.Should().NotBeNull();
                 methodCurrentActivity.CallsCount.Should().Be(1);

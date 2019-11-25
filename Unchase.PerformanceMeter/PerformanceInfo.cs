@@ -80,7 +80,10 @@ namespace Unchase.PerformanceMeter
             TotalActivity = new List<MethodCallsCount<MethodInfo>>();
             CurrentActivity = new List<MethodCallsCount<MethodInfo>>();
             UptimeSince = DateTime.Now;
-            var methodInfos = typeof(TClass).GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly).Where(mi => !mi.IsSpecialName).ToArray();
+            var methodInfos = typeof(TClass)
+                .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                .Where(mi => !mi.IsSpecialName && mi.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
+                .ToArray();
             MethodNames = methodInfos.Select(mi => mi.Name).ToList();
             foreach (var method in methodInfos)
             {
