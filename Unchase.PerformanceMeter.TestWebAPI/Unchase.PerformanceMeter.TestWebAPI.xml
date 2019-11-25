@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unchase.PerformanceMeter.TestWebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.GetPerformanceInfo">
+            <summary>
+            Get methods performance info.
+            </summary>
+            <returns>Returns methods performance info.</returns>
+            <response code="200">Returns methods performance info.</response>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.SwaggerRequestResponseExamples.GetPerformanceInfoResponse200Example.Swashbuckle#AspNetCore#Filters#IExamplesProvider#GetExamples">
+            <summary>
+            Получить примеры.
+            </summary>
+            <returns>Возвращает <see cref="!:StandartResponse"/>.</returns>
+        </member>
+    </members>
+</doc>

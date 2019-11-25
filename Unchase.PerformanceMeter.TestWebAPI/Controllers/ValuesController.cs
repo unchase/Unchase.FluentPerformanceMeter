@@ -54,8 +54,8 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             using (PerformanceMeter<ValuesController>
                 .Watching(nameof(PublicTestGetMethod))
                 .WithHttpContextAccessor(_httpContextAccessor)
-                .WithCustomData("value", value)
-                .WithCustomData("testClass", testClass)
+                .WithCustomData(nameof(value), value)
+                .WithCustomData(nameof(testClass), testClass)
                 .Start())
             {
                 return $"value-{value}";

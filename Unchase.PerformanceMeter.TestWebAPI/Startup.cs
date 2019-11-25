@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
 
 namespace Unchase.PerformanceMeter.TestWebAPI
 {
@@ -40,6 +42,18 @@ namespace Unchase.PerformanceMeter.TestWebAPI
 
                 // подключаем фильтры с примерами для запросов (ответов)
                 c.ExampleFilters();
+
+                // добавляем в документацию данные из комментариев в xml-файлах сборок
+                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    if (!assembly.IsDynamic)
+                    {
+                        var xmlFile = $"{assembly.GetName().Name}.xml";
+                        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                        if (File.Exists(xmlPath))
+                            c.IncludeXmlComments(xmlPath);
+                    }
+                }
 
                 // подключаем аннотации для swagger'а
                 c.EnableAnnotations();
