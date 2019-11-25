@@ -231,7 +231,7 @@ namespace Unchase.PerformanceMeter
         /// <returns>
         /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
-        public static PerformanceMeter<TClass> With<TClass>(this PerformanceMeter<TClass> performanceMeter, IHttpContextAccessor httpContextAccessor) where TClass : class
+        public static PerformanceMeter<TClass> WithHttpContextAccessor<TClass>(this PerformanceMeter<TClass> performanceMeter, IHttpContextAccessor httpContextAccessor) where TClass : class
         {
             performanceMeter.SetHttpContextAccessor(httpContextAccessor);
             return performanceMeter;
@@ -242,13 +242,13 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <typeparam name="TClass">Класс с методами.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="exceptionAction">Action для обработки возникающих исключений.</param>
+        /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
         /// <returns>
         /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
-        public static PerformanceMeter<TClass> With<TClass>(this PerformanceMeter<TClass> performanceMeter, Action<Exception> exceptionAction = null) where TClass : class
+        public static PerformanceMeter<TClass> WithExceptionHandler<TClass>(this PerformanceMeter<TClass> performanceMeter, Action<Exception> exceptionHandler = null) where TClass : class
         {
-            performanceMeter.SetExceptionHandler(exceptionAction);
+            performanceMeter.SetExceptionHandler(exceptionHandler);
             return performanceMeter;
         }
 

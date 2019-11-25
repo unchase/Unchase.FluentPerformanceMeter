@@ -48,7 +48,7 @@ namespace Unchase.PerformanceMeter.Tests
             // Act
             using (performanceMeter = PerformanceMeter<PublicClass>
                 .Watching(nameof(PublicClass.PublicVoidMethod))
-                .With(_httpContextAccessor)
+                .WithHttpContextAccessor(_httpContextAccessor)
                 //.WithCaller("test")
                 .Start())
             {
