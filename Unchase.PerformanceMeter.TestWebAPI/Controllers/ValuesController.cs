@@ -42,7 +42,21 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [HttpGet("TestGet")]
         public ActionResult<string> PublicTestGetMethod(uint value)
         {
-            using (PerformanceMeter<ValuesController>.Watching(nameof(PublicTestGetMethod)).WithHttpContextAccessor(_httpContextAccessor).WithCustomData("value", value).Start())
+            var testClass = new
+            {
+                TestInternalClass = new
+                {
+                    Key = 1,
+                    Value = "2"
+                },
+                Value = "3"
+            };
+            using (PerformanceMeter<ValuesController>
+                .Watching(nameof(PublicTestGetMethod))
+                .WithHttpContextAccessor(_httpContextAccessor)
+                .WithCustomData("value", value)
+                .WithCustomData("testClass", testClass)
+                .Start())
             {
                 return $"value-{value}";
             }
@@ -51,7 +65,10 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [HttpPost("TestPost")]
         public ActionResult<string> PublicPostMethod([FromBody] string value)
         {
-            using (PerformanceMeter<ValuesController>.Watching(nameof(PublicPostMethod)).WithCaller("Test caller").Start())
+            using (PerformanceMeter<ValuesController>
+                .Watching(nameof(PublicPostMethod))
+                .WithCaller("Test caller")
+                .Start())
             {
                 return Ok(value);
             }
