@@ -314,14 +314,11 @@
             Returns an instance of the class with type <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Watching(System.Boolean,System.String,System.String,System.Int32)">
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Watching(System.String)">
             <summary>
             Create an instance of the class to watching method performance.
             </summary>
-            <param name="withCallerData">Add caller data into the method calls custom data.</param>
             <param name="methodName">Method name.</param>
-            <param name="callerSource">Source file path.</param>
-            <param name="callerSourceLineNumber">Line number.</param>
             <returns>
             Returns an instance of the class with type <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </returns>
@@ -356,6 +353,13 @@
             </summary>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.AddCallerData(System.String,System.Int32)">
+            <summary>
+            Add caller data.
+            </summary>
+            <param name="callerSource">Caller source.</param>
+            <param name="callerSourceLineNumber">Caller source line number.</param>
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.AddCustomData(System.String,System.Object)">
             <summary>
@@ -462,6 +466,18 @@
             <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeterExtensions.WithCallerData``1(Unchase.PerformanceMeter.PerformanceMeter{``0},System.String,System.Int32)">
+            <summary>
+            Add caller data.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceMeter"></param>
+            <param name="callerSource">Caller source.</param>
+            <param name="callerSourceLineNumber">Caller source line number.</param>
             <returns>
             Returns <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </returns>
