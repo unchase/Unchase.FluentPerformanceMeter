@@ -38,7 +38,7 @@ namespace Unchase.PerformanceMeter
 
         private static readonly object PerformanceMeterLock = new object();
 
-        private static Action<Exception> _defaultExceptionHandler { get; set; }
+        private static Action<Exception> _defaultExceptionHandler { get; set; } = (ex) => { AddCustomData("Last exception", ex); };
         private static Action<Exception> DefaultExceptionHandler
         {
             get
@@ -153,9 +153,14 @@ namespace Unchase.PerformanceMeter
                 _cachedMethodInfos.TryAdd(methodName, methodInfo);
             }
 
-            return new PerformanceMeter<TClass>(methodInfo)
-                .WithCustomData(nameof(callerSource), callerSource)
-                .WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
+            var rerformanceMeter = new PerformanceMeter<TClass>(methodInfo);
+            if (!string.IsNullOrWhiteSpace(callerSource))
+                rerformanceMeter = rerformanceMeter.WithCustomData(nameof(callerSource), callerSource);
+
+            if (callerSourceLineNumber > 0)
+                rerformanceMeter = rerformanceMeter.WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
+
+            return rerformanceMeter;
         }
 
         #endregion

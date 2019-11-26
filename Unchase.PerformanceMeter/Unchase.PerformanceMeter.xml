@@ -319,8 +319,8 @@
             Create an instance of the class to watching method performance.
             </summary>
             <param name="methodName">Method name.</param>
-            <param name="callerFilePath">Source file path.</param>
-            <param name="callerLineNumber">Line number.</param>
+            <param name="callerSource">Source file path.</param>
+            <param name="callerSourceLineNumber">Line number.</param>
             <returns>
             Returns an instance of the class with type <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </returns>
