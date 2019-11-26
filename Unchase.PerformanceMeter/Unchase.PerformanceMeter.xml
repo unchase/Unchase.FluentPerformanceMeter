@@ -101,13 +101,13 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.Performance`1.Input(System.Reflection.MethodInfo)">
             <summary>
-            Start tracking method performance.
+            Start watching method performance.
             </summary>
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
         </member>
         <member name="M:Unchase.PerformanceMeter.Performance`1.Output(System.String,System.Reflection.MethodInfo,System.Diagnostics.Stopwatch,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
-            Complete method performance tracking.
+            Stop watching method performance.
             </summary>
             <param name="caller">Caller name.</param>
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
@@ -383,7 +383,12 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Start">
             <summary>
-            Start watching methods performance.
+            Start watching method performance.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Stop">
+            <summary>
+            Stop watching method performance.
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.GetPerformanceInfo">
@@ -396,7 +401,7 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Dispose">
             <summary>
-            Dispose and stop watching methods performance.
+            Dispose and stop watching method performance.
             </summary>
         </member>
         <member name="T:Unchase.PerformanceMeter.PerformanceMeterExtensions">
@@ -462,7 +467,7 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeterExtensions.Start``1(Unchase.PerformanceMeter.PerformanceMeter{``0})">
             <summary>
-            Start watching methods performance.
+            Start watching method performance.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
             <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>

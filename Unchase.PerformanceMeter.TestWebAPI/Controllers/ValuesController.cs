@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
+using System.Threading;
 using Unchase.PerformanceMeter.TestWebAPI.Commands;
 using Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples;
 
@@ -98,12 +99,15 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         {
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
             // custom "ExecuteCommand" will be executed after performance watching is completed (for example, you can write data to the database or log the result or perform any other operation)
-            using (PerformanceMeter<ValuesController>
+            using (var pm = PerformanceMeter<ValuesController>
                 .Watching()
                 .WithCaller("Test caller")
                 .WithExecutingOnComplete(new ExecutedCommand("bla-bla-bla"))
                 .Start())
             {
+                pm.Stop(); // stop watching there
+                Thread.Sleep(2000);
+
                 return Ok(value);
             }
         }
