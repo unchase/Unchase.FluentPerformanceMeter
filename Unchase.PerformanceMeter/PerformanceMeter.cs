@@ -197,6 +197,22 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="value">Value.</param>
+        internal void AddMethodCallCustomData(string key, object value)
+        {
+            lock (PerformanceMeterLock)
+            {
+                if (!this._customData.ContainsKey(key))
+                    this._customData.Add(key, value);
+                else
+                    this._customData[key] = value;
+            }
+        }
+
+        /// <summary>
+        /// Add custom data.
+        /// </summary>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
         public static void AddCustomData(string key, object value)
         {
             lock(PerformanceMeterLock)
@@ -373,11 +389,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public static PerformanceMeter<TClass> WithCustomData<TClass>(this PerformanceMeter<TClass> performanceMeter, string key, object value) where TClass : class
         {
-            //ToDo: добавить lock?
-            if (!performanceMeter._customData.ContainsKey(key))
-                performanceMeter._customData.Add(key, value);
-            else
-                performanceMeter._customData[key] = value;
+            performanceMeter.AddMethodCallCustomData(key, value);
             return performanceMeter;
         }
 

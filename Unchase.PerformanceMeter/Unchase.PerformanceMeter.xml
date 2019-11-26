@@ -347,6 +347,13 @@
             </summary>
             <param name="performanceCommands">Collection of the executed commands.</param>
         </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.AddMethodCallCustomData(System.String,System.Object)">
+            <summary>
+            Add custom data.
+            </summary>
+            <param name="key">Key.</param>
+            <param name="value">Value.</param>
+        </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.AddCustomData(System.String,System.Object)">
             <summary>
             Add custom data.
