@@ -7,6 +7,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
+using Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples;
 
 namespace Unchase.PerformanceMeter.TestWebAPI
 {

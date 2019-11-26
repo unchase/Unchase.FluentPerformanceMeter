@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Unchase.PerformanceMeter.TestWebAPI
+namespace Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples
 {
     internal class ResponseExamples
     {

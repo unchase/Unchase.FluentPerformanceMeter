@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
+using Unchase.PerformanceMeter.TestWebAPI.Commands;
+using Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples;
 
 namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
 {
@@ -71,11 +73,13 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             };
 
             // method performance info will reach with HttpContextAccessor and custom data
+            // custom "CustomDataCommand" will be executed after performance watching is completed (work with method calls custom data)
             using (PerformanceMeter<ValuesController>
                 .Watching(nameof(PublicTestGetMethod))
                 .WithHttpContextAccessor(_httpContextAccessor)
                 .WithCustomData(nameof(value), value)
                 .WithCustomData(nameof(testClass), testClass)
+                .WithExecutingOnComplete(new CustomDataCommand())
                 .Start())
             {
                 return $"value-{value}";

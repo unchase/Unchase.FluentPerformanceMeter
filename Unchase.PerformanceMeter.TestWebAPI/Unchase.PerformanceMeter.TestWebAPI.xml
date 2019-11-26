@@ -4,6 +4,47 @@
         <name>Unchase.PerformanceMeter.TestWebAPI</name>
     </assembly>
     <members>
+        <member name="T:Unchase.PerformanceMeter.TestWebAPI.Commands.CustomDataCommand">
+            <summary>
+            Custom executed command which work with method calls custom data.
+            </summary>
+        </member>
+        <member name="P:Unchase.PerformanceMeter.TestWebAPI.Commands.CustomDataCommand.CommandName">
+            <summary>
+            Executed commad name.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Commands.CustomDataCommand.Execute(Unchase.PerformanceMeter.IPerformanceInfo)">
+            <summary>
+            Execute command.
+            </summary>
+            <param name="performanceInfo"><see cref="T:Unchase.PerformanceMeter.IPerformanceInfo"/>.</param>
+        </member>
+        <member name="T:Unchase.PerformanceMeter.TestWebAPI.Commands.ExecutedCommand">
+            <summary>
+            Custom executed command.
+            </summary>
+        </member>
+        <member name="P:Unchase.PerformanceMeter.TestWebAPI.Commands.ExecutedCommand.CommandName">
+            <summary>
+            Executed commad name.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Commands.ExecutedCommand.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <remarks>
+            You can pass any data through the command constructor.
+            </remarks>
+            <param name="customString"></param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Commands.ExecutedCommand.Execute(Unchase.PerformanceMeter.IPerformanceInfo)">
+            <summary>
+            Execute command.
+            </summary>
+            <param name="performanceInfo"><see cref="T:Unchase.PerformanceMeter.IPerformanceInfo"/>.</param>
+        </member>
         <member name="T:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController">
             <summary>
             Unchase.PerformanceMeter Test WebAPI Controller.
@@ -45,31 +86,6 @@
             Returns input value.
             </returns>
         </member>
-        <member name="T:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand">
-            <summary>
-            Custom executed command.
-            </summary>
-        </member>
-        <member name="P:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand.CommandName">
-            <summary>
-            Executed commad name.
-            </summary>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand.#ctor(System.String)">
-            <summary>
-            Constructor.
-            </summary>
-            <remarks>
-            You can pass any data through the command constructor.
-            </remarks>
-            <param name="customString"></param>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand.Execute(Unchase.PerformanceMeter.IPerformanceInfo)">
-            <summary>
-            Execute command.
-            </summary>
-            <param name="performanceInfo"></param>
-        </member>
         <member name="T:Unchase.PerformanceMeter.TestWebAPI.Program">
             <summary>
             Startup program.
@@ -87,11 +103,6 @@
             </summary>
             <param name="args">Arguments.</param>
             <returns><see cref="T:Microsoft.AspNetCore.Hosting.IWebHostBuilder"/>.</returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.ResponseExamples.GetPerformanceInfoResponse200Example.Swashbuckle#AspNetCore#Filters#IExamplesProvider#GetExamples">
-            <summary>
-            Get examples.
-            </summary>
         </member>
         <member name="T:Unchase.PerformanceMeter.TestWebAPI.Startup">
             <summary>
@@ -123,6 +134,11 @@
             </summary>
             <param name="app"><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
             <param name="env"><see cref="T:Microsoft.AspNetCore.Hosting.IHostingEnvironment"/>.</param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples.ResponseExamples.GetPerformanceInfoResponse200Example.Swashbuckle#AspNetCore#Filters#IExamplesProvider#GetExamples">
+            <summary>
+            Get examples.
+            </summary>
         </member>
     </members>
 </doc>

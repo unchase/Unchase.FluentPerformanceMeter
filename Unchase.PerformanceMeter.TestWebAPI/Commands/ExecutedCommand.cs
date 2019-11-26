@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Unchase.PerformanceMeter.TestWebAPI
+namespace Unchase.PerformanceMeter.TestWebAPI.Commands
 {
     /// <summary>
     /// Custom executed command.
@@ -29,7 +29,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI
         /// <summary>
         /// Execute command.
         /// </summary>
-        /// <param name="performanceInfo"></param>
+        /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
         public void Execute(IPerformanceInfo performanceInfo)
         {
             // for example, write to the debug console some information
