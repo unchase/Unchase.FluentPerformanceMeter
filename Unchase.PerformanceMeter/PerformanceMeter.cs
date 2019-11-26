@@ -130,6 +130,7 @@ namespace Unchase.PerformanceMeter
         /// <summary>
         /// Create an instance of the class to watching method performance.
         /// </summary>
+        /// <param name="withCallerData">Add caller data into the method calls custom data.</param>
         /// <param name="methodName">Method name.</param>
         /// <param name="callerSource">Source file path.</param>
         /// <param name="callerSourceLineNumber">Line number.</param>
@@ -138,6 +139,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static PerformanceMeter<TClass> Watching(
+            bool withCallerData = false,
             [CallerMemberName] string methodName = null, 
             [CallerFilePath] string callerSource = "",
             [CallerLineNumber] int callerSourceLineNumber = 0)
@@ -154,12 +156,14 @@ namespace Unchase.PerformanceMeter
             }
 
             var rerformanceMeter = new PerformanceMeter<TClass>(methodInfo);
-            if (!string.IsNullOrWhiteSpace(callerSource))
-                rerformanceMeter = rerformanceMeter.WithCustomData(nameof(callerSource), callerSource);
+            if (withCallerData)
+            {
+                if (!string.IsNullOrWhiteSpace(callerSource))
+                    rerformanceMeter = rerformanceMeter.WithCustomData(nameof(callerSource), callerSource);
 
-            if (callerSourceLineNumber > 0)
-                rerformanceMeter = rerformanceMeter.WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
-
+                if (callerSourceLineNumber > 0)
+                    rerformanceMeter = rerformanceMeter.WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
+            }
             return rerformanceMeter;
         }
 
