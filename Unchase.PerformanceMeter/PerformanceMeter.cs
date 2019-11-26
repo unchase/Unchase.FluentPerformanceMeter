@@ -96,8 +96,8 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         private PerformanceMeter(MethodInfo method)
         {
-            MethodInfo = method;
-            _exceptionHandler = DefaultExceptionHandler;
+            this.MethodInfo = method;
+            this._exceptionHandler = DefaultExceptionHandler;
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Unchase.PerformanceMeter
         /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
         internal void SetHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;
+            this._httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Unchase.PerformanceMeter
         /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         internal void SetExceptionHandler(Action<Exception> exceptionHandler = null)
         {
-            _exceptionHandler = exceptionHandler;
+            this._exceptionHandler = exceptionHandler;
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Unchase.PerformanceMeter
         /// <param name="caller">Caller name.</param>
         internal void SetCallerAddress(string caller)
         {
-            _caller = caller;
+            this._caller = caller;
         }
 
         /// <summary>
@@ -256,9 +256,9 @@ namespace Unchase.PerformanceMeter
         {
             try
             {
-                _dateStart = DateTime.Now;
-                _sw = Stopwatch.StartNew();
-                Performance<TClass>.Input(MethodInfo);
+                this._dateStart = DateTime.Now;
+                this._sw = Stopwatch.StartNew();
+                Performance<TClass>.Input(this.MethodInfo);
             }
             catch (Exception ex)
             {
@@ -284,11 +284,14 @@ namespace Unchase.PerformanceMeter
         {
             try
             {
-                _caller = _httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? _caller;
-                var performanceInfo = Performance<TClass>.Output(_caller, MethodInfo, _sw, _dateStart, _customData);
+                if (this.MethodInfo != null && this._sw.IsRunning)
+                {
+                    this._caller = this._httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? this._caller;
+                    var performanceInfo = Performance<TClass>.Output(this._caller, this.MethodInfo, this._sw, this._dateStart, this._customData);
 
-                foreach (var performanceCommand in this.RegisteredCommands)
-                    performanceCommand.Execute(performanceInfo);
+                    foreach (var performanceCommand in this.RegisteredCommands)
+                        performanceCommand.Execute(performanceInfo);
+                }
             }
             catch (Exception ex) 
             {

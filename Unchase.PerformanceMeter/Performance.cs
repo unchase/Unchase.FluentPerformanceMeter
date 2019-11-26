@@ -94,18 +94,15 @@ namespace Unchase.PerformanceMeter
         /// <param name="customData">Custom data for a specific method call.</param>
         internal static IPerformanceInfo Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, IDictionary<string, object> customData = null)
         {
-            if (method != null && sw.IsRunning)
-            {
-                sw.Stop();
-                var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
-                if (currentActivity != null)
-                    currentActivity.CallsCount--;
-                if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
-                    PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now, customData));
-                var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
-                if (totalActivity != null)
-                    totalActivity.CallsCount++;
-            }
+            sw.Stop();
+            var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
+            if (currentActivity != null)
+                currentActivity.CallsCount--;
+            if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
+                PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now, customData));
+            var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
+            if (totalActivity != null)
+                totalActivity.CallsCount++;
             return PerformanceInfo;
         }
 
