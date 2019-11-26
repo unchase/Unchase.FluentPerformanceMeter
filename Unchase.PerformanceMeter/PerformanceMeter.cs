@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Unchase.PerformanceMeter
 {
@@ -133,7 +134,8 @@ namespace Unchase.PerformanceMeter
         /// <returns>
         /// Returns an instance of the class with type <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
-        public static PerformanceMeter<TClass> Watching(string methodName)
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static PerformanceMeter<TClass> Watching([CallerMemberName] string methodName = null)
         {
             MethodInfo methodInfo;
             if (_cachedMethodInfos.ContainsKey(methodName))
@@ -151,7 +153,7 @@ namespace Unchase.PerformanceMeter
 
         #endregion
 
-        #region Set additional fields
+        #region Additional
 
         /// <summary>
         /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.

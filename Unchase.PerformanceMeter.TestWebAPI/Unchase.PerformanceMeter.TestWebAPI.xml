@@ -59,7 +59,7 @@
             <summary>
             Constructor.
             </summary>
-            <param name="httpContextAccessor"></param>
+            <param name="httpContextAccessor"><see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/>.</param>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.GetPerformanceInfo">
             <summary>
