@@ -75,7 +75,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             // method performance info will reach with HttpContextAccessor and custom data
             // custom "CustomDataCommand" will be executed after performance watching is completed (work with method calls custom data)
             using (PerformanceMeter<ValuesController>
-                .Watching("CustomMethodName")
+                .Watching(nameof(PublicTestGetMethod))
                 .WithHttpContextAccessor(_httpContextAccessor)
                 .WithCustomData(nameof(value), value)
                 .WithCustomData(nameof(testClass), testClass)
