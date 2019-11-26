@@ -264,7 +264,7 @@ namespace Unchase.PerformanceMeter
         #region Main
 
         /// <summary>
-        /// Start watching methods performance.
+        /// Start watching method performance.
         /// </summary>
         internal void Start()
         {
@@ -284,6 +284,14 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
+        /// Stop watching method performance.
+        /// </summary>
+        public void Stop()
+        {
+            this.Dispose();
+        }
+
+        /// <summary>
         /// Get methods performance information.
         /// </summary>
         /// <returns>
@@ -292,7 +300,7 @@ namespace Unchase.PerformanceMeter
         public static IPerformanceInfo GetPerformanceInfo() => Performance<TClass>.PerformanceInfo;
 
         /// <summary>
-        /// Dispose and stop watching methods performance.
+        /// Dispose and stop watching method performance.
         /// </summary>
         public void Dispose()
         {
@@ -405,7 +413,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Start watching methods performance.
+        /// Start watching method performance.
         /// </summary>
         /// <typeparam name="TClass">Class with methods.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>

@@ -74,7 +74,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Start tracking method performance.
+        /// Start watching method performance.
         /// </summary>
         /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>
         internal static void Input(MethodInfo method)
@@ -85,7 +85,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Complete method performance tracking.
+        /// Stop watching method performance.
         /// </summary>
         /// <param name="caller">Caller name.</param>
         /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>
