@@ -131,16 +131,16 @@ namespace Unchase.PerformanceMeter
         /// Create an instance of the class to watching method performance.
         /// </summary>
         /// <param name="methodName">Method name.</param>
-        /// <param name="callerFilePath">Source file path.</param>
-        /// <param name="callerLineNumber">Line number.</param>
+        /// <param name="callerSource">Source file path.</param>
+        /// <param name="callerSourceLineNumber">Line number.</param>
         /// <returns>
         /// Returns an instance of the class with type <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static PerformanceMeter<TClass> Watching(
             [CallerMemberName] string methodName = null, 
-            [CallerFilePath] string callerFilePath = "",
-            [CallerLineNumber] int callerLineNumber = 0)
+            [CallerFilePath] string callerSource = "",
+            [CallerLineNumber] int callerSourceLineNumber = 0)
         {
             MethodInfo methodInfo;
             if (_cachedMethodInfos.ContainsKey(methodName))
@@ -154,8 +154,8 @@ namespace Unchase.PerformanceMeter
             }
 
             return new PerformanceMeter<TClass>(methodInfo)
-                .WithCustomData(nameof(callerFilePath), callerFilePath)
-                .WithCustomData(nameof(callerLineNumber), callerLineNumber);
+                .WithCustomData(nameof(callerSource), callerSource)
+                .WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
         }
 
         #endregion
