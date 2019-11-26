@@ -58,7 +58,7 @@ namespace Unchase.PerformanceMeter
 
         private static ConcurrentDictionary<string, MethodInfo> _cachedMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
 
-        internal Dictionary<string, object> _customData = new Dictionary<string, object>();
+        internal ConcurrentDictionary<string, object> _customData = new ConcurrentDictionary<string, object>();
 
         /// <summary>
         /// Time in minutes to clear list of the method calls.
@@ -199,13 +199,7 @@ namespace Unchase.PerformanceMeter
         /// <param name="value">Value.</param>
         internal void AddMethodCallCustomData(string key, object value)
         {
-            lock (PerformanceMeterLock)
-            {
-                if (!this._customData.ContainsKey(key))
-                    this._customData.Add(key, value);
-                else
-                    this._customData[key] = value;
-            }
+            this._customData.TryAdd(key, value);
         }
 
         /// <summary>
