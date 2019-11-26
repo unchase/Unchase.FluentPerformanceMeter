@@ -45,6 +45,31 @@
             Returns input value.
             </returns>
         </member>
+        <member name="T:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand">
+            <summary>
+            Custom executed command.
+            </summary>
+        </member>
+        <member name="P:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand.CommandName">
+            <summary>
+            Executed commad name.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <remarks>
+            You can pass any data through the command constructor.
+            </remarks>
+            <param name="customString"></param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.ExecutedCommand.Execute(Unchase.PerformanceMeter.IPerformanceInfo)">
+            <summary>
+            Execute command.
+            </summary>
+            <param name="performanceInfo"></param>
+        </member>
         <member name="T:Unchase.PerformanceMeter.TestWebAPI.Program">
             <summary>
             Startup program.

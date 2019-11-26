@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -18,15 +19,13 @@ namespace Unchase.PerformanceMeter
 
         private IHttpContextAccessor _httpContextAccessor;
 
-        private readonly MethodInfo _method;
-
         /// <summary>
         /// Method information.
         /// </summary>
         /// <returns>
         /// Returns method information with type <see cref="System.Reflection.MethodInfo"/>.
         /// </returns>
-        public MethodInfo MethodInfo => _method;
+        public MethodInfo MethodInfo { get; }
 
         private Stopwatch _sw = new Stopwatch();
 
@@ -69,6 +68,25 @@ namespace Unchase.PerformanceMeter
         /// </remarks>
         public int MethodCallsCacheTime => Performance<TClass>.MethodCallsCacheTime;
 
+        private Collection<IPerformanceCommand> _registeredComands;
+        /// <summary>
+        /// Collection of registered executed commands.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="IPerformanceCommand"/>.
+        /// </remarks>
+        internal Collection<IPerformanceCommand> RegisteredCommands
+        {
+            get
+            {
+                if (this._registeredComands == null)
+                {
+                    this._registeredComands = new Collection<IPerformanceCommand>();
+                }
+                return this._registeredComands;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -78,7 +96,7 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         private PerformanceMeter(MethodInfo method)
         {
-            _method = method;
+            MethodInfo = method;
             _exceptionHandler = DefaultExceptionHandler;
         }
 
@@ -163,6 +181,18 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
+        /// Register commands which will be executed after the performance watching is completed.
+        /// </summary>
+        /// <param name="performanceCommands">Collection of the executed commands.</param>
+        internal void RegisterCommands(params IPerformanceCommand[] performanceCommands)
+        {
+            foreach (var performanceCommand in performanceCommands)
+            {
+                this.RegisteredCommands.Add(performanceCommand);
+            }
+        }
+
+        /// <summary>
         /// Add custom data.
         /// </summary>
         /// <param name="key">Key.</param>
@@ -214,9 +244,19 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         internal void Start()
         {
-            _dateStart = DateTime.Now;
-            _sw = Stopwatch.StartNew();
-            Performance<TClass>.Input(_method, _exceptionHandler);
+            try
+            {
+                _dateStart = DateTime.Now;
+                _sw = Stopwatch.StartNew();
+                Performance<TClass>.Input(MethodInfo);
+            }
+            catch (Exception ex)
+            {
+                if (this._exceptionHandler != null)
+                    this._exceptionHandler(ex);
+                else
+                    throw ex;
+            }
         }
 
         /// <summary>
@@ -232,8 +272,21 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         public void Dispose()
         {
-            _caller = _httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? _caller;
-            Performance<TClass>.Output(_caller, _method, _sw, _dateStart, _exceptionHandler, _customData);
+            try
+            {
+                _caller = _httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? _caller;
+                var performanceInfo = Performance<TClass>.Output(_caller, MethodInfo, _sw, _dateStart, _customData);
+
+                foreach (var performanceCommand in this.RegisteredCommands)
+                    performanceCommand.Execute(performanceInfo);
+            }
+            catch (Exception ex) 
+            {
+                if (this._exceptionHandler != null)
+                    this._exceptionHandler(ex);
+                else
+                    throw ex;
+            }
         }
 
         #endregion
@@ -275,6 +328,21 @@ namespace Unchase.PerformanceMeter
         public static PerformanceMeter<TClass> WithExceptionHandler<TClass>(this PerformanceMeter<TClass> performanceMeter, Action<Exception> exceptionHandler = null) where TClass : class
         {
             performanceMeter.SetExceptionHandler(exceptionHandler);
+            return performanceMeter;
+        }
+
+        /// <summary>
+        /// Register commands which will be executed after the performance watching is completed.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="performanceCommands">Collection of the executed commands.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> WithExecutingOnComplete<TClass>(this PerformanceMeter<TClass> performanceMeter, params IPerformanceCommand[] performanceCommands) where TClass : class
+        {
+            performanceMeter.RegisterCommands(performanceCommands);
             return performanceMeter;
         }
 

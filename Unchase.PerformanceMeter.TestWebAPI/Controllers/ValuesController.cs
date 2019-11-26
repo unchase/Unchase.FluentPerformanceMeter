@@ -93,9 +93,11 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         public ActionResult<string> PublicPostMethod([FromBody] string value)
         {
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
+            // custom "ExecuteCommand" will be executed after performance watching is completed (for example, you can write data to the database or log the result or perform any other operation)
             using (PerformanceMeter<ValuesController>
                 .Watching(nameof(PublicPostMethod))
                 .WithCaller("Test caller")
+                .WithExecutingOnComplete(new ExecutedCommand("bla-bla-bla"))
                 .Start())
             {
                 return Ok(value);

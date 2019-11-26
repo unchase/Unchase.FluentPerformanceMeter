@@ -9,6 +9,22 @@
             Attribute to indicate that no performance watching will be performed for this method.
             </summary>
         </member>
+        <member name="T:Unchase.PerformanceMeter.IPerformanceCommand">
+            <summary>
+            Command for executing after stop watching method performance.
+            </summary>
+        </member>
+        <member name="P:Unchase.PerformanceMeter.IPerformanceCommand.CommandName">
+            <summary>
+            Command Name.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.IPerformanceCommand.Execute(Unchase.PerformanceMeter.IPerformanceInfo)">
+            <summary>
+            Execute command.
+            </summary>
+            <param name="performanceInfo"><see cref="T:Unchase.PerformanceMeter.IPerformanceInfo"/>.</param>
+        </member>
         <member name="T:Unchase.PerformanceMeter.IPerformanceInfo">
             <summary>
             Method performance information.
@@ -83,14 +99,13 @@
             </summary>
             <param name="performanceInfo"><see cref="T:Unchase.PerformanceMeter.IPerformanceInfo"/>.</param>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Performance`1.Input(System.Reflection.MethodInfo,System.Action{System.Exception})">
+        <member name="M:Unchase.PerformanceMeter.Performance`1.Input(System.Reflection.MethodInfo)">
             <summary>
             Start tracking method performance.
             </summary>
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
-            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Performance`1.Output(System.String,System.Reflection.MethodInfo,System.Diagnostics.Stopwatch,System.DateTime,System.Action{System.Exception},System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Unchase.PerformanceMeter.Performance`1.Output(System.String,System.Reflection.MethodInfo,System.Diagnostics.Stopwatch,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Complete method performance tracking.
             </summary>
@@ -98,7 +113,6 @@
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
             <param name="sw"><see cref="T:System.Diagnostics.Stopwatch"/> to track the running time of a method.</param>
             <param name="dateStart">Method start date.</param>
-            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
             <param name="customData">Custom data for a specific method call.</param>
         </member>
         <member name="T:Unchase.PerformanceMeter.PerformanceInfo`1">
@@ -273,6 +287,14 @@
             <see cref="P:Unchase.PerformanceMeter.IPerformanceInfo.MethodCalls"/>.
             </remarks>
         </member>
+        <member name="P:Unchase.PerformanceMeter.PerformanceMeter`1.RegisteredCommands">
+            <summary>
+            Collection of registered executed commands.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.PerformanceMeter.IPerformanceCommand"/>.
+            </remarks>
+        </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.#ctor(System.Reflection.MethodInfo)">
             <summary>
             Private constructor for <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
@@ -318,6 +340,12 @@
             Set caller name.
             </summary>
             <param name="caller">Caller name.</param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.RegisterCommands(Unchase.PerformanceMeter.IPerformanceCommand[])">
+            <summary>
+            Register commands which will be executed after the performance watching is completed.
+            </summary>
+            <param name="performanceCommands">Collection of the executed commands.</param>
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.AddCustomData(System.String,System.Object)">
             <summary>
@@ -385,6 +413,17 @@
             <typeparam name="TClass">Class with methods.</typeparam>
             <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
             <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeterExtensions.WithExecutingOnComplete``1(Unchase.PerformanceMeter.PerformanceMeter{``0},Unchase.PerformanceMeter.IPerformanceCommand[])">
+            <summary>
+            Register commands which will be executed after the performance watching is completed.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="performanceCommands">Collection of the executed commands.</param>
             <returns>
             Returns <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </returns>

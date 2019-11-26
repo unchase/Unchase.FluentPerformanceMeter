@@ -77,19 +77,11 @@ namespace Unchase.PerformanceMeter
         /// Start tracking method performance.
         /// </summary>
         /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        internal static void Input(MethodInfo method, Action<Exception> exceptionHandler = null)
+        internal static void Input(MethodInfo method)
         {
-            try
-            {
-                var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
-                if (currentActivity != null)
-                    currentActivity.CallsCount++;
-            }
-            catch (Exception ex)
-            {
-                exceptionHandler(ex);
-            }
+            var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
+            if (currentActivity != null)
+                currentActivity.CallsCount++;
         }
 
         /// <summary>
@@ -99,29 +91,22 @@ namespace Unchase.PerformanceMeter
         /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>
         /// <param name="sw"><see cref="Stopwatch"/> to track the running time of a method.</param>
         /// <param name="dateStart">Method start date.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         /// <param name="customData">Custom data for a specific method call.</param>
-        internal static void Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null, IDictionary<string, object> customData = null)
+        internal static IPerformanceInfo Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, IDictionary<string, object> customData = null)
         {
-            try
+            if (method != null && sw.IsRunning)
             {
-                if (method != null && sw.IsRunning)
-                {
-                    sw.Stop();
-                    var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
-                    if (currentActivity != null)
-                        currentActivity.CallsCount--;
-                    if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
-                        PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now, customData));
-                    var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
-                    if (totalActivity != null)
-                        totalActivity.CallsCount++;
-                }
+                sw.Stop();
+                var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
+                if (currentActivity != null)
+                    currentActivity.CallsCount--;
+                if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
+                    PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now, customData));
+                var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
+                if (totalActivity != null)
+                    totalActivity.CallsCount++;
             }
-            catch (Exception ex)
-            {
-                exceptionHandler(ex);
-            }
+            return PerformanceInfo;
         }
 
         #endregion
