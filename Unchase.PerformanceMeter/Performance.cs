@@ -6,9 +6,9 @@ using System.Reflection;
 namespace Unchase.PerformanceMeter
 {
     /// <summary>
-    /// Класс для производительности метода.
+    /// Additional class for performance information.
     /// </summary>
-    /// <typeparam name="TClass">Класс с методами.</typeparam>
+    /// <typeparam name="TClass">Class with public methods.</typeparam>
     internal static class Performance<TClass> where TClass : class
     {
         #region Fields
@@ -23,7 +23,7 @@ namespace Unchase.PerformanceMeter
 
         private static IPerformanceInfo _performanceInfo;
         /// <summary>
-        /// Сведения о производительности метода.
+        /// Methods performance information.
         /// </summary>
         internal static IPerformanceInfo PerformanceInfo
         {
@@ -50,7 +50,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Время в минутах до обновления.
+        /// Time in minutes to clear list of the method calls.
         /// </summary>
         /// <remarks>
         /// <see cref="IPerformanceInfo.MethodCalls"/>.
@@ -62,7 +62,7 @@ namespace Unchase.PerformanceMeter
         #region Public methods
 
         /// <summary>
-        /// Установить свой обработчик получения данных о производительности методов.
+        /// Set custom handler for receiving data on the performance of methods.
         /// </summary>
         /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
         internal static void SetCustomPerformanceInfo(IPerformanceInfo performanceInfo)
@@ -74,10 +74,10 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Начать отслеживание производительности метода.
+        /// Start tracking method performance.
         /// </summary>
-        /// <param name="method">Метод типа <see cref="MethodInfo"/>.</param>
-        /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
+        /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>
+        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         internal static void Input(MethodInfo method, Action<Exception> exceptionHandler = null)
         {
             try
@@ -93,14 +93,14 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Завершить отслеживание производительности метода.
+        /// Complete method performance tracking.
         /// </summary>
-        /// <param name="caller">Вызывающий клиент.</param>
-        /// <param name="method">Метод типа <see cref="MethodInfo"/>.</param>
-        /// <param name="sw"><see cref="Stopwatch"/> для отслеживания времени работы метода.</param>
-        /// <param name="dateStart">Дата начала выполнения метода.</param>
-        /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
-        /// <param name="customData">Дополнительные данные конкретного вызова метода.</param>
+        /// <param name="caller">Caller name.</param>
+        /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>
+        /// <param name="sw"><see cref="Stopwatch"/> to track the running time of a method.</param>
+        /// <param name="dateStart">Method start date.</param>
+        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+        /// <param name="customData">Custom data for a specific method call.</param>
         internal static void Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, Action<Exception> exceptionHandler = null, IDictionary<string, object> customData = null)
         {
             try

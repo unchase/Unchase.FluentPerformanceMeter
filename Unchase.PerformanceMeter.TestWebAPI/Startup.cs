@@ -10,16 +10,30 @@ using System.IO;
 
 namespace Unchase.PerformanceMeter.TestWebAPI
 {
+    /// <summary>
+    /// Startup.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="configuration"><see cref="IConfiguration"/>.</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configuration.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. 
+        /// Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"><see cref="IServiceCollection"/>.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
@@ -62,10 +76,15 @@ namespace Unchase.PerformanceMeter.TestWebAPI
                 c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.RelativePath}");
             });
 
-            services.AddSwaggerExamplesFromAssemblyOf<SwaggerRequestResponseExamples>();
+            services.AddSwaggerExamplesFromAssemblyOf<ResponseExamples>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. 
+        /// Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"><see cref="IApplicationBuilder"/>.</param>
+        /// <param name="env"><see cref="IHostingEnvironment"/>.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

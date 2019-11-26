@@ -4,18 +4,100 @@
         <name>Unchase.PerformanceMeter.TestWebAPI</name>
     </assembly>
     <members>
+        <member name="T:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController">
+            <summary>
+            Unchase.PerformanceMeter Test WebAPI Controller.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.#cctor">
+            <summary>
+            Static constructor.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="httpContextAccessor"></param>
+        </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.GetPerformanceInfo">
             <summary>
-            Get methods performance info.
+            Get methods performance info for this controller.
             </summary>
             <returns>Returns methods performance info.</returns>
             <response code="200">Returns methods performance info.</response>
         </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.SwaggerRequestResponseExamples.GetPerformanceInfoResponse200Example.Swashbuckle#AspNetCore#Filters#IExamplesProvider#GetExamples">
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetMethod(System.UInt32)">
             <summary>
-            Получить примеры.
+            Test GET method.
             </summary>
-            <returns>Возвращает <see cref="!:StandartResponse"/>.</returns>
+            <param name="value">Some value.</param>
+            <returns>
+            Returns input value.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicPostMethod(System.String)">
+            <summary>
+            Test POST method.
+            </summary>
+            <param name="value">Some value from body.</param>
+            <returns>
+            Returns input value.
+            </returns>
+        </member>
+        <member name="T:Unchase.PerformanceMeter.TestWebAPI.Program">
+            <summary>
+            Startup program.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Program.Main(System.String[])">
+            <summary>
+            Main method.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            Create WebHost.
+            </summary>
+            <param name="args">Arguments.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Hosting.IWebHostBuilder"/>.</returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.ResponseExamples.GetPerformanceInfoResponse200Example.Swashbuckle#AspNetCore#Filters#IExamplesProvider#GetExamples">
+            <summary>
+            Get examples.
+            </summary>
+        </member>
+        <member name="T:Unchase.PerformanceMeter.TestWebAPI.Startup">
+            <summary>
+            Startup.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="configuration"><see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.</param>
+        </member>
+        <member name="P:Unchase.PerformanceMeter.TestWebAPI.Startup.Configuration">
+            <summary>
+            Configuration.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. 
+            Use this method to add services to the container.
+            </summary>
+            <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. 
+            Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <param name="env"><see cref="T:Microsoft.AspNetCore.Hosting.IHostingEnvironment"/>.</param>
         </member>
     </members>
 </doc>

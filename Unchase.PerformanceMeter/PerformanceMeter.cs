@@ -9,9 +9,9 @@ using System.Reflection;
 namespace Unchase.PerformanceMeter
 {
     /// <summary>
-    /// Класс для запуска и остановки замера производительности метода.
+    /// Class for starting and stopping method performance wathing.
     /// </summary>
-    /// <typeparam name="TClass">Класс с методами.</typeparam>
+    /// <typeparam name="TClass">Class with methods.</typeparam>
     public sealed class PerformanceMeter<TClass> : IDisposable where TClass : class
     {
         #region Fields and Properties
@@ -21,10 +21,10 @@ namespace Unchase.PerformanceMeter
         private readonly MethodInfo _method;
 
         /// <summary>
-        /// Сведения о методе.
+        /// Method information.
         /// </summary>
         /// <returns>
-        /// Возвращает сведения о методе типа <see cref="MethodInfo"/>.
+        /// Returns method information with type <see cref="System.Reflection.MethodInfo"/>.
         /// </returns>
         public MethodInfo MethodInfo => _method;
 
@@ -62,7 +62,7 @@ namespace Unchase.PerformanceMeter
         internal Dictionary<string, object> _customData = new Dictionary<string, object>();
 
         /// <summary>
-        /// Время в минутах до обновления.
+        /// Time in minutes to clear list of the method calls.
         /// </summary>
         /// <remarks>
         /// <see cref="IPerformanceInfo.MethodCalls"/>.
@@ -74,7 +74,7 @@ namespace Unchase.PerformanceMeter
         #region Constructors
 
         /// <summary>
-        /// Приватный конструктор класса <see cref="PerformanceMeter{TClass}"/>.
+        /// Private constructor for <see cref="PerformanceMeter{TClass}"/>.
         /// </summary>
         private PerformanceMeter(MethodInfo method)
         {
@@ -83,7 +83,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Статический конструктор класса <see cref="PerformanceMeter{TClass}"/>.
+        /// Static constructor for <see cref="PerformanceMeter{TClass}"/>.
         /// </summary>
         static PerformanceMeter() { }
 
@@ -94,11 +94,11 @@ namespace Unchase.PerformanceMeter
         #region Watching
 
         /// <summary>
-        /// Создать экземпляр класса для замера производительности метода.
+        /// Create an instance of the class to watching method performance.
         /// </summary>
-        /// <param name="method">Метод типа <see cref="MethodInfo"/>.</param>
+        /// <param name="method">Method with type <see cref="System.Reflection.MethodInfo"/>.</param>
         /// <returns>
-        /// Возвращает экземпляр класса <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns an instance of the class with type <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         public static PerformanceMeter<TClass> Watching(MethodInfo method)
         {
@@ -109,11 +109,11 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Создать экземпляр класса для замера производительности метода.
+        /// Create an instance of the class to watching method performance.
         /// </summary>
-        /// <param name="methodName">Имя метода.</param>
+        /// <param name="methodName">Method name.</param>
         /// <returns>
-        /// Возвращает экземпляр класса <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns an instance of the class with type <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         public static PerformanceMeter<TClass> Watching(string methodName)
         {
@@ -136,7 +136,7 @@ namespace Unchase.PerformanceMeter
         #region Set additional fields
 
         /// <summary>
-        /// Установить <see cref="IHttpContextAccessor"/> для получения ip адреса вызывающего метод.
+        /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.
         /// </summary>
         /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
         internal void SetHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
@@ -145,28 +145,28 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Установить Action для обработки возникающих исключений.
+        /// Set Action to handle exceptions that occur.
         /// </summary>
-        /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
+        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         internal void SetExceptionHandler(Action<Exception> exceptionHandler = null)
         {
             _exceptionHandler = exceptionHandler;
         }
 
         /// <summary>
-        /// Установить вызывающего клиента.
+        /// Set caller name.
         /// </summary>
-        /// <param name="caller">Вызывающий клиент.</param>
+        /// <param name="caller">Caller name.</param>
         internal void SetCallerAddress(string caller)
         {
             _caller = caller;
         }
 
         /// <summary>
-        /// Добавить дополнительные данные.
+        /// Add custom data.
         /// </summary>
-        /// <param name="key">Ключ.</param>
-        /// <param name="value">Значение.</param>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
         public static void AddCustomData(string key, object value)
         {
             lock(PerformanceMeterLock)
@@ -179,7 +179,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Установить свой обработчик получения данных о производительности методов.
+        /// Set custom handler to receive methods performance information.
         /// </summary>
         /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
         public static void SetCustomPerformanceInfo(IPerformanceInfo performanceInfo)
@@ -188,18 +188,18 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Установить Action по-умолчанию для обработки возникающих исключений.
+        /// Set Action to handle exceptions that occur by default.
         /// </summary>
-        /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
+        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         public static void SetDefaultExceptionHandler(Action<Exception> exceptionHandler = null)
         {
             DefaultExceptionHandler = exceptionHandler;
         }
 
         /// <summary>
-        /// Установить время хранения данных о вызовах.
+        /// Set the time in minutes to clear list of the method calls.
         /// </summary>
-        /// <param name="minutes">Время хранения данных о вызовах методов в минутах.</param>
+        /// <param name="minutes">Time in minutes to clear list of the method calls.</param>
         public static void SetMethodCallsCacheTime(int minutes)
         {
             Performance<TClass>.MethodCallsCacheTime = minutes;
@@ -210,7 +210,7 @@ namespace Unchase.PerformanceMeter
         #region Main
 
         /// <summary>
-        /// Запустить замер производительности метода.
+        /// Start watching methods performance.
         /// </summary>
         internal void Start()
         {
@@ -220,15 +220,15 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Получить сведения о производительности методов.
+        /// Get methods performance information.
         /// </summary>
         /// <returns>
-        /// Возвращает сведения о производительности методов типа <see cref="PerformanceInfo{TClass}"/>.
+        /// Return method performance information with type <see cref="PerformanceInfo{TClass}"/>.
         /// </returns>
         public static IPerformanceInfo GetPerformanceInfo() => Performance<TClass>.PerformanceInfo;
 
         /// <summary>
-        /// Dispose.
+        /// Dispose and stop watching methods performance.
         /// </summary>
         public void Dispose()
         {
@@ -242,20 +242,20 @@ namespace Unchase.PerformanceMeter
     }
 
     /// <summary>
-    /// Методы расширения для класса <see cref="PerformanceMeter{TClass}"/>
+    /// Extension methods for the <see cref="PerformanceMeter{TClass}"/>
     /// </summary>
     public static class PerformanceMeterExtensions
     {
         #region Extension methods
 
         /// <summary>
-        /// Установить <see cref="IHttpContextAccessor"/> для получения ip адреса вызывающего метод.
+        /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.
         /// </summary>
-        /// <typeparam name="TClass">Класс с методами.</typeparam>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
         /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
         /// <returns>
-        /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         public static PerformanceMeter<TClass> WithHttpContextAccessor<TClass>(this PerformanceMeter<TClass> performanceMeter, IHttpContextAccessor httpContextAccessor) where TClass : class
         {
@@ -264,13 +264,13 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Установить Action для обработки возникающих исключений.
+        /// Set Action to handle exceptions that occur.
         /// </summary>
-        /// <typeparam name="TClass">Класс с методами.</typeparam>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="exceptionHandler">Action для обработки возникающих исключений.</param>
+        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         /// <returns>
-        /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         public static PerformanceMeter<TClass> WithExceptionHandler<TClass>(this PerformanceMeter<TClass> performanceMeter, Action<Exception> exceptionHandler = null) where TClass : class
         {
@@ -279,13 +279,13 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Установить вызывающего клиента.
+        /// Set caller name.
         /// </summary>
-        /// <typeparam name="TClass">Класс с методами.</typeparam>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="caller">Вызывающий клиент.</param>
+        /// <param name="caller">Caller name.</param>
         /// <returns>
-        /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         public static PerformanceMeter<TClass> WithCaller<TClass>(this PerformanceMeter<TClass> performanceMeter, string caller) where TClass : class
         {
@@ -294,14 +294,14 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Добавить дополнительные данные.
+        /// Add custom data.
         /// </summary>
-        /// <typeparam name="TClass">Класс с методами.</typeparam>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="key">Ключ.</param>
-        /// <param name="value">Значение.</param>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
         /// <returns>
-        /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         public static PerformanceMeter<TClass> WithCustomData<TClass>(this PerformanceMeter<TClass> performanceMeter, string key, object value) where TClass : class
         {
@@ -314,12 +314,12 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Запустить замер производительности метода.
+        /// Start watching methods performance.
         /// </summary>
-        /// <typeparam name="TClass">Класс с методами.</typeparam>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
         /// <returns>
-        /// Возвращает <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         public static PerformanceMeter<TClass> Start<TClass>(this PerformanceMeter<TClass> performanceMeter) where TClass : class
         {

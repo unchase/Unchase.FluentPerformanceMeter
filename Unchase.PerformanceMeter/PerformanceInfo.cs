@@ -7,16 +7,16 @@ using System.Runtime.Serialization;
 namespace Unchase.PerformanceMeter
 {
     /// <summary>
-    /// Сведения о производительности метода.
+    /// Method performance information.
     /// </summary>
-    /// <typeparam name="TClass">Класс с методами.</typeparam>
+    /// <typeparam name="TClass">Class with public methods.</typeparam>
     [DataContract]
     internal class PerformanceInfo<TClass> : IPerformanceInfo where TClass : class
     {
         #region Properties
 
         /// <summary>
-        /// Список вызовов метода.
+        /// List of method calls information.
         /// </summary>
         /// <remarks>
         /// <see cref="MethodCallInfo{MethodInfo}"/>.
@@ -25,7 +25,7 @@ namespace Unchase.PerformanceMeter
         public List<MethodCallInfo<MethodInfo>> MethodCalls { get; set; }
 
         /// <summary>
-        /// Список общего количества вызовов метода.
+        /// List of total method calls count information.
         /// </summary>
         /// <remarks>
         /// <see cref="MethodCallsCount{MethodInfo}"/>.
@@ -34,7 +34,7 @@ namespace Unchase.PerformanceMeter
         public List<MethodCallsCount<MethodInfo>> TotalActivity { get; set; }
 
         /// <summary>
-        /// Список текущего количества вызовов метода.
+        /// List of current method calls count information.
         /// </summary>
         /// <remarks>
         /// <see cref="MethodCallsCount{MethodInfo}"/>.
@@ -43,13 +43,13 @@ namespace Unchase.PerformanceMeter
         public List<MethodCallsCount<MethodInfo>> CurrentActivity { get; set; }
 
         /// <summary>
-        /// Дата аптайма сервиса.
+        /// Uptime.
         /// </summary>
         [DataMember]
         public DateTime UptimeSince { get; set; }
 
         /// <summary>
-        /// Имя класса метода.
+        /// Class name.
         /// </summary>
         [DataMember]
         public string ClassName
@@ -62,13 +62,13 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Имена методов класса.
+        /// List of method names.
         /// </summary>
         [DataMember]
         public List<string> MethodNames { get; set; }
 
         /// <summary>
-        /// Дополнительные данные.
+        /// Custom data.
         /// </summary>
         [DataMember]
         public IDictionary<string, object> CustomData { get; set; }
@@ -78,7 +78,7 @@ namespace Unchase.PerformanceMeter
         #region Constructors
 
         /// <summary>
-        /// Конструктор класса <see cref="PerformanceInfo{TClass}"/>.
+        /// Constructor for <see cref="PerformanceInfo{TClass}"/>.
         /// </summary>
         public PerformanceInfo()
         {
@@ -103,16 +103,16 @@ namespace Unchase.PerformanceMeter
     }
 
     /// <summary>
-    /// Сведения о вызовах метода.
+    /// Method calls information.
     /// </summary>
-    /// <typeparam name="T">Метод типа <see cref="MethodInfo"/>.</typeparam>
+    /// <typeparam name="T">Method with type <see cref="MethodInfo"/>.</typeparam>
     [DataContract]
     public class MethodCallInfo<T> where T : MethodInfo
     {
         #region Properties
 
         /// <summary>
-        /// Метод.
+        /// Method information.
         /// </summary>
         /// <remarks>
         /// <see cref="MethodInfo"/>.
@@ -120,37 +120,37 @@ namespace Unchase.PerformanceMeter
         public T Method { get; set; }
 
         /// <summary>
-        /// Имя метода.
+        /// Method name.
         /// </summary>
         [DataMember]
         public string MethodName { get; set; }
 
         /// <summary>
-        /// Длительность вызова метода в миллисекундах.
+        /// Method call duration in milliseconds.
         /// </summary>
         [DataMember]
         public long DurationMiliseconds { get; set; }
 
         /// <summary>
-        /// Вызывающмй клиент.
+        /// Caller name.
         /// </summary>
         [DataMember]
         public string Caller { get; set; }
 
         /// <summary>
-        /// Дата начала вызова метода.
+        /// Method call start date.
         /// </summary>
         [DataMember]
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// Дата окончания вызова метода.
+        /// Method call end date.
         /// </summary>
         [DataMember]
         public DateTime EndTime { get; set; }
 
         /// <summary>
-        /// Дополнительные данные конкретного вызова метода.
+        /// Custom data for a specific method call.
         /// </summary>
         [DataMember]
         public IDictionary<string, object> CustomData { get; set; }
@@ -160,12 +160,12 @@ namespace Unchase.PerformanceMeter
         #region Constructors
 
         /// <summary>
-        /// Стандартный конструктор класса <see cref="DataContracts.MethodCallInfo{T}"/>.
+        /// Default constructor for <see cref="MethodCallInfo{T}"/>.
         /// </summary>
         public MethodCallInfo() { }
 
         /// <summary>
-        /// Конструктор класса <see cref="DataContracts.MethodCallInfo{T}"/>.
+        /// Constructor for <see cref="MethodCallInfo{T}"/>.
         /// </summary>
         /// <param name="m"><see cref="Method"/>.</param>
         /// <param name="duration"><see cref="DurationMiliseconds"/>.</param>
@@ -189,30 +189,30 @@ namespace Unchase.PerformanceMeter
     }
 
     /// <summary>
-    /// Сведения о количестве вызовов метода.
+    /// Method calls count information.
     /// </summary>
-    /// <typeparam name="T">Метод типа <see cref="MethodInfo"/>.</typeparam>
+    /// <typeparam name="T">Method with type <see cref="MethodInfo"/>.</typeparam>
     [DataContract]
     public class MethodCallsCount<T> where T : MethodInfo
     {
         #region Properties
 
         /// <summary>
-        /// Метод.
+        /// Method information.
         /// </summary>
         /// <remarks>
-        /// <see cref="Enum"/>.
+        /// <see cref="MethodInfo"/>.
         /// </remarks>
         public T Method { get; set; }
 
         /// <summary>
-        /// Имя метода.
+        /// Method name.
         /// </summary>
         [DataMember]
         public string MethodName { get; set; }
 
         /// <summary>
-        /// Количество вызовов.
+        /// Method calls count.
         /// </summary>
         [DataMember]
         public long CallsCount { get; set; }
@@ -222,12 +222,12 @@ namespace Unchase.PerformanceMeter
         #region Constructors
 
         /// <summary>
-        /// Стандартный конструктор класса <see cref="MethodCallsCount{T}"/>.
+        /// Default constructor for <see cref="MethodCallsCount{T}"/>.
         /// </summary>
         public MethodCallsCount() { }
 
         /// <summary>
-        /// Конструктор класса <see cref="MethodCallsCount{T}"/>.
+        /// Constructor for <see cref="MethodCallsCount{T}"/>.
         /// </summary>
         /// <param name="m"><see cref="Method"/>.</param>
         public MethodCallsCount(T m)

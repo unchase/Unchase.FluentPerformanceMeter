@@ -5,12 +5,12 @@ using System.Reflection;
 namespace Unchase.PerformanceMeter
 {
     /// <summary>
-    /// Сведения о производительности метода.
+    /// Method performance information.
     /// </summary>
     public interface IPerformanceInfo
     {
         /// <summary>
-        /// Список вызовов метода.
+        /// List of method calls information.
         /// </summary>
         /// <remarks>
         /// <see cref="MethodCallInfo{MethodInfo}"/>.
@@ -18,7 +18,7 @@ namespace Unchase.PerformanceMeter
         List<MethodCallInfo<MethodInfo>> MethodCalls { get; set; }
 
         /// <summary>
-        /// Список общего количества вызовов метода.
+        /// List of total method calls count information.
         /// </summary>
         /// <remarks>
         /// <see cref="MethodCallsCount{MethodInfo}"/>.
@@ -26,7 +26,7 @@ namespace Unchase.PerformanceMeter
         List<MethodCallsCount<MethodInfo>> TotalActivity { get; set; }
 
         /// <summary>
-        /// Список текущего количества вызовов метода.
+        /// List of current method calls count information.
         /// </summary>
         /// <remarks>
         /// <see cref="MethodCallsCount{MethodInfo}"/>.
@@ -34,22 +34,22 @@ namespace Unchase.PerformanceMeter
         List<MethodCallsCount<MethodInfo>> CurrentActivity { get; set; }
 
         /// <summary>
-        /// Дата аптайма сервиса.
+        /// Uptime.
         /// </summary>
         DateTime UptimeSince { get; set; }
 
         /// <summary>
-        /// Имя класса метода.
+        /// Class name.
         /// </summary>
         string ClassName { get; set; }
 
         /// <summary>
-        /// Имена методов класса.
+        /// List of method names.
         /// </summary>
         List<string> MethodNames { get; set; }
 
         /// <summary>
-        /// Дополнительные данные.
+        /// Custom data.
         /// </summary>
         IDictionary<string, object> CustomData { get; set; }
     }

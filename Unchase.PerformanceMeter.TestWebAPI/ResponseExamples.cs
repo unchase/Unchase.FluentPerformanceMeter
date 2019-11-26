@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace Unchase.PerformanceMeter.TestWebAPI
 {
-    internal class SwaggerRequestResponseExamples
+    internal class ResponseExamples
     {
         private class PerformanceInfoExample : IPerformanceInfo
         {
@@ -27,9 +27,8 @@ namespace Unchase.PerformanceMeter.TestWebAPI
         internal class GetPerformanceInfoResponse200Example : IExamplesProvider
         {
             /// <summary>
-            /// Получить примеры.
+            /// Get examples.
             /// </summary>
-            /// <returns>Возвращает <see cref="StandartResponse"/>.</returns>
             object IExamplesProvider.GetExamples()
             {
                 return new PerformanceInfoExample();
