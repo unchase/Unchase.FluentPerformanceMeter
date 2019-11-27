@@ -81,6 +81,24 @@
             Returns current method calls count before performance watching complete.
             </returns>
         </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallFor1to1000000">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep1000">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep3000">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSteps">
             <summary>
             

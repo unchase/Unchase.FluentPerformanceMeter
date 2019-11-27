@@ -62,18 +62,6 @@ namespace Unchase.PerformanceMeter
         #region Public methods
 
         /// <summary>
-        /// Set custom handler for receiving data on the performance of methods.
-        /// </summary>
-        /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
-        internal static void SetCustomPerformanceInfo(IPerformanceInfo performanceInfo)
-        {
-            lock (PerformanceLock)
-            {
-                _performanceInfo = performanceInfo;
-            }
-        }
-
-        /// <summary>
         /// Start watching method performance.
         /// </summary>
         /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>

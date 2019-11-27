@@ -93,12 +93,6 @@
             <see cref="P:Unchase.PerformanceMeter.IPerformanceInfo.MethodCalls"/>.
             </remarks>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Performance`1.SetCustomPerformanceInfo(Unchase.PerformanceMeter.IPerformanceInfo)">
-            <summary>
-            Set custom handler for receiving data on the performance of methods.
-            </summary>
-            <param name="performanceInfo"><see cref="T:Unchase.PerformanceMeter.IPerformanceInfo"/>.</param>
-        </member>
         <member name="M:Unchase.PerformanceMeter.Performance`1.Input(System.Reflection.MethodInfo)">
             <summary>
             Start watching method performance.
@@ -337,12 +331,6 @@
             </summary>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.SetCustomPerformanceInfo(Unchase.PerformanceMeter.IPerformanceInfo)">
-            <summary>
-            Set custom handler to receive methods performance information.
-            </summary>
-            <param name="performanceInfo"><see cref="T:Unchase.PerformanceMeter.IPerformanceInfo"/>.</param>
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.SetDefaultExceptionHandler(System.Action{System.Exception})">
             <summary>

@@ -82,8 +82,12 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             }
         }
 
-        [HttpGet("Step1")]
-        public ActionResult Step1()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("CallFor1to1000000")]
+        public ActionResult CallFor1to1000000()
         {
             for (int i = 0; i < 1000000; i++)
             {
@@ -92,15 +96,23 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("Step2")]
-        public ActionResult Step2()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("CallThreadSleep1000")]
+        public ActionResult CallThreadSleep1000()
         {
             Thread.Sleep(1000);
             return Ok();
         }
 
-        [HttpGet("Step3")]
-        public ActionResult Step3()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("CallThreadSleep3000")]
+        public ActionResult CallThreadSleep3000()
         {
             Thread.Sleep(3000);
             return Ok();
@@ -115,19 +127,19 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [HttpGet("TestGetSteps")]
         public ActionResult<long> PublicTestGetSteps()
         {
-            using (PerformanceMeter<ValuesController>.Watching(nameof(Step1)).Start())
+            using (PerformanceMeter<ValuesController>.Watching(nameof(CallFor1to1000000)).Start())
             {
-                Step1();
+                CallFor1to1000000();
             }
 
-            using (PerformanceMeter<ValuesController>.Watching(nameof(Step2)).Start())
+            using (PerformanceMeter<ValuesController>.Watching(nameof(CallThreadSleep1000)).Start())
             {
-                Step2();
+                CallThreadSleep1000();
             }
 
-            using (PerformanceMeter<ValuesController>.Watching(nameof(Step3)).Start())
+            using (PerformanceMeter<ValuesController>.Watching(nameof(CallThreadSleep3000)).Start())
             {
-                Step3();
+                CallThreadSleep3000();
             }
 
             return Ok(PerformanceMeter<ValuesController>.PerformanceInfo.MethodCalls.Where(mc => mc.MethodName.StartsWith("Step")).Sum(mc => mc.DurationMiliseconds));

@@ -184,15 +184,6 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Set custom handler to receive methods performance information.
-        /// </summary>
-        /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
-        public static void SetCustomPerformanceInfo(IPerformanceInfo performanceInfo)
-        {
-            Performance<TClass>.SetCustomPerformanceInfo(performanceInfo);
-        }
-
-        /// <summary>
         /// Set Action to handle exceptions that occur by default.
         /// </summary>
         /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
