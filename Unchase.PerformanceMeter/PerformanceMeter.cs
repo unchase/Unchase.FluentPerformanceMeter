@@ -168,7 +168,7 @@ namespace Unchase.PerformanceMeter
         #region Additional
 
         /// <summary>
-        /// Add custom data.
+        /// Add common custom data of the class.
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="value">Value.</param>
@@ -202,7 +202,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Set the time in minutes to clear list of the method calls.
+        /// Set the time in minutes to clear collection of the method calls.
         /// </summary>
         /// <param name="minutes">Time in minutes to clear list of the method calls.</param>
         public static void SetMethodCallsCacheTime(int minutes)

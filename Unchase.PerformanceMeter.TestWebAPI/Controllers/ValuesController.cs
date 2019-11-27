@@ -53,8 +53,29 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Test GET method.
+        /// Test GET method with simple watching.
         /// </summary>
+        /// <returns>
+        /// Returns input value.
+        /// </returns>
+        [HttpGet("TestGetSimple")]
+        public ActionResult<string> PublicTestGetSimpleMethod()
+        {
+            using (PerformanceMeter<ValuesController>
+                .Watching()
+                .Start())
+            {
+                // Place your code with some logic there
+                return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with using HttpContextAccessor and adding custom data.
+        /// </summary>
+        /// <remarks>
+        /// With executed command.
+        /// </remarks>
         /// <param name="value">Some value.</param>
         /// <returns>
         /// Returns input value.
@@ -89,7 +110,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Test POST method.
+        /// Test POST method with caller name and executed command.
         /// </summary>
         /// <param name="value">Some value from body.</param>
         /// <returns>
@@ -106,7 +127,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                 .WithExecutingOnComplete(new ExecutedCommand("bla-bla-bla"))
                 .Start())
             {
-                pm.StopWatching(); // stop watching there
+                pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
                 Thread.Sleep(2000);
 
                 return Ok(value);

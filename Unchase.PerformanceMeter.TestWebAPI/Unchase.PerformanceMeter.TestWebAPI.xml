@@ -68,6 +68,15 @@
             <returns>Returns methods performance info.</returns>
             <response code="200">Returns methods performance info.</response>
         </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethod">
+            <summary>
+            Test GET method.
+            </summary>
+            <param name="value">Some value.</param>
+            <returns>
+            Returns input value.
+            </returns>
+        </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetMethod(System.UInt32)">
             <summary>
             Test GET method.
