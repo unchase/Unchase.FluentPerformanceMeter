@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Diagnostics;
 
 namespace Unchase.PerformanceMeter.Builders
@@ -17,12 +16,17 @@ namespace Unchase.PerformanceMeter.Builders
         /// <summary>
         /// Allows to set the custom data.
         /// </summary>
-        public CustomDataBuilder<TClass> And => new CustomDataBuilder<TClass>(this.PerformanceMeter);
+        public CustomDataBuilder<TClass> WithCustomData => new CustomDataBuilder<TClass>(this.PerformanceMeter);
 
         /// <summary>
         /// Allows to register commands which will be executed after the performance watching is completed.
         /// </summary>
         public ExecutedCommandsBuilder<TClass> WithExecutingOnComplete => new ExecutedCommandsBuilder<TClass>(this.PerformanceMeter);
+
+        /// <summary>
+        /// Allows to configure method performance watching settings.
+        /// </summary>
+        public SettingsBuilder<TClass> WithSetting => new SettingsBuilder<TClass>(this.PerformanceMeter);
 
         #endregion
 
@@ -71,49 +75,6 @@ namespace Unchase.PerformanceMeter.Builders
         }
 
         #endregion
-
-        #region Additional
-
-        /// <summary>
-        /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.
-        /// </summary>
-        /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeterBuilder<TClass> WithHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
-        {
-            this.PerformanceMeter.HttpContextAccessor = httpContextAccessor;
-            return this;
-        }
-
-        /// <summary>
-        /// Set Action to handle exceptions that occur.
-        /// </summary>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeterBuilder<TClass> WithExceptionHandler(Action<Exception> exceptionHandler = null)
-        {
-            this.PerformanceMeter.ExceptionHandler = exceptionHandler;
-            return this;
-        }
-
-        /// <summary>
-        /// Set caller name.
-        /// </summary>
-        /// <param name="caller">Caller name.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeterBuilder<TClass> WithCaller(string caller)
-        {
-            this.PerformanceMeter.Caller = caller;
-            return this;
-        }
-
-        #endregion
     }
 
     /// <summary>
@@ -122,48 +83,6 @@ namespace Unchase.PerformanceMeter.Builders
     public static class PerformanceMeterBuilderExtensions
     {
         #region Extension methods
-
-        /// <summary>
-        /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeterBuilder"><see cref="PerformanceMeterBuilder{TClass}"/>.</param>
-        /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeterBuilder<TClass> WithHttpContextAccessor<TClass>(this PerformanceMeterBuilder<TClass> performanceMeterBuilder, IHttpContextAccessor httpContextAccessor) where TClass : class
-        {
-            return performanceMeterBuilder.WithHttpContextAccessor(httpContextAccessor);
-        }
-
-        /// <summary>
-        /// Set Action to handle exceptions that occur.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeterBuilder"><see cref="PerformanceMeterBuilder{TClass}"/>.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeterBuilder<TClass> WithExceptionHandler<TClass>(this PerformanceMeterBuilder<TClass> performanceMeterBuilder, Action<Exception> exceptionHandler = null) where TClass : class
-        {
-            return performanceMeterBuilder.WithExceptionHandler(exceptionHandler);
-        }
-
-        /// <summary>
-        /// Set caller name.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeterBuilder"><see cref="PerformanceMeterBuilder{TClass}"/>.</param>
-        /// <param name="caller">Caller name.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeterBuilder<TClass> WithCaller<TClass>(this PerformanceMeterBuilder<TClass> performanceMeterBuilder, string caller) where TClass : class
-        {
-            return performanceMeterBuilder.WithCaller(caller);
-        }
 
         /// <summary>
         /// Start watching method performance.

@@ -46,7 +46,7 @@
             Extension methods for the <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilderExtensions.WithCustomData``1(Unchase.PerformanceMeter.Builders.CustomDataBuilder{``0},System.String,System.Object)">
+        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilderExtensions.FromData``1(Unchase.PerformanceMeter.Builders.CustomDataBuilder{``0},System.String,System.Object)">
             <summary>
             Add custom data.
             </summary>
@@ -58,7 +58,7 @@
             Returns <see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilderExtensions.WithCallerData``1(Unchase.PerformanceMeter.Builders.CustomDataBuilder{``0},System.String,System.Int32)">
+        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilderExtensions.FromCaller``1(Unchase.PerformanceMeter.Builders.CustomDataBuilder{``0},System.String,System.Int32)">
             <summary>
             Add caller data.
             </summary>
@@ -124,7 +124,7 @@
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
         </member>
-        <member name="P:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.And">
+        <member name="P:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithCustomData">
             <summary>
             Allows to set the custom data.
             </summary>
@@ -132,6 +132,11 @@
         <member name="P:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithExecutingOnComplete">
             <summary>
             Allows to register commands which will be executed after the performance watching is completed.
+            </summary>
+        </member>
+        <member name="P:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithSetting">
+            <summary>
+            Allows to configure method performance watching settings.
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.#ctor">
@@ -153,70 +158,10 @@
             Returns <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithHttpContextAccessor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
-            <summary>
-            Set <see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/> to get the ip address of the caller.
-            </summary>
-            <param name="httpContextAccessor"><see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/>.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithExceptionHandler(System.Action{System.Exception})">
-            <summary>
-            Set Action to handle exceptions that occur.
-            </summary>
-            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithCaller(System.String)">
-            <summary>
-            Set caller name.
-            </summary>
-            <param name="caller">Caller name.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
-            </returns>
-        </member>
         <member name="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilderExtensions">
             <summary>
             Extension methods for the <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>
             </summary>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilderExtensions.WithHttpContextAccessor``1(Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder{``0},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
-            <summary>
-            Set <see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/> to get the ip address of the caller.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceMeterBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.</param>
-            <param name="httpContextAccessor"><see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/>.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilderExtensions.WithExceptionHandler``1(Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder{``0},System.Action{System.Exception})">
-            <summary>
-            Set Action to handle exceptions that occur.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceMeterBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.</param>
-            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilderExtensions.WithCaller``1(Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder{``0},System.String)">
-            <summary>
-            Set caller name.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceMeterBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.</param>
-            <param name="caller">Caller name.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
-            </returns>
         </member>
         <member name="M:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilderExtensions.Start``1(Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder{``0})">
             <summary>
@@ -226,6 +171,83 @@
             <param name="performanceMeterBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.</param>
             <returns>
             Returns <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1">
+            <summary>
+            Class for setting custom data for <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilder`1.#ctor(Unchase.PerformanceMeter.PerformanceMeter{`0})">
+            <summary>
+            Constructor for <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </summary>
+            <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilder`1.WithHttpContextAccessor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Set <see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/> to get the ip address of the caller.
+            </summary>
+            <param name="httpContextAccessor"><see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilder`1.WithExceptionHandler(System.Action{System.Exception})">
+            <summary>
+            Set Action to handle exceptions that occur.
+            </summary>
+            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilder`1.WithCaller(System.String)">
+            <summary>
+            Set caller name.
+            </summary>
+            <param name="caller">Caller name.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="T:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions">
+            <summary>
+            Extension methods for the <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.HttpContextAccessor``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Set <see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/> to get the ip address of the caller.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="settingsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.</param>
+            <param name="httpContextAccessor"><see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.ExceptionHandler``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},System.Action{System.Exception})">
+            <summary>
+            Set Action to handle exceptions that occur.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="settingsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.</param>
+            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.Caller``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},System.String)">
+            <summary>
+            Set caller name.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="settingsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.</param>
+            <param name="caller">Caller name.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>
         </member>
         <member name="T:Unchase.PerformanceMeter.IPerformanceCommand">

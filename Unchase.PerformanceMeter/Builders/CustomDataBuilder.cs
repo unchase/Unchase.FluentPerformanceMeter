@@ -76,7 +76,7 @@ namespace Unchase.PerformanceMeter.Builders
         /// <returns>
         /// Returns <see cref="CustomDataBuilder{TClass}"/>.
         /// </returns>
-        public static CustomDataBuilder<TClass> WithCustomData<TClass>(this CustomDataBuilder<TClass> customDataBuilder, string key, object value) where TClass : class
+        public static CustomDataBuilder<TClass> FromData<TClass>(this CustomDataBuilder<TClass> customDataBuilder, string key, object value) where TClass : class
         {
             return customDataBuilder.AddCustomData(key, value);
         }
@@ -91,7 +91,7 @@ namespace Unchase.PerformanceMeter.Builders
         /// <returns>
         /// Returns <see cref="CustomDataBuilder{TClass}"/>.
         /// </returns>
-        public static CustomDataBuilder<TClass> WithCallerData<TClass>(this CustomDataBuilder<TClass> customDataBuilder,
+        public static CustomDataBuilder<TClass> FromCaller<TClass>(this CustomDataBuilder<TClass> customDataBuilder,
             [CallerFilePath] string callerSource = "",
             [CallerLineNumber] int callerSourceLineNumber = 0) where TClass : class
         {
