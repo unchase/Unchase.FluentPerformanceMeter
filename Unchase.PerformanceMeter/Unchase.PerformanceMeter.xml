@@ -356,15 +356,7 @@
             </summary>
             <param name="minutes">Time in minutes to clear list of the method calls.</param>
         </member>
-        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.GetPerformanceInfo">
-            <summary>
-            Get methods performance information.
-            </summary>
-            <returns>
-            Return method performance information with type <see cref="T:Unchase.PerformanceMeter.PerformanceInfo`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Stop">
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.StopWatching">
             <summary>
             Stop watching method performance.
             </summary>
@@ -376,7 +368,7 @@
         </member>
         <member name="T:Unchase.PerformanceMeter.PerformanceMeterBuilder`1">
             <summary>
-            
+            Class for create and configure <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
         </member>

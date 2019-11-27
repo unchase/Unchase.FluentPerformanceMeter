@@ -49,7 +49,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [IgnoreMethodPerformance]
         public ActionResult<IPerformanceInfo> GetPerformanceInfo()
         {
-            return Ok(PerformanceMeter<ValuesController>.GetPerformanceInfo());
+            return Ok(PerformanceMeter<ValuesController>.PerformanceInfo);
         }
 
         /// <summary>

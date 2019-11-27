@@ -215,14 +215,6 @@ namespace Unchase.PerformanceMeter
         #region Main
 
         /// <summary>
-        /// Get methods performance information.
-        /// </summary>
-        /// <returns>
-        /// Return method performance information with type <see cref="PerformanceInfo{TClass}"/>.
-        /// </returns>
-        public static IPerformanceInfo GetPerformanceInfo() => Performance<TClass>.PerformanceInfo;
-
-        /// <summary>
         /// Stop watching method performance.
         /// </summary>
         public void StopWatching()

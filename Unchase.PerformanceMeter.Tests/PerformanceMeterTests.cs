@@ -53,7 +53,7 @@ namespace Unchase.PerformanceMeter.Tests
                 .Start())
             {
                 // Arrange
-                var performanceInfo = PerformanceMeter<PublicClass>.GetPerformanceInfo();
+                var performanceInfo = PerformanceMeter<PublicClass>.PerformanceInfo;
                 var methodCurrentActivity = performanceInfo.CurrentActivity.Find(ca => ca.Method == performanceMeter.MethodInfo);
                 var methodTotalActivity = performanceInfo.TotalActivity.Find(ca => ca.Method == performanceMeter.MethodInfo);
                 var methodCalls = performanceInfo.MethodCalls.Find(ca => ca.Method == performanceMeter.MethodInfo);
@@ -76,7 +76,7 @@ namespace Unchase.PerformanceMeter.Tests
             }
 
             // Arrange
-            var performanceInfoAfterDispose = PerformanceMeter<PublicClass>.GetPerformanceInfo();
+            var performanceInfoAfterDispose = PerformanceMeter<PublicClass>.PerformanceInfo;
             var methodCurrentActivityAfterDispose = performanceInfoAfterDispose.CurrentActivity.Find(ca => ca.Method == performanceMeter.MethodInfo);
             var methodTotalActivityAfterDispose = performanceInfoAfterDispose.TotalActivity.Find(ca => ca.Method == performanceMeter.MethodInfo);
             var methodCallsAfterDispose = performanceInfoAfterDispose.MethodCalls.Find(ca => ca.Method == performanceMeter.MethodInfo);
