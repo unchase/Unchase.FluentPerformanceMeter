@@ -159,39 +159,55 @@ namespace Unchase.PerformanceMeter
         /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.
         /// </summary>
         /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
-        internal void SetHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        internal PerformanceMeter<TClass> WithHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
         {
             this._httpContextAccessor = httpContextAccessor;
+            return this;
         }
 
         /// <summary>
         /// Set Action to handle exceptions that occur.
         /// </summary>
         /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        internal void SetExceptionHandler(Action<Exception> exceptionHandler = null)
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        internal PerformanceMeter<TClass> WithExceptionHandler(Action<Exception> exceptionHandler = null)
         {
             this._exceptionHandler = exceptionHandler;
+            return this;
         }
 
         /// <summary>
         /// Set caller name.
         /// </summary>
         /// <param name="caller">Caller name.</param>
-        internal void SetCallerAddress(string caller)
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        internal PerformanceMeter<TClass> WithCaller(string caller)
         {
             this._caller = caller;
+            return this;
         }
 
         /// <summary>
         /// Register commands which will be executed after the performance watching is completed.
         /// </summary>
         /// <param name="performanceCommands">Collection of the executed commands.</param>
-        internal void RegisterCommands(params IPerformanceCommand[] performanceCommands)
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        internal PerformanceMeter<TClass> WithExecutingOnComplete(params IPerformanceCommand[] performanceCommands)
         {
             foreach (var performanceCommand in performanceCommands)
             {
                 this.RegisteredCommands.Add(performanceCommand);
             }
+            return this;
         }
 
         /// <summary>
@@ -199,9 +215,13 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="value">Value.</param>
-        internal void AddMethodCallCustomData(string key, object value)
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        internal PerformanceMeter<TClass> WithCustomData(string key, object value)
         {
             this._customData.TryAdd(key, value);
+            return this;
         }
 
         /// <summary>
@@ -209,13 +229,18 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="callerSource">Caller source.</param>
         /// <param name="callerSourceLineNumber">Caller source line number.</param>
-        internal void AddCallerData(string callerSource = "", int callerSourceLineNumber = 0)
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        internal PerformanceMeter<TClass> WithCallerData(string callerSource = "", int callerSourceLineNumber = 0)
         {
             if (!string.IsNullOrWhiteSpace(callerSource))
-                this.AddMethodCallCustomData(nameof(callerSource), callerSource);
+                this.WithCustomData(nameof(callerSource), callerSource);
 
             if (callerSourceLineNumber > 0)
-                this.AddMethodCallCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
+                this.WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
+
+            return this;
         }
 
         /// <summary>
@@ -268,7 +293,10 @@ namespace Unchase.PerformanceMeter
         /// <summary>
         /// Start watching method performance.
         /// </summary>
-        internal void Start()
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        internal PerformanceMeter<TClass> Start()
         {
             try
             {
@@ -283,6 +311,7 @@ namespace Unchase.PerformanceMeter
                 else
                     throw ex;
             }
+            return this;
         }
 
         /// <summary>
@@ -349,8 +378,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public static PerformanceMeter<TClass> WithHttpContextAccessor<TClass>(this PerformanceMeter<TClass> performanceMeter, IHttpContextAccessor httpContextAccessor) where TClass : class
         {
-            performanceMeter.SetHttpContextAccessor(httpContextAccessor);
-            return performanceMeter;
+            return performanceMeter.WithHttpContextAccessor(httpContextAccessor);
         }
 
         /// <summary>
@@ -364,8 +392,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public static PerformanceMeter<TClass> WithExceptionHandler<TClass>(this PerformanceMeter<TClass> performanceMeter, Action<Exception> exceptionHandler = null) where TClass : class
         {
-            performanceMeter.SetExceptionHandler(exceptionHandler);
-            return performanceMeter;
+            return performanceMeter.WithExceptionHandler(exceptionHandler);
         }
 
         /// <summary>
@@ -379,8 +406,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public static PerformanceMeter<TClass> WithExecutingOnComplete<TClass>(this PerformanceMeter<TClass> performanceMeter, params IPerformanceCommand[] performanceCommands) where TClass : class
         {
-            performanceMeter.RegisterCommands(performanceCommands);
-            return performanceMeter;
+            return performanceMeter.WithExecutingOnComplete(performanceCommands);
         }
 
         /// <summary>
@@ -394,8 +420,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public static PerformanceMeter<TClass> WithCaller<TClass>(this PerformanceMeter<TClass> performanceMeter, string caller) where TClass : class
         {
-            performanceMeter.SetCallerAddress(caller);
-            return performanceMeter;
+            return performanceMeter.WithCaller(caller);
         }
 
         /// <summary>
@@ -410,8 +435,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public static PerformanceMeter<TClass> WithCustomData<TClass>(this PerformanceMeter<TClass> performanceMeter, string key, object value) where TClass : class
         {
-            performanceMeter.AddMethodCallCustomData(key, value);
-            return performanceMeter;
+            return performanceMeter.WithCustomData(key, value);
         }
 
         /// <summary>
@@ -428,8 +452,7 @@ namespace Unchase.PerformanceMeter
             [CallerFilePath] string callerSource = "",
             [CallerLineNumber] int callerSourceLineNumber = 0) where TClass : class
         {
-            performanceMeter.AddCallerData(callerSource, callerSourceLineNumber);
-            return performanceMeter;
+            return performanceMeter.WithCallerData(callerSource, callerSourceLineNumber);
         }
 
         /// <summary>
@@ -442,8 +465,7 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public static PerformanceMeter<TClass> Start<TClass>(this PerformanceMeter<TClass> performanceMeter) where TClass : class
         {
-            performanceMeter.Start();
-            return performanceMeter;
+            return performanceMeter.Start();
         }
 
         #endregion
