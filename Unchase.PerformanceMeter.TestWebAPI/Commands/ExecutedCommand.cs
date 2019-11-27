@@ -14,6 +14,8 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Commands
 
         private string _customString { get; }
 
+        internal bool IsCommandExecuted { get; private set; }
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -36,6 +38,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Commands
             Debug.WriteLine(this.CommandName);
             Debug.WriteLine(this._customString);
             Debug.WriteLine($"Method names count: {performanceInfo.MethodNames.Count}");
+            this.IsCommandExecuted = true;
         }
     }
 }

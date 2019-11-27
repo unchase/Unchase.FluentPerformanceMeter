@@ -106,7 +106,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                 .WithExecutingOnComplete(new ExecutedCommand("bla-bla-bla"))
                 .Start())
             {
-                pm.Stop(); // stop watching there
+                pm.StopWatching(); // stop watching there
                 Thread.Sleep(2000);
 
                 return Ok(value);

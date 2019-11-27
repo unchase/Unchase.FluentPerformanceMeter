@@ -16,9 +16,7 @@ namespace Unchase.PerformanceMeter
     /// <typeparam name="TClass">Class with methods.</typeparam>
     public sealed class PerformanceMeter<TClass> : IDisposable where TClass : class
     {
-        #region Fields and Properties
-
-        private IHttpContextAccessor _httpContextAccessor;
+        #region Public properties
 
         /// <summary>
         /// Method information.
@@ -28,15 +26,41 @@ namespace Unchase.PerformanceMeter
         /// </returns>
         public MethodInfo MethodInfo { get; }
 
-        private Stopwatch _sw = new Stopwatch();
+        /// <summary>
+        /// Methods performance information.
+        /// </summary>
+        /// <returns>
+        /// Return method performance information with type <see cref="PerformanceInfo{TClass}"/>.
+        /// </returns>
+        public static IPerformanceInfo PerformanceInfo => Performance<TClass>.PerformanceInfo;
 
-        private DateTime _dateStart = DateTime.Now;
+        /// <summary>
+        /// Time in minutes to clear list of the method calls.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="IPerformanceInfo.MethodCalls"/>.
+        /// </remarks>
+        public int MethodCallsCacheTime => Performance<TClass>.MethodCallsCacheTime;
 
-        private string _caller = "unknown";
+        #endregion
 
-        private Action<Exception> _exceptionHandler { get; set; }
+        #region Other properties and fields
 
-        private static readonly object PerformanceMeterLock = new object();
+        private static ConcurrentDictionary<string, MethodInfo> _cachedMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
+
+        internal ConcurrentDictionary<string, object> CustomData { get; set; } = new ConcurrentDictionary<string, object>();
+
+        internal IHttpContextAccessor HttpContextAccessor { get; set; }
+
+        internal Stopwatch Sw { get; set; } = new Stopwatch();
+
+        internal DateTime DateStart { get; set; } = DateTime.Now;
+
+        internal string Caller { get; set; } = "unknown";
+
+        internal Action<Exception> ExceptionHandler { get; set; }
+
+        internal static readonly object PerformanceMeterLock = new object();
 
         private static Action<Exception> _defaultExceptionHandler { get; set; } = (ex) => { AddCustomData("Last exception", ex); };
         private static Action<Exception> DefaultExceptionHandler
@@ -56,18 +80,6 @@ namespace Unchase.PerformanceMeter
                 }
             }
         }
-
-        private static ConcurrentDictionary<string, MethodInfo> _cachedMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
-
-        internal ConcurrentDictionary<string, object> _customData = new ConcurrentDictionary<string, object>();
-
-        /// <summary>
-        /// Time in minutes to clear list of the method calls.
-        /// </summary>
-        /// <remarks>
-        /// <see cref="IPerformanceInfo.MethodCalls"/>.
-        /// </remarks>
-        public int MethodCallsCacheTime => Performance<TClass>.MethodCallsCacheTime;
 
         private Collection<IPerformanceCommand> _registeredComands;
         /// <summary>
@@ -98,7 +110,7 @@ namespace Unchase.PerformanceMeter
         private PerformanceMeter(MethodInfo method)
         {
             this.MethodInfo = method;
-            this._exceptionHandler = DefaultExceptionHandler;
+            this.ExceptionHandler = DefaultExceptionHandler;
         }
 
         /// <summary>
@@ -117,14 +129,14 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="method">Method with type <see cref="System.Reflection.MethodInfo"/>.</param>
         /// <returns>
-        /// Returns an instance of the class with type <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
-        public static PerformanceMeter<TClass> Watching(MethodInfo method)
+        public static PerformanceMeterBuilder<TClass> Watching(MethodInfo method)
         {
             if (!_cachedMethodInfos.Contains(new KeyValuePair<string, MethodInfo>(method.Name, method)))
                 _cachedMethodInfos.TryAdd(method.Name, method);
 
-            return new PerformanceMeter<TClass>(method);
+            return new PerformanceMeterBuilder<TClass>(new PerformanceMeter<TClass>(method));
         }
 
         /// <summary>
@@ -132,10 +144,10 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="methodName">Method name.</param>
         /// <returns>
-        /// Returns an instance of the class with type <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static PerformanceMeter<TClass> Watching(
+        public static PerformanceMeterBuilder<TClass> Watching(
             [CallerMemberName] string methodName = null)
         {
             MethodInfo methodInfo;
@@ -148,100 +160,12 @@ namespace Unchase.PerformanceMeter
                     .FirstOrDefault(m => m.Name == methodName);
                 _cachedMethodInfos.TryAdd(methodName, methodInfo);
             }
-            return new PerformanceMeter<TClass>(methodInfo);
+            return new PerformanceMeterBuilder<TClass>(new PerformanceMeter<TClass>(methodInfo));
         }
 
         #endregion
 
         #region Additional
-
-        /// <summary>
-        /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.
-        /// </summary>
-        /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeter<TClass> WithHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
-        {
-            this._httpContextAccessor = httpContextAccessor;
-            return this;
-        }
-
-        /// <summary>
-        /// Set Action to handle exceptions that occur.
-        /// </summary>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeter<TClass> WithExceptionHandler(Action<Exception> exceptionHandler = null)
-        {
-            this._exceptionHandler = exceptionHandler;
-            return this;
-        }
-
-        /// <summary>
-        /// Set caller name.
-        /// </summary>
-        /// <param name="caller">Caller name.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeter<TClass> WithCaller(string caller)
-        {
-            this._caller = caller;
-            return this;
-        }
-
-        /// <summary>
-        /// Register commands which will be executed after the performance watching is completed.
-        /// </summary>
-        /// <param name="performanceCommands">Collection of the executed commands.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeter<TClass> WithExecutingOnComplete(params IPerformanceCommand[] performanceCommands)
-        {
-            foreach (var performanceCommand in performanceCommands)
-            {
-                this.RegisteredCommands.Add(performanceCommand);
-            }
-            return this;
-        }
-
-        /// <summary>
-        /// Add custom data.
-        /// </summary>
-        /// <param name="key">Key.</param>
-        /// <param name="value">Value.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeter<TClass> WithCustomData(string key, object value)
-        {
-            this._customData.TryAdd(key, value);
-            return this;
-        }
-
-        /// <summary>
-        /// Add caller data.
-        /// </summary>
-        /// <param name="callerSource">Caller source.</param>
-        /// <param name="callerSourceLineNumber">Caller source line number.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeter<TClass> WithCallerData(string callerSource = "", int callerSourceLineNumber = 0)
-        {
-            if (!string.IsNullOrWhiteSpace(callerSource))
-                this.WithCustomData(nameof(callerSource), callerSource);
-
-            if (callerSourceLineNumber > 0)
-                this.WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
-
-            return this;
-        }
 
         /// <summary>
         /// Add custom data.
@@ -291,38 +215,6 @@ namespace Unchase.PerformanceMeter
         #region Main
 
         /// <summary>
-        /// Start watching method performance.
-        /// </summary>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeter<TClass> Start()
-        {
-            try
-            {
-                this._dateStart = DateTime.Now;
-                this._sw = Stopwatch.StartNew();
-                Performance<TClass>.Input(this.MethodInfo);
-            }
-            catch (Exception ex)
-            {
-                if (this._exceptionHandler != null)
-                    this._exceptionHandler(ex);
-                else
-                    throw ex;
-            }
-            return this;
-        }
-
-        /// <summary>
-        /// Stop watching method performance.
-        /// </summary>
-        public void Stop()
-        {
-            this.Dispose();
-        }
-
-        /// <summary>
         /// Get methods performance information.
         /// </summary>
         /// <returns>
@@ -331,16 +223,24 @@ namespace Unchase.PerformanceMeter
         public static IPerformanceInfo GetPerformanceInfo() => Performance<TClass>.PerformanceInfo;
 
         /// <summary>
+        /// Stop watching method performance.
+        /// </summary>
+        public void StopWatching()
+        {
+            this.Dispose();
+        }
+
+        /// <summary>
         /// Dispose and stop watching method performance.
         /// </summary>
         public void Dispose()
         {
             try
             {
-                if (this.MethodInfo != null && this._sw.IsRunning)
+                if (this.MethodInfo != null && this.Sw.IsRunning)
                 {
-                    this._caller = this._httpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? this._caller;
-                    var performanceInfo = Performance<TClass>.Output(this._caller, this.MethodInfo, this._sw, this._dateStart, this._customData);
+                    this.Caller = this.HttpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? this.Caller;
+                    var performanceInfo = Performance<TClass>.Output(this.Caller, this.MethodInfo, this.Sw, this.DateStart, this.CustomData);
 
                     foreach (var performanceCommand in this.RegisteredCommands)
                         performanceCommand.Execute(performanceInfo);
@@ -348,125 +248,14 @@ namespace Unchase.PerformanceMeter
             }
             catch (Exception ex) 
             {
-                if (this._exceptionHandler != null)
-                    this._exceptionHandler(ex);
+                if (this.ExceptionHandler != null)
+                    this.ExceptionHandler(ex);
                 else
                     throw ex;
             }
         }
 
         #endregion
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Extension methods for the <see cref="PerformanceMeter{TClass}"/>
-    /// </summary>
-    public static class PerformanceMeterExtensions
-    {
-        #region Extension methods
-
-        /// <summary>
-        /// Set <see cref="IHttpContextAccessor"/> to get the ip address of the caller.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeter<TClass> WithHttpContextAccessor<TClass>(this PerformanceMeter<TClass> performanceMeter, IHttpContextAccessor httpContextAccessor) where TClass : class
-        {
-            return performanceMeter.WithHttpContextAccessor(httpContextAccessor);
-        }
-
-        /// <summary>
-        /// Set Action to handle exceptions that occur.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeter<TClass> WithExceptionHandler<TClass>(this PerformanceMeter<TClass> performanceMeter, Action<Exception> exceptionHandler = null) where TClass : class
-        {
-            return performanceMeter.WithExceptionHandler(exceptionHandler);
-        }
-
-        /// <summary>
-        /// Register commands which will be executed after the performance watching is completed.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="performanceCommands">Collection of the executed commands.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeter<TClass> WithExecutingOnComplete<TClass>(this PerformanceMeter<TClass> performanceMeter, params IPerformanceCommand[] performanceCommands) where TClass : class
-        {
-            return performanceMeter.WithExecutingOnComplete(performanceCommands);
-        }
-
-        /// <summary>
-        /// Set caller name.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="caller">Caller name.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeter<TClass> WithCaller<TClass>(this PerformanceMeter<TClass> performanceMeter, string caller) where TClass : class
-        {
-            return performanceMeter.WithCaller(caller);
-        }
-
-        /// <summary>
-        /// Add custom data.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="key">Key.</param>
-        /// <param name="value">Value.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeter<TClass> WithCustomData<TClass>(this PerformanceMeter<TClass> performanceMeter, string key, object value) where TClass : class
-        {
-            return performanceMeter.WithCustomData(key, value);
-        }
-
-        /// <summary>
-        /// Add caller data.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"></param>
-        /// <param name="callerSource">Caller source.</param>
-        /// <param name="callerSourceLineNumber">Caller source line number.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeter<TClass> WithCallerData<TClass>(this PerformanceMeter<TClass> performanceMeter,
-            [CallerFilePath] string callerSource = "",
-            [CallerLineNumber] int callerSourceLineNumber = 0) where TClass : class
-        {
-            return performanceMeter.WithCallerData(callerSource, callerSourceLineNumber);
-        }
-
-        /// <summary>
-        /// Start watching method performance.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeter<TClass> Start<TClass>(this PerformanceMeter<TClass> performanceMeter) where TClass : class
-        {
-            return performanceMeter.Start();
-        }
 
         #endregion
     }
