@@ -70,17 +70,24 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethod">
             <summary>
-            Test GET method.
+            Test GET method with simple watching.
             </summary>
-            <param name="value">Some value.</param>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetAnotherMethod">
+            <summary>
+            Test GET method for another class with public method.
+            </summary>
             <returns>
-            Returns input value.
+            Returns current method calls count before performance watching complete.
             </returns>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetMethod(System.UInt32)">
             <summary>
-            Test GET method.
+            Test GET method with using HttpContextAccessor and adding custom data.
             </summary>
+            <remarks>
+            With executed command.
+            </remarks>
             <param name="value">Some value.</param>
             <returns>
             Returns input value.
@@ -88,7 +95,7 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicPostMethod(System.String)">
             <summary>
-            Test POST method.
+            Test POST method with caller name and executed command.
             </summary>
             <param name="value">Some value from body.</param>
             <returns>

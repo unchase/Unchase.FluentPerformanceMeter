@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
+using System.Linq;
 using System.Threading;
 using Unchase.PerformanceMeter.TestWebAPI.Commands;
 using Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples;
@@ -55,18 +56,29 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         /// <summary>
         /// Test GET method with simple watching.
         /// </summary>
-        /// <returns>
-        /// Returns input value.
-        /// </returns>
         [HttpGet("TestGetSimple")]
-        public ActionResult<string> PublicTestGetSimpleMethod()
+        public ActionResult PublicTestGetSimpleMethod()
         {
-            using (PerformanceMeter<ValuesController>
-                .Watching()
-                .Start())
+            using (PerformanceMeter<ValuesController>.Watching().Start())
             {
                 // Place your code with some logic there
+
                 return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Test GET method for another class with public method.
+        /// </summary>
+        /// <returns>
+        /// Returns current method calls count before performance watching complete.
+        /// </returns>
+        [HttpGet("TestGetAnother")]
+        public ActionResult<long> PublicTestGetAnotherMethod()
+        {
+            using (PerformanceMeter<Thread>.Watching(nameof(Thread.Sleep)).Start())
+            {
+                return Ok(PerformanceMeter<Thread>.PerformanceInfo.CurrentActivity.FirstOrDefault(ta => ta.MethodName == nameof(Thread.Sleep))?.CallsCount);
             }
         }
 
