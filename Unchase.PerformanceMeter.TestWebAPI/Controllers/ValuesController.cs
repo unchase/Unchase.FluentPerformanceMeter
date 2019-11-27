@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.Linq;
 using System.Threading;
+using Unchase.PerformanceMeter.Attributes;
+using Unchase.PerformanceMeter.Builders;
 using Unchase.PerformanceMeter.TestWebAPI.Commands;
 using Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples;
 
@@ -59,7 +62,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [HttpGet("TestGetSimple")]
         public ActionResult PublicTestGetSimpleMethod()
         {
-            using (PerformanceMeter<ValuesController>.Watching().Start())
+            using (PerformanceMeter<ValuesController>.WatchingMethod().Start())
             {
                 // Place your code with some logic there
 
@@ -76,7 +79,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [HttpGet("TestGetAnother")]
         public ActionResult<long> PublicTestGetAnotherMethod()
         {
-            using (PerformanceMeter<Thread>.Watching(nameof(Thread.Sleep)).Start())
+            using (PerformanceMeter<Thread>.WatchingMethod(nameof(Thread.Sleep)).Start())
             {
                 return Ok(PerformanceMeter<Thread>.PerformanceInfo.CurrentActivity.FirstOrDefault(ta => ta.MethodName == nameof(Thread.Sleep))?.CallsCount);
             }
@@ -127,19 +130,46 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [HttpGet("TestGetSteps")]
         public ActionResult<long> PublicTestGetSteps()
         {
-            using (PerformanceMeter<ValuesController>.Watching(nameof(CallFor1to1000000)).Start())
+            var correlationId = Guid.NewGuid();
+            using (PerformanceMeter<ValuesController>
+                .WatchingMethod()
+                .And
+                    .WithCustomData("corellationId", correlationId)
+                    .WithCallerData()
+                .Start())
             {
-                CallFor1to1000000();
-            }
+                using (PerformanceMeter<ValuesController>
+                .WatchingMethod(nameof(CallFor1to1000000))
+                .And
+                    .WithCustomData("corellationId", correlationId)
+                    .WithCustomData("step", 1)
+                    .WithCallerData()
+                .Start())
+                {
+                    CallFor1to1000000();
+                }
 
-            using (PerformanceMeter<ValuesController>.Watching(nameof(CallThreadSleep1000)).Start())
-            {
-                CallThreadSleep1000();
-            }
+                using (PerformanceMeter<ValuesController>
+                    .WatchingMethod(nameof(CallThreadSleep1000))
+                    .And
+                        .WithCustomData("corellationId", correlationId)
+                        .WithCustomData("step", 2)
+                        .WithCallerData()
+                    .Start())
+                {
+                    CallThreadSleep1000();
+                }
 
-            using (PerformanceMeter<ValuesController>.Watching(nameof(CallThreadSleep3000)).Start())
-            {
-                CallThreadSleep3000();
+                using (PerformanceMeter<ValuesController>
+                    .WatchingMethod(nameof(CallThreadSleep3000))
+                    .And
+                        .WithCustomData("corellationId", correlationId)
+                        .WithCustomData("step", 3)
+                        .WithCallerData()
+                    .Start())
+                {
+                    CallThreadSleep3000();
+                }
             }
 
             return Ok(PerformanceMeter<ValuesController>.PerformanceInfo.MethodCalls.Where(mc => mc.MethodName.StartsWith("Step")).Sum(mc => mc.DurationMiliseconds));
@@ -172,12 +202,14 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             // method performance info will reach with HttpContextAccessor and custom data
             // custom "CustomDataCommand" will be executed after performance watching is completed (work with method calls custom data)
             using (PerformanceMeter<ValuesController>
-                .Watching(nameof(PublicTestGetMethod))
+                .WatchingMethod(nameof(PublicTestGetMethod))
                 .WithHttpContextAccessor(_httpContextAccessor)
-                .WithCustomData(nameof(value), value)
-                .WithCustomData(nameof(testClass), testClass)
-                .WithCallerData()
-                .WithExecutingOnComplete(new CustomDataCommand())
+                .And
+                    .WithCallerData()
+                    .WithCustomData(nameof(value), value)
+                    .WithCustomData(nameof(testClass), testClass)
+                .WithExecutingOnComplete
+                    .Command(new CustomDataCommand())
                 .Start())
             {
                 return Ok($"value-{value}");
@@ -197,9 +229,10 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
             // custom "ExecuteCommand" will be executed after performance watching is completed (for example, you can write data to the database or log the result or perform any other operation)
             using (var pm = PerformanceMeter<ValuesController>
-                .Watching()
+                .WatchingMethod()
                 .WithCaller("Test caller")
-                .WithExecutingOnComplete(new ExecutedCommand("bla-bla-bla"))
+                .WithExecutingOnComplete
+                    .Command(new ExecutedCommand("bla-bla-bla"))
                 .Start())
             {
                 pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")

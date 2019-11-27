@@ -2,6 +2,8 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Reflection;
+using Unchase.PerformanceMeter.Attributes;
+using Unchase.PerformanceMeter.Builders;
 using Xunit;
 
 namespace Unchase.PerformanceMeter.Tests
@@ -47,7 +49,7 @@ namespace Unchase.PerformanceMeter.Tests
             
             // Act
             using (performanceMeter = PerformanceMeter<PublicClass>
-                .Watching(nameof(PublicClass.PublicVoidMethod))
+                .WatchingMethod(nameof(PublicClass.PublicVoidMethod))
                 .WithHttpContextAccessor(_httpContextAccessor)
                 //.WithCaller("test")
                 .Start())

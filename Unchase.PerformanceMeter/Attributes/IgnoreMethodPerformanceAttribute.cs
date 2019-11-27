@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Unchase.PerformanceMeter
+namespace Unchase.PerformanceMeter.Attributes
 {
     /// <summary>
     /// Attribute to indicate that no performance watching will be performed for this method.

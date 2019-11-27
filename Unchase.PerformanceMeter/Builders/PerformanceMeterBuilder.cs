@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
-namespace Unchase.PerformanceMeter
+namespace Unchase.PerformanceMeter.Builders
 {
     /// <summary>
     /// Class for create and configure <see cref="PerformanceMeter{TClass}"/>.
@@ -11,13 +10,28 @@ namespace Unchase.PerformanceMeter
     /// <typeparam name="TClass">Class with methods.</typeparam>
     public class PerformanceMeterBuilder<TClass> where TClass : class
     {
-        #region Fields
+        #region Properties and fields
 
         internal PerformanceMeter<TClass> PerformanceMeter;
+
+        /// <summary>
+        /// Allows to set the custom data.
+        /// </summary>
+        public CustomDataBuilder<TClass> And => new CustomDataBuilder<TClass>(this.PerformanceMeter);
+
+        /// <summary>
+        /// Allows to register commands which will be executed after the performance watching is completed.
+        /// </summary>
+        public ExecutedCommandsBuilder<TClass> WithExecutingOnComplete => new ExecutedCommandsBuilder<TClass>(this.PerformanceMeter);
 
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor for <see cref="PerformanceMeterBuilder{TCalss}"/>.
+        /// </summary>
+        internal PerformanceMeterBuilder() { }
 
         /// <summary>
         /// Constructor for <see cref="PerformanceMeterBuilder{TClass}"/>.
@@ -65,7 +79,7 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
         /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
         internal PerformanceMeterBuilder<TClass> WithHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
         {
@@ -78,7 +92,7 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
         /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
         internal PerformanceMeterBuilder<TClass> WithExceptionHandler(Action<Exception> exceptionHandler = null)
         {
@@ -91,60 +105,11 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="caller">Caller name.</param>
         /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
         internal PerformanceMeterBuilder<TClass> WithCaller(string caller)
         {
             this.PerformanceMeter.Caller = caller;
-            return this;
-        }
-
-        /// <summary>
-        /// Register commands which will be executed after the performance watching is completed.
-        /// </summary>
-        /// <param name="performanceCommands">Collection of the executed commands.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeterBuilder<TClass> WithExecutingOnComplete(params IPerformanceCommand[] performanceCommands)
-        {
-            foreach (var performanceCommand in performanceCommands)
-            {
-                this.PerformanceMeter.RegisteredCommands.Add(performanceCommand);
-            }
-            return this;
-        }
-
-        /// <summary>
-        /// Add custom data.
-        /// </summary>
-        /// <param name="key">Key.</param>
-        /// <param name="value">Value.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeterBuilder<TClass> WithCustomData(string key, object value)
-        {
-            this.PerformanceMeter.CustomData.TryAdd(key, value);
-            return this;
-        }
-
-        /// <summary>
-        /// Add caller data.
-        /// </summary>
-        /// <param name="callerSource">Caller source.</param>
-        /// <param name="callerSourceLineNumber">Caller source line number.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeter{TClass}"/>.
-        /// </returns>
-        internal PerformanceMeterBuilder<TClass> WithCallerData(string callerSource = "", int callerSourceLineNumber = 0)
-        {
-            if (!string.IsNullOrWhiteSpace(callerSource))
-                this.WithCustomData(nameof(callerSource), callerSource);
-
-            if (callerSourceLineNumber > 0)
-                this.WithCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
-
             return this;
         }
 
@@ -154,7 +119,7 @@ namespace Unchase.PerformanceMeter
     /// <summary>
     /// Extension methods for the <see cref="PerformanceMeterBuilder{TClass}"/>
     /// </summary>
-    public static class PPerformanceMeterBuilderExtensions
+    public static class PerformanceMeterBuilderExtensions
     {
         #region Extension methods
 
@@ -187,20 +152,6 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Register commands which will be executed after the performance watching is completed.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeterBuilder"><see cref="PerformanceMeterBuilder{TClass}"/>.</param>
-        /// <param name="performanceCommands">Collection of the executed commands.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeterBuilder<TClass> WithExecutingOnComplete<TClass>(this PerformanceMeterBuilder<TClass> performanceMeterBuilder, params IPerformanceCommand[] performanceCommands) where TClass : class
-        {
-            return performanceMeterBuilder.WithExecutingOnComplete(performanceCommands);
-        }
-
-        /// <summary>
         /// Set caller name.
         /// </summary>
         /// <typeparam name="TClass">Class with methods.</typeparam>
@@ -212,38 +163,6 @@ namespace Unchase.PerformanceMeter
         public static PerformanceMeterBuilder<TClass> WithCaller<TClass>(this PerformanceMeterBuilder<TClass> performanceMeterBuilder, string caller) where TClass : class
         {
             return performanceMeterBuilder.WithCaller(caller);
-        }
-
-        /// <summary>
-        /// Add custom data.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeterBuilder"><see cref="PerformanceMeterBuilder{TClass}"/>.</param>
-        /// <param name="key">Key.</param>
-        /// <param name="value">Value.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeterBuilder<TClass> WithCustomData<TClass>(this PerformanceMeterBuilder<TClass> performanceMeterBuilder, string key, object value) where TClass : class
-        {
-            return performanceMeterBuilder.WithCustomData(key, value);
-        }
-
-        /// <summary>
-        /// Add caller data.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeterBuilder"></param>
-        /// <param name="callerSource">Caller source.</param>
-        /// <param name="callerSourceLineNumber">Caller source line number.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceMeterBuilder{TClass}"/>.
-        /// </returns>
-        public static PerformanceMeterBuilder<TClass> WithCallerData<TClass>(this PerformanceMeterBuilder<TClass> performanceMeterBuilder,
-            [CallerFilePath] string callerSource = "",
-            [CallerLineNumber] int callerSourceLineNumber = 0) where TClass : class
-        {
-            return performanceMeterBuilder.WithCallerData(callerSource, callerSourceLineNumber);
         }
 
         /// <summary>

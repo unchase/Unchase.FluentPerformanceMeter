@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Unchase.PerformanceMeter.Builders;
 
 namespace Unchase.PerformanceMeter
 {
@@ -131,7 +132,7 @@ namespace Unchase.PerformanceMeter
         /// <returns>
         /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
-        public static PerformanceMeterBuilder<TClass> Watching(MethodInfo method)
+        public static PerformanceMeterBuilder<TClass> WatchingMethod(MethodInfo method)
         {
             if (!_cachedMethodInfos.Contains(new KeyValuePair<string, MethodInfo>(method.Name, method)))
                 _cachedMethodInfos.TryAdd(method.Name, method);
@@ -147,7 +148,7 @@ namespace Unchase.PerformanceMeter
         /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static PerformanceMeterBuilder<TClass> Watching(
+        public static PerformanceMeterBuilder<TClass> WatchingMethod(
             [CallerMemberName] string methodName = null)
         {
             MethodInfo methodInfo;
