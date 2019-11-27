@@ -82,6 +82,57 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             }
         }
 
+        [HttpGet("Step1")]
+        public ActionResult Step1()
+        {
+            for (int i = 0; i < 1000000; i++)
+            {
+                var t = i.ToString() + (i + 1).ToString();
+            }
+            return Ok();
+        }
+
+        [HttpGet("Step2")]
+        public ActionResult Step2()
+        {
+            Thread.Sleep(1000);
+            return Ok();
+        }
+
+        [HttpGet("Step3")]
+        public ActionResult Step3()
+        {
+            Thread.Sleep(3000);
+            return Ok();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        /// 
+        /// </returns>
+        [HttpGet("TestGetSteps")]
+        public ActionResult<long> PublicTestGetSteps()
+        {
+            using (PerformanceMeter<ValuesController>.Watching(nameof(Step1)).Start())
+            {
+                Step1();
+            }
+
+            using (PerformanceMeter<ValuesController>.Watching(nameof(Step2)).Start())
+            {
+                Step2();
+            }
+
+            using (PerformanceMeter<ValuesController>.Watching(nameof(Step3)).Start())
+            {
+                Step3();
+            }
+
+            return Ok(PerformanceMeter<ValuesController>.PerformanceInfo.MethodCalls.Where(mc => mc.MethodName.StartsWith("Step")).Sum(mc => mc.DurationMiliseconds));
+        }
+
         /// <summary>
         /// Test GET method with using HttpContextAccessor and adding custom data.
         /// </summary>

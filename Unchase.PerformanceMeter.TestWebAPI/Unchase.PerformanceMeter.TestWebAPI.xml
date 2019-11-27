@@ -81,6 +81,14 @@
             Returns current method calls count before performance watching complete.
             </returns>
         </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSteps">
+            <summary>
+            
+            </summary>
+            <returns>
+            
+            </returns>
+        </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetMethod(System.UInt32)">
             <summary>
             Test GET method with using HttpContextAccessor and adding custom data.
