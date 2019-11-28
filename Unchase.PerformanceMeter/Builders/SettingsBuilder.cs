@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Unchase.PerformanceMeter.Builders
 {
@@ -63,6 +64,39 @@ namespace Unchase.PerformanceMeter.Builders
             return this;
         }
 
+        /// <summary>
+        /// Add custom data.
+        /// </summary>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
+        /// <returns>
+        /// Returns <see cref="SettingsBuilder{TClass}"/>.
+        /// </returns>
+        internal SettingsBuilder<TClass> AddCustomData(string key, object value)
+        {
+            this.PerformanceMeter.CustomData.TryAdd(key, value);
+            return this;
+        }
+
+        /// <summary>
+        /// Add caller data.
+        /// </summary>
+        /// <param name="callerSource">Caller source.</param>
+        /// <param name="callerSourceLineNumber">Caller source line number.</param>
+        /// <returns>
+        /// Returns <see cref="SettingsBuilder{TClass}"/>.
+        /// </returns>
+        internal SettingsBuilder<TClass> AddCallerData(string callerSource = "", int callerSourceLineNumber = 0)
+        {
+            if (!string.IsNullOrWhiteSpace(callerSource))
+                this.AddCustomData(nameof(callerSource), callerSource);
+
+            if (callerSourceLineNumber > 0)
+                this.AddCustomData(nameof(callerSourceLineNumber), callerSourceLineNumber);
+
+            return this;
+        }
+
         #endregion
     }
 
@@ -113,6 +147,38 @@ namespace Unchase.PerformanceMeter.Builders
         public static SettingsBuilder<TClass> CallerFrom<TClass>(this SettingsBuilder<TClass> settingsBuilder, string caller) where TClass : class
         {
             return settingsBuilder.WithCaller(caller);
+        }
+
+        /// <summary>
+        /// Add custom data.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="settingsBuilder"><see cref="SettingsBuilder{TClass}"/>.</param>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
+        /// <returns>
+        /// Returns <see cref="SettingsBuilder{TClass}"/>.
+        /// </returns>
+        public static SettingsBuilder<TClass> CustomData<TClass>(this SettingsBuilder<TClass> settingsBuilder, string key, object value) where TClass : class
+        {
+            return settingsBuilder.AddCustomData(key, value);
+        }
+
+        /// <summary>
+        /// Add caller data.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="settingsBuilder"><see cref="SettingsBuilder{TClass}"/>.</param>
+        /// <param name="callerSource">Caller source.</param>
+        /// <param name="callerSourceLineNumber">Caller source line number.</param>
+        /// <returns>
+        /// Returns <see cref="SettingsBuilder{TClass}"/>.
+        /// </returns>
+        public static SettingsBuilder<TClass> CallerData<TClass>(this SettingsBuilder<TClass> settingsBuilder,
+            [CallerFilePath] string callerSource = "",
+            [CallerLineNumber] int callerSourceLineNumber = 0) where TClass : class
+        {
+            return settingsBuilder.AddCallerData(callerSource, callerSourceLineNumber);
         }
 
         #endregion

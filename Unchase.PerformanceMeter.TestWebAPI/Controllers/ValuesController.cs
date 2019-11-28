@@ -134,17 +134,17 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             var correlationId = Guid.NewGuid();
             using (PerformanceMeter<ValuesController>
                 .WatchingMethod()
-                .WithCustomData
-                    .FromData("corellationId", correlationId)
-                    .FromCaller()
+                .WithSetting
+                    .CustomData("corellationId", correlationId)
+                    .CallerData()
                 .Start())
             {
                 using (PerformanceMeter<ValuesController>
                 .WatchingMethod(nameof(CallFor1to1000000))
-                .WithCustomData
-                    .FromData("corellationId", correlationId)
-                    .FromData("step", 1)
-                    .FromCaller()
+                .WithSetting
+                    .CustomData("corellationId", correlationId)
+                    .CustomData("step", 1)
+                    .CallerData()
                 .Start())
                 {
                     CallFor1to1000000();
@@ -152,10 +152,10 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
 
                 using (PerformanceMeter<ValuesController>
                     .WatchingMethod(nameof(CallThreadSleep1000))
-                    .WithCustomData
-                        .FromData("corellationId", correlationId)
-                        .FromData("step", 2)
-                        .FromCaller()
+                    .WithSetting
+                        .CustomData("corellationId", correlationId)
+                        .CustomData("step", 2)
+                        .CallerData()
                     .Start())
                 {
                     CallThreadSleep1000();
@@ -163,10 +163,10 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
 
                 using (PerformanceMeter<ValuesController>
                     .WatchingMethod(nameof(CallThreadSleep3000))
-                    .WithCustomData
-                        .FromData("corellationId", correlationId)
-                        .FromData("step", 3)
-                        .FromCaller()
+                    .WithSetting
+                        .CustomData("corellationId", correlationId)
+                        .CustomData("step", 3)
+                        .CallerData()
                     .Start())
                 {
                     CallThreadSleep3000();
@@ -206,10 +206,9 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                 .WatchingMethod(nameof(PublicTestGetMethod))
                 .WithSetting
                     .CallerFrom(_httpContextAccessor)
-                .WithCustomData
-                    .FromCaller()
-                    .FromData(nameof(value), value)
-                    .FromData(nameof(testClass), testClass)
+                    .CallerData()
+                    .CustomData(nameof(value), value)
+                    .CustomData(nameof(testClass), testClass)
                 .WithExecutingOnComplete
                     .Command(new CustomDataCommand())
                     .Action((pi) => 

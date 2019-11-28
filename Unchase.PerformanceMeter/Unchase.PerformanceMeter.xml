@@ -9,67 +9,6 @@
             Attribute to indicate that no performance watching will be performed for this method.
             </summary>
         </member>
-        <member name="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1">
-            <summary>
-            Class for setting custom data for <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1.#ctor(Unchase.PerformanceMeter.PerformanceMeter{`0})">
-            <summary>
-            Constructor for <see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.
-            </summary>
-            <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1.AddCustomData(System.String,System.Object)">
-            <summary>
-            Add custom data.
-            </summary>
-            <param name="key">Key.</param>
-            <param name="value">Value.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1.AddCallerData(System.String,System.Int32)">
-            <summary>
-            Add caller data.
-            </summary>
-            <param name="callerSource">Caller source.</param>
-            <param name="callerSourceLineNumber">Caller source line number.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.
-            </returns>
-        </member>
-        <member name="T:Unchase.PerformanceMeter.Builders.CustomDataBuilderExtensions">
-            <summary>
-            Extension methods for the <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>
-            </summary>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilderExtensions.FromData``1(Unchase.PerformanceMeter.Builders.CustomDataBuilder{``0},System.String,System.Object)">
-            <summary>
-            Add custom data.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="customDataBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.</param>
-            <param name="key">Key.</param>
-            <param name="value">Value.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.CustomDataBuilderExtensions.FromCaller``1(Unchase.PerformanceMeter.Builders.CustomDataBuilder{``0},System.String,System.Int32)">
-            <summary>
-            Add caller data.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="customDataBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.</param>
-            <param name="callerSource">Caller source.</param>
-            <param name="callerSourceLineNumber">Caller source line number.</param>
-            <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CustomDataBuilder`1"/>.
-            </returns>
-        </member>
         <member name="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1">
             <summary>
             Class for setting custom data for <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
@@ -155,11 +94,6 @@
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
         </member>
-        <member name="P:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithCustomData">
-            <summary>
-            Allows to set the custom data.
-            </summary>
-        </member>
         <member name="P:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1.WithExecutingOnComplete">
             <summary>
             Allows to register commands which will be executed after the performance watching is completed.
@@ -243,6 +177,26 @@
             Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>
         </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilder`1.AddCustomData(System.String,System.Object)">
+            <summary>
+            Add custom data.
+            </summary>
+            <param name="key">Key.</param>
+            <param name="value">Value.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilder`1.AddCallerData(System.String,System.Int32)">
+            <summary>
+            Add caller data.
+            </summary>
+            <param name="callerSource">Caller source.</param>
+            <param name="callerSourceLineNumber">Caller source line number.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
         <member name="T:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions">
             <summary>
             Extension methods for the <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>
@@ -277,6 +231,30 @@
             <typeparam name="TClass">Class with methods.</typeparam>
             <param name="settingsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.</param>
             <param name="caller">Caller name.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.CustomData``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},System.String,System.Object)">
+            <summary>
+            Add custom data.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="settingsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.</param>
+            <param name="key">Key.</param>
+            <param name="value">Value.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.CallerData``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},System.String,System.Int32)">
+            <summary>
+            Add caller data.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="settingsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.</param>
+            <param name="callerSource">Caller source.</param>
+            <param name="callerSourceLineNumber">Caller source line number.</param>
             <returns>
             Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>

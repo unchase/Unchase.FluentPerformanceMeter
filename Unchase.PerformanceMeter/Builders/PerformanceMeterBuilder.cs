@@ -14,11 +14,6 @@ namespace Unchase.PerformanceMeter.Builders
         internal PerformanceMeter<TClass> PerformanceMeter;
 
         /// <summary>
-        /// Allows to set the custom data.
-        /// </summary>
-        public CustomDataBuilder<TClass> WithCustomData => new CustomDataBuilder<TClass>(this.PerformanceMeter);
-
-        /// <summary>
         /// Allows to register commands which will be executed after the performance watching is completed.
         /// </summary>
         public ExecutedCommandsBuilder<TClass> WithExecutingOnComplete => new ExecutedCommandsBuilder<TClass>(this.PerformanceMeter);
