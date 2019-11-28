@@ -47,13 +47,16 @@ namespace Unchase.PerformanceMeter
 
         #region Other properties and fields
 
+        // Track whether Dispose has been called.
+        private bool disposed;
+
         private static ConcurrentDictionary<string, MethodInfo> _cachedMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
 
         internal ConcurrentDictionary<string, object> CustomData = new ConcurrentDictionary<string, object>();
 
         internal IHttpContextAccessor HttpContextAccessor { get; set; }
 
-        internal Stopwatch Sw { get; set; } = new Stopwatch();
+        internal Stopwatch InnerStopwatch { get; set; } = new Stopwatch();
 
         internal DateTime DateStart { get; set; } = DateTime.UtcNow;
 
@@ -122,7 +125,7 @@ namespace Unchase.PerformanceMeter
 
         #endregion
 
-        #region Constructors
+        #region Constructors and destructor
 
         /// <summary>
         /// Private constructor for <see cref="PerformanceMeter{TClass}"/>.
@@ -137,6 +140,22 @@ namespace Unchase.PerformanceMeter
         /// Static constructor for <see cref="PerformanceMeter{TClass}"/>.
         /// </summary>
         static PerformanceMeter() { }
+
+        // Use C# destructor syntax for finalization code.
+        // This destructor will run only if the Dispose method 
+        // does not get called.
+        // It gives your base class the opportunity to finalize.
+        // Do not provide destructors in types derived from this class.
+        /// <summary>
+        /// Destructor for <see cref="PerformanceMeter{TClass}"/>.
+        /// </summary>
+        ~PerformanceMeter()
+        {
+            // Do not re-create Dispose clean-up code here.
+            // Calling Dispose(false) is optimal in terms of
+            // readability and maintainability.
+            Dispose(false);
+        }
 
         #endregion
 
@@ -234,23 +253,22 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Dispose and stop watching method performance.
+        /// Implement IDisposable.
         /// </summary>
+        /// <remarks>
+        /// Stop watching method performance.
+        /// </remarks>
         public void Dispose()
         {
             try
             {
-                if (this.MethodInfo != null && this.Sw.IsRunning)
-                {
-                    this.Caller = this.HttpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? this.Caller;
-                    var performanceInfo = Performance<TClass>.Output(this.Caller, this.MethodInfo, this.Sw, this.DateStart, this.CustomData);
-
-                    foreach (var performanceCommand in this.RegisteredCommands)
-                        performanceCommand.Execute(performanceInfo);
-
-                    foreach (var performanceAction in this.RegisteredActions)
-                        performanceAction(PerformanceInfo);
-                }
+                Dispose(true);
+                // This object will be cleaned up by the Dispose method.
+                // Therefore, you should call GC.SupressFinalize to
+                // take this object off the finalization queue 
+                // and prevent finalization code for this object
+                // from executing a second time.
+                GC.SuppressFinalize(this);
             }
             catch (Exception ex) 
             {
@@ -259,6 +277,37 @@ namespace Unchase.PerformanceMeter
                 else
                     throw ex;
             }
+        }
+
+        // Dispose(bool disposing) executes in two distinct scenarios.
+        // If disposing equals true, the method has been called directly
+        // or indirectly by a user code. Managed and unmanaged resources
+        // can be disposed.
+        // If disposing equals false, the method has been called by the 
+        // runtime from inside the finalizer and you should not reference 
+        // other objects. Only unmanaged resources can be disposed.
+        private void Dispose(bool disposing)
+        {
+            // Check to see if Dispose has already been called.
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    if (this.MethodInfo != null && this.InnerStopwatch?.IsRunning == true)
+                    {
+                        this.InnerStopwatch.Stop();
+                        this.Caller = this.HttpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? this.Caller;
+                        var performanceInfo = Performance<TClass>.Output(this.Caller, this.MethodInfo, this.InnerStopwatch.Elapsed, this.DateStart, this.CustomData);
+                        this.InnerStopwatch = null;
+                        foreach (var performanceCommand in this.RegisteredCommands)
+                            performanceCommand.Execute(performanceInfo);
+
+                        foreach (var performanceAction in this.RegisteredActions)
+                            performanceAction(PerformanceInfo);
+                    }
+                }
+            }
+            this.disposed = true;
         }
 
         #endregion

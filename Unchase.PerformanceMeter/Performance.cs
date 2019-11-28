@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using Unchase.PerformanceMeter.Attributes;
 
@@ -78,18 +77,16 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         /// <param name="caller">Caller name.</param>
         /// <param name="method">Method with type <see cref="MethodInfo"/>.</param>
-        /// <param name="sw"><see cref="Stopwatch"/> to track the running time of a method.</param>
+        /// <param name="elapsed">Elapsed time from the running of a method.</param>
         /// <param name="dateStart">Method start date.</param>
         /// <param name="customData">Custom data for a specific method call.</param>
-        internal static IPerformanceInfo Output(string caller, MethodInfo method, Stopwatch sw, DateTime dateStart, IDictionary<string, object> customData = null)
+        internal static IPerformanceInfo Output(string caller, MethodInfo method, TimeSpan elapsed, DateTime dateStart, IDictionary<string, object> customData = null)
         {
-            sw.Stop();
             var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
             if (currentActivity != null)
                 currentActivity.CallsCount--;
             if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
-                PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.Elapsed, caller, dateStart, customData));
-            sw.Reset();
+                PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, elapsed, caller, dateStart, customData));
             var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
             if (totalActivity != null)
                 totalActivity.CallsCount++;

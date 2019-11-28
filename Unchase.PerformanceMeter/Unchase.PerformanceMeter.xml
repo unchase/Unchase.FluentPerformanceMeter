@@ -354,13 +354,13 @@
             </summary>
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Performance`1.Output(System.String,System.Reflection.MethodInfo,System.Diagnostics.Stopwatch,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Unchase.PerformanceMeter.Performance`1.Output(System.String,System.Reflection.MethodInfo,System.TimeSpan,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Stop watching method performance.
             </summary>
             <param name="caller">Caller name.</param>
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
-            <param name="sw"><see cref="T:System.Diagnostics.Stopwatch"/> to track the running time of a method.</param>
+            <param name="elapsed">Elapsed time from the running of a method.</param>
             <param name="dateStart">Method start date.</param>
             <param name="customData">Custom data for a specific method call.</param>
         </member>
@@ -574,6 +574,11 @@
             Static constructor for <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
             </summary>
         </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Finalize">
+            <summary>
+            Destructor for <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.
+            </summary>
+        </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.WatchingMethod(System.Reflection.MethodInfo)">
             <summary>
             Create an instance of the class to watching method performance.
@@ -618,8 +623,11 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Dispose">
             <summary>
-            Dispose and stop watching method performance.
+            Implement IDisposable.
             </summary>
+            <remarks>
+            Stop watching method performance.
+            </remarks>
         </member>
     </members>
 </doc>
