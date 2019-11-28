@@ -88,7 +88,7 @@ namespace Unchase.PerformanceMeter
             if (currentActivity != null)
                 currentActivity.CallsCount--;
             if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
-                PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw.ElapsedMilliseconds, caller, dateStart, DateTime.Now, customData));
+                PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, sw, caller, dateStart, DateTime.Now, customData));
             var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
             if (totalActivity != null)
                 totalActivity.CallsCount++;

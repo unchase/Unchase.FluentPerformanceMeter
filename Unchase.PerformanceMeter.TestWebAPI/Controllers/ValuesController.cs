@@ -63,6 +63,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         [HttpGet("TestGetSimple")]
         public ActionResult PublicTestGetSimpleMethod()
         {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
             using (PerformanceMeter<ValuesController>.WatchingMethod().Start())
             {
                 // Place your code with some logic there

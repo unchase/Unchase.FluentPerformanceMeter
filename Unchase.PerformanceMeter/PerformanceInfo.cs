@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -130,7 +131,13 @@ namespace Unchase.PerformanceMeter
         /// Method call duration in milliseconds.
         /// </summary>
         [DataMember]
-        public long DurationMiliseconds { get; set; }
+        public double DurationMiliseconds { get; set; }
+
+        /// <summary>
+        /// Method call duration in ticks.
+        /// </summary>
+        [DataMember]
+        public long Ticks { get; set; }
 
         /// <summary>
         /// Caller name.
@@ -169,17 +176,18 @@ namespace Unchase.PerformanceMeter
         /// Constructor for <see cref="MethodCallInfo{T}"/>.
         /// </summary>
         /// <param name="m"><see cref="Method"/>.</param>
-        /// <param name="duration"><see cref="DurationMiliseconds"/>.</param>
+        /// <param name="sw"><see cref="Stopwatch"/>.</param>
         /// <param name="caller"><see cref="Caller"/>.</param>
         /// <param name="ds"><see cref="StartTime"/>.</param>
         /// <param name="de"><see cref="EndTime"/>.</param>
         /// <param name="customData"><see cref="CustomData"/>.</param>
-        public MethodCallInfo(T m, long duration, string caller, DateTime ds, DateTime de, IDictionary<string, object> customData)
+        public MethodCallInfo(T m, Stopwatch sw, string caller, DateTime ds, DateTime de, IDictionary<string, object> customData)
         {
             Method = m;
             if (m != null)
                 MethodName = m.Name;
-            DurationMiliseconds = duration;
+            DurationMiliseconds = sw.Elapsed.TotalMilliseconds;
+            Ticks = sw.Elapsed.Ticks;
             Caller = caller;
             StartTime = ds;
             EndTime = de;

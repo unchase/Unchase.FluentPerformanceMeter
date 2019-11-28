@@ -438,6 +438,11 @@
             Method call duration in milliseconds.
             </summary>
         </member>
+        <member name="P:Unchase.PerformanceMeter.MethodCallInfo`1.Ticks">
+            <summary>
+            Method call duration in ticks.
+            </summary>
+        </member>
         <member name="P:Unchase.PerformanceMeter.MethodCallInfo`1.Caller">
             <summary>
             Caller name.
@@ -463,12 +468,12 @@
             Default constructor for <see cref="T:Unchase.PerformanceMeter.MethodCallInfo`1"/>.
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.MethodCallInfo`1.#ctor(`0,System.Int64,System.String,System.DateTime,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Unchase.PerformanceMeter.MethodCallInfo`1.#ctor(`0,System.Diagnostics.Stopwatch,System.String,System.DateTime,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Constructor for <see cref="T:Unchase.PerformanceMeter.MethodCallInfo`1"/>.
             </summary>
             <param name="m"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.Method"/>.</param>
-            <param name="duration"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.DurationMiliseconds"/>.</param>
+            <param name="sw"><see cref="T:System.Diagnostics.Stopwatch"/>.</param>
             <param name="caller"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.Caller"/>.</param>
             <param name="ds"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.StartTime"/>.</param>
             <param name="de"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.EndTime"/>.</param>
