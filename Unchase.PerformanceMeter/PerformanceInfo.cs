@@ -173,9 +173,8 @@ namespace Unchase.PerformanceMeter
         /// <param name="sw"><see cref="Stopwatch"/>.</param>
         /// <param name="caller"><see cref="Caller"/>.</param>
         /// <param name="ds"><see cref="StartTime"/>.</param>
-        /// <param name="de"><see cref="EndTime"/>.</param>
         /// <param name="customData"><see cref="CustomData"/>.</param>
-        public MethodCallInfo(T m, Stopwatch sw, string caller, DateTime ds, DateTime de, IDictionary<string, object> customData)
+        public MethodCallInfo(T m, Stopwatch sw, string caller, DateTime ds, IDictionary<string, object> customData)
         {
             Method = m;
             if (m != null)
@@ -183,7 +182,7 @@ namespace Unchase.PerformanceMeter
             Elapsed = sw.Elapsed;
             Caller = caller;
             StartTime = ds;
-            EndTime = de;
+            EndTime = ds + sw.Elapsed;
             CustomData = customData;
         }
 

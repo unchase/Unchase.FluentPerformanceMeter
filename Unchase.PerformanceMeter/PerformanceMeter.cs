@@ -142,7 +142,7 @@ namespace Unchase.PerformanceMeter
 
         #region Methods
 
-        #region Watching
+        #region WatchingMethod
 
         /// <summary>
         /// Create an instance of the class to watching method performance.

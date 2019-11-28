@@ -473,7 +473,7 @@
             Default constructor for <see cref="T:Unchase.PerformanceMeter.MethodCallInfo`1"/>.
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.MethodCallInfo`1.#ctor(`0,System.Diagnostics.Stopwatch,System.String,System.DateTime,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Unchase.PerformanceMeter.MethodCallInfo`1.#ctor(`0,System.Diagnostics.Stopwatch,System.String,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Constructor for <see cref="T:Unchase.PerformanceMeter.MethodCallInfo`1"/>.
             </summary>
@@ -481,7 +481,6 @@
             <param name="sw"><see cref="T:System.Diagnostics.Stopwatch"/>.</param>
             <param name="caller"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.Caller"/>.</param>
             <param name="ds"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.StartTime"/>.</param>
-            <param name="de"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.EndTime"/>.</param>
             <param name="customData"><see cref="P:Unchase.PerformanceMeter.MethodCallInfo`1.CustomData"/>.</param>
         </member>
         <member name="T:Unchase.PerformanceMeter.MethodCallsCount`1">
