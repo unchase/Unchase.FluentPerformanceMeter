@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
 using System.Reflection;
 using Unchase.PerformanceMeter.Attributes;
@@ -93,7 +94,7 @@ namespace Unchase.PerformanceMeter.Tests
             methodCallsAfterDispose.Should().NotBeNull();
             methodCallsAfterDispose.Method.Should().BeSameAs(performanceMeter.MethodInfo);
             methodCallsAfterDispose.MethodName.Should().Be(nameof(PublicClass.PublicVoidMethod));
-            methodCallsAfterDispose.DurationMiliseconds.Should().BeGreaterThan(0);
+            methodCallsAfterDispose.Elapsed.Should().BeGreaterThan(new TimeSpan());
             methodCallsAfterDispose.Caller.Should().Be(_httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString());
         }
     }

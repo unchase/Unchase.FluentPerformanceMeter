@@ -174,7 +174,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                 }
             }
 
-            return Ok(PerformanceMeter<ValuesController>.PerformanceInfo.MethodCalls.Where(mc => mc.MethodName.StartsWith("Step")).Sum(mc => mc.DurationMiliseconds));
+            return Ok(PerformanceMeter<ValuesController>.PerformanceInfo.MethodCalls.Where(mc => mc.MethodName.StartsWith("Step")).Sum(mc => mc.Elapsed.TotalMilliseconds));
         }
 
         /// <summary>

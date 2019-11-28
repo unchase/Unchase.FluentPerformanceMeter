@@ -55,9 +55,9 @@ namespace Unchase.PerformanceMeter.Builders
         {
             try
             {
-                this.PerformanceMeter.DateStart = DateTime.Now;
-                this.PerformanceMeter.Sw = Stopwatch.StartNew();
+                this.PerformanceMeter.DateStart = DateTime.UtcNow;
                 Performance<TClass>.Input(this.PerformanceMeter.MethodInfo);
+                this.PerformanceMeter.Sw = Stopwatch.StartNew();
             }
             catch (Exception ex)
             {

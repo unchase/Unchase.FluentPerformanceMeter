@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -21,7 +22,9 @@ namespace Unchase.PerformanceMeter.TestWebAPI.SwaggerExamples
 
             public List<string> MethodNames { get => new List<string>(); set { } }
 
-            IDictionary<string, object> IPerformanceInfo.CustomData { get => new Dictionary<string, object>(); set { } }
+            public long TimerFrequency => Stopwatch.Frequency;
+
+            IDictionary<string, object> IPerformanceInfo.CustomData { get => new Dictionary<string, object>(); }
         }
 
         internal class GetPerformanceInfoResponse200Example : IExamplesProvider

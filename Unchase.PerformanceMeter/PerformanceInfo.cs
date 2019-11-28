@@ -24,7 +24,7 @@ namespace Unchase.PerformanceMeter
         /// <see cref="MethodCallInfo{MethodInfo}"/>.
         /// </remarks>
         [DataMember]
-        public List<MethodCallInfo<MethodInfo>> MethodCalls { get; set; }
+        public List<MethodCallInfo<MethodInfo>> MethodCalls { get; }
 
         /// <summary>
         /// List of total method calls count information.
@@ -33,7 +33,7 @@ namespace Unchase.PerformanceMeter
         /// <see cref="MethodCallsCount{MethodInfo}"/>.
         /// </remarks>
         [DataMember]
-        public List<MethodCallsCount<MethodInfo>> TotalActivity { get; set; }
+        public List<MethodCallsCount<MethodInfo>> TotalActivity { get; }
 
         /// <summary>
         /// List of current method calls count information.
@@ -42,38 +42,37 @@ namespace Unchase.PerformanceMeter
         /// <see cref="MethodCallsCount{MethodInfo}"/>.
         /// </remarks>
         [DataMember]
-        public List<MethodCallsCount<MethodInfo>> CurrentActivity { get; set; }
+        public List<MethodCallsCount<MethodInfo>> CurrentActivity { get; }
 
         /// <summary>
         /// Uptime.
         /// </summary>
         [DataMember]
-        public DateTime UptimeSince { get; set; }
+        public DateTime UptimeSince { get; }
 
         /// <summary>
         /// Class name.
         /// </summary>
         [DataMember]
-        public string ClassName
-        {
-            get
-            {
-                return typeof(TClass).FullName;
-            }
-            set { }
-        }
+        public string ClassName { get; }
 
         /// <summary>
         /// List of method names.
         /// </summary>
         [DataMember]
-        public List<string> MethodNames { get; set; }
+        public List<string> MethodNames { get; }
 
         /// <summary>
         /// Custom data.
         /// </summary>
         [DataMember]
-        public IDictionary<string, object> CustomData { get; set; }
+        public IDictionary<string, object> CustomData { get; }
+
+        /// <summary>
+        /// Frequency of the timer as the number of ticks per second.
+        /// </summary>
+        [DataMember]
+        public long TimerFrequency => Stopwatch.Frequency;
 
         #endregion
 
@@ -84,10 +83,10 @@ namespace Unchase.PerformanceMeter
         /// </summary>
         public PerformanceInfo()
         {
+            UptimeSince = DateTime.UtcNow;
             MethodCalls = new List<MethodCallInfo<MethodInfo>>();
             TotalActivity = new List<MethodCallsCount<MethodInfo>>();
             CurrentActivity = new List<MethodCallsCount<MethodInfo>>();
-            UptimeSince = DateTime.Now;
             var methodInfos = typeof(TClass)
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
                 .Where(mi => !mi.IsSpecialName && mi.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
@@ -98,6 +97,7 @@ namespace Unchase.PerformanceMeter
                 TotalActivity.Add(new MethodCallsCount<MethodInfo>(method));
                 CurrentActivity.Add(new MethodCallsCount<MethodInfo>(method));
             }
+            ClassName = typeof(TClass).FullName;
             CustomData = new Dictionary<string, object>();
         }
 
@@ -128,16 +128,10 @@ namespace Unchase.PerformanceMeter
         public string MethodName { get; set; }
 
         /// <summary>
-        /// Method call duration in milliseconds.
+        /// Method call duration.
         /// </summary>
         [DataMember]
-        public double DurationMiliseconds { get; set; }
-
-        /// <summary>
-        /// Method call duration in ticks.
-        /// </summary>
-        [DataMember]
-        public long Ticks { get; set; }
+        public TimeSpan Elapsed { get; set; }
 
         /// <summary>
         /// Caller name.
@@ -186,8 +180,7 @@ namespace Unchase.PerformanceMeter
             Method = m;
             if (m != null)
                 MethodName = m.Name;
-            DurationMiliseconds = sw.Elapsed.TotalMilliseconds;
-            Ticks = sw.Elapsed.Ticks;
+            Elapsed = sw.Elapsed;
             Caller = caller;
             StartTime = ds;
             EndTime = de;

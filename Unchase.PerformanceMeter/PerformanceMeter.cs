@@ -49,13 +49,13 @@ namespace Unchase.PerformanceMeter
 
         private static ConcurrentDictionary<string, MethodInfo> _cachedMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
 
-        internal ConcurrentDictionary<string, object> CustomData { get; set; } = new ConcurrentDictionary<string, object>();
+        internal ConcurrentDictionary<string, object> CustomData = new ConcurrentDictionary<string, object>();
 
         internal IHttpContextAccessor HttpContextAccessor { get; set; }
 
         internal Stopwatch Sw { get; set; } = new Stopwatch();
 
-        internal DateTime DateStart { get; set; } = DateTime.Now;
+        internal DateTime DateStart { get; set; } = DateTime.UtcNow;
 
         internal string Caller { get; set; } = "unknown";
 
