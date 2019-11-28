@@ -548,6 +548,11 @@
             <see cref="P:Unchase.PerformanceMeter.IPerformanceInfo.MethodCalls"/>.
             </remarks>
         </member>
+        <member name="P:Unchase.PerformanceMeter.PerformanceMeter`1.ExceptionHandler">
+            <summary>
+            Action to handle exceptions that occur.
+            </summary>
+        </member>
         <member name="P:Unchase.PerformanceMeter.PerformanceMeter`1.RegisteredCommands">
             <summary>
             Collection of registered executed commands.
@@ -628,6 +633,63 @@
             <remarks>
             Stop watching method performance.
             </remarks>
+        </member>
+        <member name="T:Unchase.PerformanceMeter.PerformanceMeterExtensions">
+            <summary>
+            Extension methods for the <see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeterExtensions.Execute``2(Unchase.PerformanceMeter.PerformanceMeter{``1},System.Func{``0},``0)">
+            <summary>
+            Execute code before the performance watching is completed.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="func">Executed code with type <see cref="T:System.Func`1"/>.</param>
+            <param name="defaultResult">Default result wich returns if exception will occured.</param>
+            <returns>
+            Returns result.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeterExtensions.ExecuteWithExceptionHandler``3(Unchase.PerformanceMeter.PerformanceMeter{``1},System.Func{``0},``0,System.Action{``2})">
+            <summary>
+            Execute code before the performance watching is completed.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <typeparam name="TException">Custom exception handler action type.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="func">Executed code with type <see cref="T:System.Func`1"/>.</param>
+            <param name="defaultResult">Default result wich returns if exception will occured.</param>
+            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+            <returns>
+            Returns result.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeterExtensions.Execute``1(Unchase.PerformanceMeter.PerformanceMeter{``0},System.Action)">
+            <summary>
+            Execute code before the performance watching is completed.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="action">Executed code with type <see cref="T:System.Action"/>.</param>
+            <returns>
+            Returns result.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.PerformanceMeterExtensions.ExecuteWithExceptionHandler``2(Unchase.PerformanceMeter.PerformanceMeter{``0},System.Action,System.Action{``1})">
+            <summary>
+            Execute code before the performance watching is completed.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <typeparam name="TException">Custom exception handler action type.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="action">Executed code with type <see cref="T:System.Action"/>.</param>
+            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+            <returns>
+            Returns result.
+            </returns>
         </member>
     </members>
 </doc>

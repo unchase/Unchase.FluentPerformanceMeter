@@ -73,6 +73,26 @@
             Test GET method with simple watching.
             </summary>
         </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithFunc(System.Int32)">
+            <summary>
+            Test GET method with simple watching and executing some code (Func).
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithAction(System.Int32)">
+            <summary>
+            Test GET method with simple watching and executing some code (Action).
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsException">
+            <summary>
+            Test GET method with simple watching and executing some code (Action) with trows the exception.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsCustomException">
+            <summary>
+            Test GET method with simple watching and executing some code (Action) with trows the custom exception.
+            </summary>
+        </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetAnotherMethod">
             <summary>
             Test GET method for another class with public method.
@@ -83,28 +103,25 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallFor1to1000000">
             <summary>
-            
+            Call method with for from 0 to 999999.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep1000">
             <summary>
-            
+            Call method with Tread.Sleep(1000).
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep3000">
             <summary>
-            
+            Call method with Tread.Sleep(3000).
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSteps">
             <summary>
-            
+            Call method with steps.
             </summary>
             <returns>
-            
+            Return elapsed total milliseconds for all steps.
             </returns>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetMethod(System.UInt32)">
@@ -127,6 +144,11 @@
             <returns>
             Returns input value.
             </returns>
+        </member>
+        <member name="T:Unchase.PerformanceMeter.TestWebAPI.CustomException">
+            <summary>
+            Custom exception.
+            </summary>
         </member>
         <member name="T:Unchase.PerformanceMeter.TestWebAPI.Program">
             <summary>

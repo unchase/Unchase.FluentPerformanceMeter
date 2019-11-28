@@ -62,6 +62,9 @@ namespace Unchase.PerformanceMeter
 
         internal string Caller { get; set; } = "unknown";
 
+        /// <summary>
+        /// Action to handle exceptions that occur.
+        /// </summary>
         internal Action<Exception> ExceptionHandler { get; set; }
 
         internal static readonly object PerformanceMeterLock = new object();
@@ -142,7 +145,7 @@ namespace Unchase.PerformanceMeter
         static PerformanceMeter() { }
 
         // Use C# destructor syntax for finalization code.
-        // This destructor will run only if the Dispose method 
+        // This destructor will run only if the Dispose method
         // does not get called.
         // It gives your base class the opportunity to finalize.
         // Do not provide destructors in types derived from this class.
@@ -265,17 +268,17 @@ namespace Unchase.PerformanceMeter
                 Dispose(true);
                 // This object will be cleaned up by the Dispose method.
                 // Therefore, you should call GC.SupressFinalize to
-                // take this object off the finalization queue 
+                // take this object off the finalization queue
                 // and prevent finalization code for this object
                 // from executing a second time.
                 GC.SuppressFinalize(this);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 if (this.ExceptionHandler != null)
                     this.ExceptionHandler(ex);
                 else
-                    throw ex;
+                    throw;
             }
         }
 
@@ -283,8 +286,8 @@ namespace Unchase.PerformanceMeter
         // If disposing equals true, the method has been called directly
         // or indirectly by a user code. Managed and unmanaged resources
         // can be disposed.
-        // If disposing equals false, the method has been called by the 
-        // runtime from inside the finalizer and you should not reference 
+        // If disposing equals false, the method has been called by the
+        // runtime from inside the finalizer and you should not reference
         // other objects. Only unmanaged resources can be disposed.
         private void Dispose(bool disposing)
         {
@@ -311,6 +314,137 @@ namespace Unchase.PerformanceMeter
         }
 
         #endregion
+
+        #endregion
+    }
+
+
+    /// <summary>
+    /// Extension methods for the <see cref="PerformanceMeter{TClass}"/>
+    /// </summary>
+    public static class PerformanceMeterExtensions
+    {
+        #region Extension methods
+
+        /// <summary>
+        /// Execute code before the performance watching is completed.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="func">Executed code with type <see cref="Func{TResult}"/>.</param>
+        /// <param name="defaultResult">Default result wich returns if exception will occured.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        public static TResult Execute<TResult, TClass>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, TResult defaultResult = default) where TClass : class
+        {
+            try
+            {
+                return func();
+            }
+            catch (Exception ex)
+            {
+                if (performanceMeter.ExceptionHandler != null)
+                    performanceMeter.ExceptionHandler(ex);
+                else
+                    throw;
+            }
+            return defaultResult;
+        }
+
+        /// <summary>
+        /// Execute code before the performance watching is completed.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <typeparam name="TException">Custom exception handler action type.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="func">Executed code with type <see cref="Func{TResult}"/>.</param>
+        /// <param name="defaultResult">Default result wich returns if exception will occured.</param>
+        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        public static TResult ExecuteWithExceptionHandler<TResult, TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, TResult defaultResult = default, Action<TException> exceptionHandler = null) where TClass : class where TException : Exception
+        {
+            try
+            {
+                return func();
+            }
+            catch (TException ex)
+            {
+                if (exceptionHandler != null)
+                    exceptionHandler(ex);
+                else
+                    throw;
+            }
+            catch (Exception ex)
+            {
+                if (performanceMeter.ExceptionHandler != null)
+                    performanceMeter.ExceptionHandler(ex);
+                else
+                    throw;
+            }
+            return defaultResult;
+        }
+
+        /// <summary>
+        /// Execute code before the performance watching is completed.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="action">Executed code with type <see cref="Action"/>.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        public static void Execute<TClass>(this PerformanceMeter<TClass> performanceMeter, Action action) where TClass : class
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                if (performanceMeter.ExceptionHandler != null)
+                    performanceMeter.ExceptionHandler(ex);
+                else
+                    throw;
+            }
+        }
+
+        /// <summary>
+        /// Execute code before the performance watching is completed.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <typeparam name="TException">Custom exception handler action type.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="action">Executed code with type <see cref="Action"/>.</param>
+        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        public static void ExecuteWithExceptionHandler<TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Action action, Action<TException> exceptionHandler = null) where TClass : class where TException : Exception
+        {
+            try
+            {
+                action();
+            }
+            catch (TException ex)
+            {
+                if (exceptionHandler != null)
+                    exceptionHandler(ex);
+                else
+                    throw;
+            }
+            catch (Exception ex)
+            {
+                if (performanceMeter.ExceptionHandler != null)
+                    performanceMeter.ExceptionHandler(ex);
+                else
+                    throw;
+            }
+        }
 
         #endregion
     }

@@ -32,6 +32,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             PerformanceMeter<ValuesController>.SetMethodCallsCacheTime(5);
             PerformanceMeter<ValuesController>.AddCustomData("Tag", "CustomTag");
             PerformanceMeter<ValuesController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
+            PerformanceMeter<ValuesController>.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
         }
 
         /// <summary>
@@ -73,6 +74,82 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
+        /// Test GET method with simple watching and executing some code (Func).
+        /// </summary>
+        [HttpGet("TestGetSimpleWithFunc")]
+        public ActionResult<string> PublicTestGetSimpleMethodWithFunc(int value)
+        {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
+            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
+            {
+                // Place your code with some logic there
+
+                return pm.Execute(() =>
+                {
+                    Debug.WriteLine($"{value}");
+                    Console.WriteLine($"{value}");
+                    Thread.Sleep(2000);
+                    return Ok($"{value}");
+                }, new ObjectResult("Exception occured"));
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with simple watching and executing some code (Action).
+        /// </summary>
+        [HttpGet("TestGetSimpleWithAction")]
+        public ActionResult<string> PublicTestGetSimpleMethodWithAction(int value)
+        {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
+            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
+            {
+                // Place your code with some logic there
+
+                pm.Execute(() =>
+                {
+                    Debug.WriteLine($"{value}");
+                    Console.WriteLine($"{value}");
+                    Thread.Sleep(1000);
+                });
+                return Ok($"{value}");
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with simple watching and executing some code (Action) with trows the exception.
+        /// </summary>
+        [HttpGet("TestGetSimpleWithActionThrowsException")]
+        public ActionResult PublicTestGetSimpleMethodWithActionThrowsException()
+        {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
+            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
+            {
+                // Place your code with some logic there
+
+                pm.Execute(() => throw new Exception("Action exception!!!"));
+                return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with simple watching and executing some code (Action) with trows the custom exception.
+        /// </summary>
+        [HttpGet("TestGetSimpleWithActionThrowsCustomException")]
+        public ActionResult PublicTestGetSimpleMethodWithActionThrowsCustomException()
+        {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
+            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
+            {
+                // Place your code with some logic there
+
+                pm.ExecuteWithExceptionHandler<ValuesController, CustomException>(
+                    () => throw new CustomException("Action exception!!!"),
+                    (_) => Debug.WriteLine("AAAAAAAAA!!!!!!!"));
+                return Ok();
+            }
+        }
+
+        /// <summary>
         /// Test GET method for another class with public method.
         /// </summary>
         /// <returns>
@@ -88,9 +165,8 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Call method with for from 0 to 999999.
         /// </summary>
-        /// <returns></returns>
         [HttpGet("CallFor1to1000000")]
         public ActionResult CallFor1to1000000()
         {
@@ -102,9 +178,8 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Call method with Tread.Sleep(1000).
         /// </summary>
-        /// <returns></returns>
         [HttpGet("CallThreadSleep1000")]
         public ActionResult CallThreadSleep1000()
         {
@@ -113,9 +188,8 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Call method with Tread.Sleep(3000).
         /// </summary>
-        /// <returns></returns>
         [HttpGet("CallThreadSleep3000")]
         public ActionResult CallThreadSleep3000()
         {
@@ -124,10 +198,10 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Call method with steps.
         /// </summary>
         /// <returns>
-        /// 
+        /// Return elapsed total milliseconds for all steps.
         /// </returns>
         [HttpGet("TestGetSteps")]
         public ActionResult<long> PublicTestGetSteps()
@@ -212,7 +286,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                     .CustomData(nameof(testClass), testClass)
                 .WithExecutingOnComplete
                     .Command(new CustomDataCommand())
-                    .Action((pi) => 
+                    .Action((pi) =>
                     {
                         Debug.WriteLine($"Class name: {pi.ClassName}");
                     })
