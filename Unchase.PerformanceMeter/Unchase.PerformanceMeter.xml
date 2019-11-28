@@ -91,6 +91,15 @@
             Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
             </returns>
         </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1.AddActions(System.Action{Unchase.PerformanceMeter.IPerformanceInfo}[])">
+            <summary>
+            Register actions which will be executed after the performance watching is completed.
+            </summary>
+            <param name="performanceActions">Collection of the executed actions.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
+            </returns>
+        </member>
         <member name="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilderExtensions">
             <summary>
             Extension methods for the <see cref="T:Unchase.PerformanceMeter.Builders.PerformanceMeterBuilder`1"/>
@@ -114,6 +123,28 @@
             <typeparam name="TClass">Class with methods.</typeparam>
             <param name="executedCommandsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.</param>
             <param name="performanceCommand">Executed command.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Action``1(Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder{``0},System.Action{Unchase.PerformanceMeter.IPerformanceInfo}[])">
+            <summary>
+            Register actions which will be executed after the performance watching is completed.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="executedCommandsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.</param>
+            <param name="performanceActions">Collection of the executed actions.</param>
+            <returns>
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Action``1(Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder{``0},System.Action{Unchase.PerformanceMeter.IPerformanceInfo})">
+            <summary>
+            Register action which will be executed after the performance watching is completed.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="executedCommandsBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.</param>
+            <param name="performanceAction">Executed action.</param>
             <returns>
             Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
             </returns>
@@ -217,7 +248,7 @@
             Extension methods for the <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.HttpContextAccessor``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.CallerFrom``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             Set <see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/> to get the ip address of the caller.
             </summary>
@@ -239,7 +270,7 @@
             Returns <see cref="T:Unchase.PerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.Caller``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},System.String)">
+        <member name="M:Unchase.PerformanceMeter.Builders.SettingsBuilderExtensions.CallerFrom``1(Unchase.PerformanceMeter.Builders.SettingsBuilder{``0},System.String)">
             <summary>
             Set caller name.
             </summary>
@@ -533,6 +564,14 @@
         <member name="P:Unchase.PerformanceMeter.PerformanceMeter`1.RegisteredCommands">
             <summary>
             Collection of registered executed commands.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.PerformanceMeter.IPerformanceCommand"/>.
+            </remarks>
+        </member>
+        <member name="P:Unchase.PerformanceMeter.PerformanceMeter`1.RegisteredActions">
+            <summary>
+            Collection of registered executed actions.
             </summary>
             <remarks>
             <see cref="T:Unchase.PerformanceMeter.IPerformanceCommand"/>.

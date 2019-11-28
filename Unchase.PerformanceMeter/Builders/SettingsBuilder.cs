@@ -82,7 +82,7 @@ namespace Unchase.PerformanceMeter.Builders
         /// <returns>
         /// Returns <see cref="SettingsBuilder{TClass}"/>.
         /// </returns>
-        public static SettingsBuilder<TClass> HttpContextAccessor<TClass>(this SettingsBuilder<TClass> settingsBuilder, IHttpContextAccessor httpContextAccessor) where TClass : class
+        public static SettingsBuilder<TClass> CallerFrom<TClass>(this SettingsBuilder<TClass> settingsBuilder, IHttpContextAccessor httpContextAccessor) where TClass : class
         {
             return settingsBuilder.WithHttpContextAccessor(httpContextAccessor);
         }
@@ -110,7 +110,7 @@ namespace Unchase.PerformanceMeter.Builders
         /// <returns>
         /// Returns <see cref="SettingsBuilder{TClass}"/>.
         /// </returns>
-        public static SettingsBuilder<TClass> Caller<TClass>(this SettingsBuilder<TClass> settingsBuilder, string caller) where TClass : class
+        public static SettingsBuilder<TClass> CallerFrom<TClass>(this SettingsBuilder<TClass> settingsBuilder, string caller) where TClass : class
         {
             return settingsBuilder.WithCaller(caller);
         }

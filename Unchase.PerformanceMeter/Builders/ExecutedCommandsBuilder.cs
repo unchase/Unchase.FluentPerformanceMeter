@@ -1,4 +1,6 @@
-﻿namespace Unchase.PerformanceMeter.Builders
+﻿using System;
+
+namespace Unchase.PerformanceMeter.Builders
 {
     /// <summary>
     /// Class for setting custom data for <see cref="PerformanceMeter{TClass}"/>.
@@ -34,6 +36,23 @@
             {
                 if (!this.PerformanceMeter.RegisteredCommands.Contains(performanceCommand))
                     this.PerformanceMeter.RegisteredCommands.Add(performanceCommand);
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Register actions which will be executed after the performance watching is completed.
+        /// </summary>
+        /// <param name="performanceActions">Collection of the executed actions.</param>
+        /// <returns>
+        /// Returns <see cref="ExecutedCommandsBuilder{TClass}"/>.
+        /// </returns>
+        internal ExecutedCommandsBuilder<TClass> AddActions(params Action<IPerformanceInfo>[] performanceActions)
+        {
+            foreach (var performanceAction in performanceActions)
+            {
+                if (!this.PerformanceMeter.RegisteredActions.Contains(performanceAction))
+                    this.PerformanceMeter.RegisteredActions.Add(performanceAction);
             }
             return this;
         }
@@ -74,6 +93,34 @@
         public static ExecutedCommandsBuilder<TClass> Command<TClass>(this ExecutedCommandsBuilder<TClass> executedCommandsBuilder, IPerformanceCommand performanceCommand) where TClass : class
         {
             return executedCommandsBuilder.AddCommands(performanceCommand);
+        }
+
+        /// <summary>
+        /// Register actions which will be executed after the performance watching is completed.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="executedCommandsBuilder"><see cref="ExecutedCommandsBuilder{TClass}"/>.</param>
+        /// <param name="performanceActions">Collection of the executed actions.</param>
+        /// <returns>
+        /// Returns <see cref="ExecutedCommandsBuilder{TClass}"/>.
+        /// </returns>
+        public static ExecutedCommandsBuilder<TClass> Action<TClass>(this ExecutedCommandsBuilder<TClass> executedCommandsBuilder, params Action<IPerformanceInfo>[] performanceActions) where TClass : class
+        {
+            return executedCommandsBuilder.AddActions(performanceActions);
+        }
+
+        /// <summary>
+        /// Register action which will be executed after the performance watching is completed.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="executedCommandsBuilder"><see cref="ExecutedCommandsBuilder{TClass}"/>.</param>
+        /// <param name="performanceAction">Executed action.</param>
+        /// <returns>
+        /// Returns <see cref="ExecutedCommandsBuilder{TClass}"/>.
+        /// </returns>
+        public static ExecutedCommandsBuilder<TClass> Action<TClass>(this ExecutedCommandsBuilder<TClass> executedCommandsBuilder, Action<IPerformanceInfo> performanceAction) where TClass : class
+        {
+            return executedCommandsBuilder.AddActions(performanceAction);
         }
 
         #endregion

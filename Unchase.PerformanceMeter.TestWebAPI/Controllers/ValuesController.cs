@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Unchase.PerformanceMeter.Attributes;
@@ -204,13 +205,17 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             using (PerformanceMeter<ValuesController>
                 .WatchingMethod(nameof(PublicTestGetMethod))
                 .WithSetting
-                    .HttpContextAccessor(_httpContextAccessor)
+                    .CallerFrom(_httpContextAccessor)
                 .WithCustomData
                     .FromCaller()
                     .FromData(nameof(value), value)
                     .FromData(nameof(testClass), testClass)
                 .WithExecutingOnComplete
                     .Command(new CustomDataCommand())
+                    .Action((pi) => 
+                    {
+                        Debug.WriteLine($"Class name: {pi.ClassName}");
+                    })
                 .Start())
             {
                 return Ok($"value-{value}");
@@ -232,7 +237,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             using (var pm = PerformanceMeter<ValuesController>
                 .WatchingMethod()
                 .WithSetting
-                    .Caller("Test caller")
+                    .CallerFrom("Test caller")
                 .WithExecutingOnComplete
                     .Command(new ExecutedCommand("bla-bla-bla"))
                 .Start())

@@ -101,6 +101,25 @@ namespace Unchase.PerformanceMeter
             }
         }
 
+        private Collection<Action<IPerformanceInfo>> _registeredActions;
+        /// <summary>
+        /// Collection of registered executed actions.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="IPerformanceCommand"/>.
+        /// </remarks>
+        internal Collection<Action<IPerformanceInfo>> RegisteredActions
+        {
+            get
+            {
+                if (this._registeredActions == null)
+                {
+                    this._registeredActions = new Collection<Action<IPerformanceInfo>>();
+                }
+                return this._registeredActions;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -228,6 +247,9 @@ namespace Unchase.PerformanceMeter
 
                     foreach (var performanceCommand in this.RegisteredCommands)
                         performanceCommand.Execute(performanceInfo);
+
+                    foreach (var performanceAction in this.RegisteredActions)
+                        performanceAction(PerformanceInfo);
                 }
             }
             catch (Exception ex) 
