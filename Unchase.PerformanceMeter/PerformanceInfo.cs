@@ -170,19 +170,19 @@ namespace Unchase.PerformanceMeter
         /// Constructor for <see cref="MethodCallInfo{T}"/>.
         /// </summary>
         /// <param name="m"><see cref="Method"/>.</param>
-        /// <param name="sw"><see cref="Stopwatch"/>.</param>
+        /// <param name="elapsed">Elapsed time.</param>
         /// <param name="caller"><see cref="Caller"/>.</param>
         /// <param name="ds"><see cref="StartTime"/>.</param>
         /// <param name="customData"><see cref="CustomData"/>.</param>
-        public MethodCallInfo(T m, Stopwatch sw, string caller, DateTime ds, IDictionary<string, object> customData)
+        public MethodCallInfo(T m, TimeSpan elapsed, string caller, DateTime ds, IDictionary<string, object> customData)
         {
             Method = m;
             if (m != null)
                 MethodName = m.Name;
-            Elapsed = sw.Elapsed;
+            Elapsed = elapsed;
             Caller = caller;
             StartTime = ds;
-            EndTime = ds + sw.Elapsed;
+            EndTime = ds + elapsed;
             CustomData = customData;
         }
 
