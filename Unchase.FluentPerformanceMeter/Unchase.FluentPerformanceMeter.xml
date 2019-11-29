@@ -290,7 +290,7 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.SettingsBuilder`1.AddCallerData(System.String,System.Int32)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.SettingsBuilder`1.AddCallerSourceData(System.String,System.Int32)">
             <summary>
             Add caller data.
             </summary>
@@ -350,7 +350,7 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.SettingsBuilderExtensions.CallerData``1(Unchase.FluentPerformanceMeter.Builders.SettingsBuilder{``0},System.String,System.Int32)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.SettingsBuilderExtensions.CallerSourceData``1(Unchase.FluentPerformanceMeter.Builders.SettingsBuilder{``0},System.String,System.Int32)">
             <summary>
             Add caller data.
             </summary>

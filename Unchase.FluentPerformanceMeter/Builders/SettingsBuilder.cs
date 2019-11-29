@@ -86,7 +86,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <returns>
         /// Returns <see cref="SettingsBuilder{TClass}"/>.
         /// </returns>
-        internal SettingsBuilder<TClass> AddCallerData(string callerSource = "", int callerSourceLineNumber = 0)
+        internal SettingsBuilder<TClass> AddCallerSourceData(string callerSource = "", int callerSourceLineNumber = 0)
         {
             if (!string.IsNullOrWhiteSpace(callerSource))
                 this.AddCustomData(nameof(callerSource), callerSource);
@@ -174,11 +174,11 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <returns>
         /// Returns <see cref="SettingsBuilder{TClass}"/>.
         /// </returns>
-        public static SettingsBuilder<TClass> CallerData<TClass>(this SettingsBuilder<TClass> settingsBuilder,
+        public static SettingsBuilder<TClass> CallerSourceData<TClass>(this SettingsBuilder<TClass> settingsBuilder,
             [CallerFilePath] string callerSource = "",
             [CallerLineNumber] int callerSourceLineNumber = 0) where TClass : class
         {
-            return settingsBuilder.AddCallerData(callerSource, callerSourceLineNumber);
+            return settingsBuilder.AddCallerSourceData(callerSource, callerSourceLineNumber);
         }
 
         #endregion
