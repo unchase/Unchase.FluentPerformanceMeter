@@ -315,227 +315,29 @@ namespace Unchase.PerformanceMeter
 
         #endregion
 
-        #endregion
-    }
-
-
-    /// <summary>
-    /// Extension methods for the <see cref="PerformanceMeter{TClass}"/>
-    /// </summary>
-    public static class PerformanceMeterExtensions
-    {
-        #region Extension methods
-
-        #region Func
+        #region Executing
 
         /// <summary>
-        /// Execute code before the performance watching is completed.
+        /// Allows execute configured Action or Func.
         /// </summary>
-        /// <typeparam name="TResult">Type of result.</typeparam>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="_"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="func">Executed code with type <see cref="Func{TResult}"/>.</param>
+        /// <typeparam name="TException"></typeparam>
         /// <returns>
-        /// Returns result.
+        /// Returns <see cref="CodeExecutorBuilder{TClass, TException}"/>.
         /// </returns>
-        public static TResult Execute<TResult, TClass>(this PerformanceMeter<TClass> _, Func<TResult> func) where TClass : class
+        public CodeExecutorBuilder<TClass, TException> Executing<TException>() where TException : Exception
         {
-            return func();
+            return new CodeExecutorBuilder<TClass, TException>(this);
         }
 
         /// <summary>
-        /// Execute code with stopping performance watching.
+        /// Allows execute configured Action or Func.
         /// </summary>
-        /// <typeparam name="TResult">Type of result.</typeparam>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="func">Executed code with type <see cref="Func{TResult}"/>.</param>
         /// <returns>
-        /// Returns result.
+        /// Returns <see cref="CodeExecutorBuilder{TClass, TException}"/>.
         /// </returns>
-        public static TResult ExecuteWithoutWatching<TResult, TClass>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func) where TClass : class
+        public CodeExecutorBuilder<TClass, Exception> Executing()
         {
-            performanceMeter.InnerStopwatch.Stop();
-            var result = func();
-            performanceMeter.InnerStopwatch.Start();
-            return result;
-        }
-
-        /// <summary>
-        /// Execute code before the performance watching is completed with custom exception handler.
-        /// </summary>
-        /// <typeparam name="TResult">Type of result.</typeparam>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <typeparam name="TException">Custom exception handler action type.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="func">Executed code with type <see cref="Func{TResult}"/>.</param>
-        /// <param name="defaultResult">Default result wich returns if exception will occured.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns result.
-        /// </returns>
-        public static TResult ExecuteWithExceptionHandling<TResult, TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, Action<TException> exceptionHandler, TResult defaultResult = default) where TClass : class where TException : Exception
-        {
-            try
-            {
-                return func();
-            }
-            catch (TException ex)
-            {
-                if (exceptionHandler != null)
-                    exceptionHandler(ex);
-                else
-                    throw;
-            }
-            catch (Exception ex)
-            {
-                if (performanceMeter.ExceptionHandler != null)
-                    performanceMeter.ExceptionHandler(ex);
-                else
-                    throw;
-            }
-            return defaultResult;
-        }
-
-        /// <summary>
-        /// Execute code with stopping performance watching with custom exception handler.
-        /// </summary>
-        /// <typeparam name="TResult">Type of result.</typeparam>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <typeparam name="TException">Custom exception handler action type.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="func">Executed code with type <see cref="Func{TResult}"/>.</param>
-        /// <param name="defaultResult">Default result wich returns if exception will occured.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns result.
-        /// </returns>
-        public static TResult ExecuteWithExceptionHandlingWithoutWatching<TResult, TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, Action<TException> exceptionHandler, TResult defaultResult = default) where TClass : class where TException : Exception
-        {
-            try
-            {
-                performanceMeter.InnerStopwatch.Stop();
-                var result = func();
-                performanceMeter.InnerStopwatch.Start();
-                return result;
-            }
-            catch (TException ex)
-            {
-                if (exceptionHandler != null)
-                    exceptionHandler(ex);
-                else
-                    throw;
-            }
-            catch (Exception ex)
-            {
-                if (performanceMeter.ExceptionHandler != null)
-                    performanceMeter.ExceptionHandler(ex);
-                else
-                    throw;
-            }
-            return defaultResult;
-        }
-
-        #endregion
-
-        #region Action
-
-        /// <summary>
-        /// Execute code before the performance watching is completed.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="_"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="action">Executed code with type <see cref="Action"/>.</param>
-        /// <returns>
-        /// Returns result.
-        /// </returns>
-        public static void Execute<TClass>(this PerformanceMeter<TClass> _, Action action) where TClass : class
-        {
-            action();
-        }
-
-        /// <summary>
-        /// Execute code with stopping performance watching.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="action">Executed code with type <see cref="Action"/>.</param>
-        /// <returns>
-        /// Returns result.
-        /// </returns>
-        public static void ExecuteWithoutWatching<TClass>(this PerformanceMeter<TClass> performanceMeter, Action action) where TClass : class
-        {
-            performanceMeter.InnerStopwatch.Stop();
-            action();
-            performanceMeter.InnerStopwatch.Start();
-        }
-
-        /// <summary>
-        /// Execute code before the performance watching is completed with custom exception handler.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <typeparam name="TException">Custom exception handler action type.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="action">Executed code with type <see cref="Action"/>.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns result.
-        /// </returns>
-        public static void ExecuteWithExceptionHandling<TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Action action, Action<TException> exceptionHandler = null) where TClass : class where TException : Exception
-        {
-            try
-            {
-                action();
-            }
-            catch (TException ex)
-            {
-                if (exceptionHandler != null)
-                    exceptionHandler(ex);
-                else
-                    throw;
-            }
-            catch (Exception ex)
-            {
-                if (performanceMeter.ExceptionHandler != null)
-                    performanceMeter.ExceptionHandler(ex);
-                else
-                    throw;
-            }
-        }
-
-        /// <summary>
-        /// Execute code with custom exception handler and with stopping performance watching.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <typeparam name="TException">Custom exception handler action type.</typeparam>
-        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
-        /// <param name="action">Executed code with type <see cref="Action"/>.</param>
-        /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>
-        /// <returns>
-        /// Returns result.
-        /// </returns>
-        public static void ExecuteWithExceptionHandlingWithoutWatching<TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Action action, Action<TException> exceptionHandler = null) where TClass : class where TException : Exception
-        {
-            try
-            {
-                performanceMeter.InnerStopwatch.Stop();
-                action();
-                performanceMeter.InnerStopwatch.Start();
-            }
-            catch (TException ex)
-            {
-                if (exceptionHandler != null)
-                    exceptionHandler(ex);
-                else
-                    throw;
-            }
-            catch (Exception ex)
-            {
-                if (performanceMeter.ExceptionHandler != null)
-                    performanceMeter.ExceptionHandler(ex);
-                else
-                    throw;
-            }
+            return new CodeExecutorBuilder<TClass, Exception>(this);
         }
 
         #endregion

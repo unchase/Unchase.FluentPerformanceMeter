@@ -22,7 +22,13 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
     [SwaggerTag("Unchase.PerformanceMeter Test WebAPI Controller")]
     public class ValuesController : ControllerBase
     {
+        #region Fields
+
         private readonly IHttpContextAccessor _httpContextAccessor;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Static constructor.
@@ -44,6 +50,12 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        #endregion
+
+        #region Actions
+
+        #region Get Performance information
+
         /// <summary>
         /// Get methods performance info for this controller.
         /// </summary>
@@ -58,8 +70,12 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             return Ok(PerformanceMeter<ValuesController>.PerformanceInfo);
         }
 
+        #endregion
+
+        #region Simple
+
         /// <summary>
-        /// Test GET method with simple watching.
+        /// Test GET method with performance watching.
         /// </summary>
         [HttpGet("TestGetSimple")]
         public ActionResult PublicTestGetSimpleMethod()
@@ -74,7 +90,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Test GET method with simple watching and executing some code (Action) with trows the exception.
+        /// Test GET method with performance watching (with executing some code (Action) throws the exception).
         /// </summary>
         [HttpGet("TestGetSimpleWithActionThrowsException")]
         public ActionResult PublicTestGetSimpleMethodWithActionThrowsException()
@@ -84,30 +100,44 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             {
                 // Place your code with some logic there
 
-                pm.ExecuteWithExceptionHandling<ValuesController, Exception>(() => throw new Exception("Action exception!!!"));
+                pm.Executing()
+                    .WithExceptionHandler((ex) => { Trace.WriteLine(ex.Message); })
+                    .Start(() => { throw new Exception("Action exception!!!"); });
+
                 return Ok();
             }
         }
 
         /// <summary>
-        /// Test GET method with simple watching and executing some code (Action) without watching.
+        /// Test GET method with performance watching (with executing some code (Action) without performance watching).
         /// </summary>
-        [HttpGet("TestGetSimpleWithoutWatchingBlock")]
-        public ActionResult PublicTestGetSimpleWithoutWatchingBlock()
+        [HttpGet("TestGetSimpleWithoutWatching")]
+        public ActionResult PublicTestGetSimpleWithoutWatching()
         {
             //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
             using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
             {
                 // Place your code with some logic there
+
                 Thread.Sleep(1000);
 
-                pm.ExecuteWithoutWatching(() => Thread.Sleep(2000));
+                pm.Executing()
+                    .WithoutWatching()
+                    .Start(() => { Thread.Sleep(2000); });
+
+                pm.Executing<CustomException>()
+                    .Start(() =>
+                    {
+                        Thread.Sleep(2000);
+                        return "1";
+                    });
+
                 return Ok();
             }
         }
 
         /// <summary>
-        /// Test GET method with simple watching and executing some code (Action) with trows the custom exception.
+        /// Test GET method with performance watching (with executing some code (Action) throws the custom exception).
         /// </summary>
         [HttpGet("TestGetSimpleWithActionThrowsCustomException")]
         public ActionResult PublicTestGetSimpleMethodWithActionThrowsCustomException()
@@ -117,15 +147,22 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             {
                 // Place your code with some logic there
 
-                pm.ExecuteWithExceptionHandling<ValuesController, CustomException>(
-                    () => throw new CustomException("Action exception!!!"),
-                    (_) => Debug.WriteLine("AAAAAAAAA!!!!!!!"));
+                pm.Executing<CustomException>()
+                   .WithExceptionHandler((ex) => { Debug.WriteLine("AAAAAAAAA!!!!!!!"); })
+                   .Start(() =>
+                   {
+                       throw new CustomException("Action exception!!!");
+                   });
                 return Ok();
             }
         }
 
+        #endregion
+
+        #region From external dll
+
         /// <summary>
-        /// Test GET method for another class with public method.
+        /// Test GET method for public method <see cref="Thread.Sleep(int)"/> of the <see cref="Thread"/>.
         /// </summary>
         /// <returns>
         /// Returns current method calls count before performance watching complete.
@@ -139,8 +176,14 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             }
         }
 
+        #endregion
+
+        #region With steps
+
+        #region Steps 
+
         /// <summary>
-        /// Call method with for from 0 to 999999.
+        /// Call method with "for from 0 to 999999".
         /// </summary>
         [HttpGet("CallFor1to1000000")]
         public ActionResult CallFor1to1000000()
@@ -153,7 +196,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Call method with Tread.Sleep(1000).
+        /// Call method with "Tread.Sleep(1000)".
         /// </summary>
         [HttpGet("CallThreadSleep1000")]
         public ActionResult CallThreadSleep1000()
@@ -163,7 +206,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Call method with Tread.Sleep(3000).
+        /// Call method with "Tread.Sleep(3000)".
         /// </summary>
         [HttpGet("CallThreadSleep3000")]
         public ActionResult CallThreadSleep3000()
@@ -172,8 +215,10 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             return Ok();
         }
 
+        #endregion
+
         /// <summary>
-        /// Call method with steps.
+        /// Call method with few steps.
         /// </summary>
         /// <returns>
         /// Return elapsed total milliseconds for all steps.
@@ -226,11 +271,15 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             return Ok(PerformanceMeter<ValuesController>.PerformanceInfo.MethodCalls.Where(mc => mc.MethodName.StartsWith("Step")).Sum(mc => mc.Elapsed.TotalMilliseconds));
         }
 
+        #endregion
+
+        #region With HttpContextAccessor, custom data and executed commands
+
         /// <summary>
         /// Test GET method with using HttpContextAccessor and adding custom data.
         /// </summary>
         /// <remarks>
-        /// With executed command.
+        /// With executed command after performance watching.
         /// </remarks>
         /// <param name="value">Some value.</param>
         /// <returns>
@@ -261,15 +310,20 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                     .CustomData(nameof(testClass), testClass)
                 .WithExecutingOnComplete
                     .Command(new CustomDataCommand())
+                    .Command(new ExecutedCommand("bla-bla-bla"))
                     .Action((pi) =>
                     {
                         Debug.WriteLine($"Class name: {pi.ClassName}");
                     })
                 .Start())
             {
-                return Ok($"value-{value}");
+                return Ok($"{value}");
             }
         }
+
+        #endregion
+
+        #region With caller
 
         /// <summary>
         /// Test POST method with caller name and executed command.
@@ -287,8 +341,6 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                 .WatchingMethod()
                 .WithSetting
                     .CallerFrom("Test caller")
-                .WithExecutingOnComplete
-                    .Command(new ExecutedCommand("bla-bla-bla"))
                 .Start())
             {
                 pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
@@ -297,5 +349,9 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
                 return Ok(value);
             }
         }
+
+        #endregion
+
+        #endregion
     }
 }
