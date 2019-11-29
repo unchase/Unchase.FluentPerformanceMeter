@@ -177,7 +177,7 @@ namespace Unchase.PerformanceMeter
         {
             if (!_cachedMethodInfos.Contains(new KeyValuePair<string, MethodInfo>(method.Name, method)))
                 _cachedMethodInfos.TryAdd(method.Name, method);
-
+                        
             return new PerformanceMeterBuilder<TClass>(new PerformanceMeter<TClass>(method));
         }
 
@@ -248,13 +248,12 @@ namespace Unchase.PerformanceMeter
         #region Main
 
         /// <summary>
-        /// Clear all performance information.
+        /// Clear all performance watching information.
         /// </summary>
         /// <returns></returns>
         public static IPerformanceInfo Reset()
         {
             DefaultExceptionHandler = (ex) => { AddCustomData("Last exception", ex); };
-
             return Performance<TClass>.Reset();
         }
 

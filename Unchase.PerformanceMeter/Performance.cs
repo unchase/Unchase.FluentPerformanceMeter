@@ -96,7 +96,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Reset Performace information.
+        /// Clear all performance watching information.
         /// </summary>
         /// <returns>
         /// Returns <see cref="IPerformanceInfo"/>.
