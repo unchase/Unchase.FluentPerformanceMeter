@@ -74,48 +74,6 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Test GET method with simple watching and executing some code (Func).
-        /// </summary>
-        [HttpGet("TestGetSimpleWithFunc")]
-        public ActionResult<string> PublicTestGetSimpleMethodWithFunc(int value)
-        {
-            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
-            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
-            {
-                // Place your code with some logic there
-
-                return pm.Execute(() =>
-                {
-                    Debug.WriteLine($"{value}");
-                    Console.WriteLine($"{value}");
-                    Thread.Sleep(2000);
-                    return Ok($"{value}");
-                }, new ObjectResult("Exception occured"));
-            }
-        }
-
-        /// <summary>
-        /// Test GET method with simple watching and executing some code (Action).
-        /// </summary>
-        [HttpGet("TestGetSimpleWithAction")]
-        public ActionResult<string> PublicTestGetSimpleMethodWithAction(int value)
-        {
-            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
-            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
-            {
-                // Place your code with some logic there
-
-                pm.Execute(() =>
-                {
-                    Debug.WriteLine($"{value}");
-                    Console.WriteLine($"{value}");
-                    Thread.Sleep(1000);
-                });
-                return Ok($"{value}");
-            }
-        }
-
-        /// <summary>
         /// Test GET method with simple watching and executing some code (Action) with trows the exception.
         /// </summary>
         [HttpGet("TestGetSimpleWithActionThrowsException")]
@@ -126,7 +84,24 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             {
                 // Place your code with some logic there
 
-                pm.Execute(() => throw new Exception("Action exception!!!"));
+                pm.ExecuteWithExceptionHandling<ValuesController, Exception>(() => throw new Exception("Action exception!!!"));
+                return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with simple watching and executing some code (Action) with trows the exception.
+        /// </summary>
+        [HttpGet("TestGetSimpleWithNotWatchingBlock")]
+        public ActionResult PublicTestGetSimpleWithNotWatchingBlock()
+        {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
+            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
+            {
+                // Place your code with some logic there
+                Thread.Sleep(1000);
+
+                pm.ExecuteWithoutWatching(() => Thread.Sleep(2000));
                 return Ok();
             }
         }
@@ -142,7 +117,7 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
             {
                 // Place your code with some logic there
 
-                pm.ExecuteWithExceptionHandler<ValuesController, CustomException>(
+                pm.ExecuteWithExceptionHandling<ValuesController, CustomException>(
                     () => throw new CustomException("Action exception!!!"),
                     (_) => Debug.WriteLine("AAAAAAAAA!!!!!!!"));
                 return Ok();

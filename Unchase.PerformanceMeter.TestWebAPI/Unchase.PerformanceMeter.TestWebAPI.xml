@@ -73,17 +73,12 @@
             Test GET method with simple watching.
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithFunc(System.Int32)">
-            <summary>
-            Test GET method with simple watching and executing some code (Func).
-            </summary>
-        </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithAction(System.Int32)">
-            <summary>
-            Test GET method with simple watching and executing some code (Action).
-            </summary>
-        </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsException">
+            <summary>
+            Test GET method with simple watching and executing some code (Action) with trows the exception.
+            </summary>
+        </member>
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithNotWatchingBlock">
             <summary>
             Test GET method with simple watching and executing some code (Action) with trows the exception.
             </summary>

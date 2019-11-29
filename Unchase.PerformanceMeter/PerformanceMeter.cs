@@ -327,7 +327,7 @@ namespace Unchase.PerformanceMeter
         #region Extension methods
 
         /// <summary>
-        /// Execute code before the performance watching is completed.
+        /// Execute code with stopping performance watching.
         /// </summary>
         /// <typeparam name="TResult">Type of result.</typeparam>
         /// <typeparam name="TClass">Class with methods.</typeparam>
@@ -337,11 +337,14 @@ namespace Unchase.PerformanceMeter
         /// <returns>
         /// Returns result.
         /// </returns>
-        public static TResult Execute<TResult, TClass>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, TResult defaultResult = default) where TClass : class
+        public static TResult ExecuteWithoutWatching<TResult, TClass>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, TResult defaultResult = default) where TClass : class
         {
             try
             {
-                return func();
+                performanceMeter.InnerStopwatch.Stop();
+                var result = func();
+                performanceMeter.InnerStopwatch.Start();
+                return result;
             }
             catch (Exception ex)
             {
@@ -366,7 +369,7 @@ namespace Unchase.PerformanceMeter
         /// <returns>
         /// Returns result.
         /// </returns>
-        public static TResult ExecuteWithExceptionHandler<TResult, TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, TResult defaultResult = default, Action<TException> exceptionHandler = null) where TClass : class where TException : Exception
+        public static TResult ExecuteWithExceptionHandling<TResult, TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Func<TResult> func, Action<TException> exceptionHandler, TResult defaultResult = default) where TClass : class where TException : Exception
         {
             try
             {
@@ -390,7 +393,7 @@ namespace Unchase.PerformanceMeter
         }
 
         /// <summary>
-        /// Execute code before the performance watching is completed.
+        /// Execute code with stopping performance watching.
         /// </summary>
         /// <typeparam name="TClass">Class with methods.</typeparam>
         /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
@@ -398,11 +401,13 @@ namespace Unchase.PerformanceMeter
         /// <returns>
         /// Returns result.
         /// </returns>
-        public static void Execute<TClass>(this PerformanceMeter<TClass> performanceMeter, Action action) where TClass : class
+        public static void ExecuteWithoutWatching<TClass>(this PerformanceMeter<TClass> performanceMeter, Action action) where TClass : class
         {
             try
             {
+                performanceMeter.InnerStopwatch.Stop();
                 action();
+                performanceMeter.InnerStopwatch.Start();
             }
             catch (Exception ex)
             {
@@ -424,7 +429,7 @@ namespace Unchase.PerformanceMeter
         /// <returns>
         /// Returns result.
         /// </returns>
-        public static void ExecuteWithExceptionHandler<TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Action action, Action<TException> exceptionHandler = null) where TClass : class where TException : Exception
+        public static void ExecuteWithExceptionHandling<TClass, TException>(this PerformanceMeter<TClass> performanceMeter, Action action, Action<TException> exceptionHandler = null) where TClass : class where TException : Exception
         {
             try
             {
