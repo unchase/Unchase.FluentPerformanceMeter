@@ -17,6 +17,8 @@ namespace Unchase.PerformanceMeter
 
         private static DateTime _lastRemoveDate;
 
+        private static int _defaultMethodCallsCacheTime = 5;
+
         #endregion
 
         #region Properties
@@ -55,7 +57,7 @@ namespace Unchase.PerformanceMeter
         /// <remarks>
         /// <see cref="IPerformanceInfo.MethodCalls"/>.
         /// </remarks>
-        internal static int MethodCallsCacheTime { get; set; } = 5;
+        internal static int MethodCallsCacheTime { get; set; } = _defaultMethodCallsCacheTime;
 
         #endregion
 
@@ -90,6 +92,19 @@ namespace Unchase.PerformanceMeter
             var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
             if (totalActivity != null)
                 totalActivity.CallsCount++;
+            return PerformanceInfo;
+        }
+
+        /// <summary>
+        /// Reset Performace information.
+        /// </summary>
+        /// <returns>
+        /// Returns <see cref="IPerformanceInfo"/>.
+        /// </returns>
+        internal static IPerformanceInfo Reset()
+        {
+            _performanceInfo = null;
+            MethodCallsCacheTime = _defaultMethodCallsCacheTime;
             return PerformanceInfo;
         }
 

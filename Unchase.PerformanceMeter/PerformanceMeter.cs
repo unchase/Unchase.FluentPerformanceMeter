@@ -248,6 +248,15 @@ namespace Unchase.PerformanceMeter
         #region Main
 
         /// <summary>
+        /// Clear all performance information.
+        /// </summary>
+        /// <returns></returns>
+        public static IPerformanceInfo Reset()
+        {
+            return Performance<TClass>.Reset();
+        }
+
+        /// <summary>
         /// Stop watching method performance.
         /// </summary>
         public void StopWatching()
