@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Unchase</Authors>
+    <Copyright>Copyrigth © Unchase 2019</Copyright>
+    <PackageProjectUrl>https://github.com/unchase/Unchase.PerformanceMeter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/unchase/Unchase.PerformanceMeter</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <PackageTags>Performance</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Unchase.FluentPerformanceMeter.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>

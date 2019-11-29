@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unchase.FluentPerformanceMeter.TestWebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand">
+            <summary>
+            Custom executed command which work with method calls custom data.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.CommandName">
+            <summary>
+            Executed commad name.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.Execute(Unchase.FluentPerformanceMeter.IPerformanceInfo)">
+            <summary>
+            Execute command.
+            </summary>
+            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.IPerformanceInfo"/>.</param>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand">
+            <summary>
+            Custom executed command.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.CommandName">
+            <summary>
+            Executed commad name.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <remarks>
+            You can pass any data through the command constructor.
+            </remarks>
+            <param name="customString"></param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.Execute(Unchase.FluentPerformanceMeter.IPerformanceInfo)">
+            <summary>
+            Execute command.
+            </summary>
+            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.IPerformanceInfo"/>.</param>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController">
+            <summary>
+            Unchase.PerformanceMeter Test WebAPI Controller.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.#cctor">
+            <summary>
+            Static constructor.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="httpContextAccessor"><see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.GetPerformanceInfo">
+            <summary>
+            Get methods performance info for this controller.
+            </summary>
+            <returns>Returns methods performance info.</returns>
+            <response code="200">Returns methods performance info.</response>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethod">
+            <summary>
+            Test GET method with performance watching.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsException">
+            <summary>
+            Test GET method with performance watching (with executing some code (Action) throws the exception).
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithoutWatching">
+            <summary>
+            Test GET method with performance watching (with executing some code (Action) without performance watching).
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsCustomException">
+            <summary>
+            Test GET method with performance watching (with executing some code (Action) throws the custom exception).
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetAnotherMethod">
+            <summary>
+            Test GET method for public method <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> of the <see cref="T:System.Threading.Thread"/>.
+            </summary>
+            <returns>
+            Returns current method calls count before performance watching complete.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.CallFor1to1000000">
+            <summary>
+            Call method with "for from 0 to 999999".
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep1000">
+            <summary>
+            Call method with "Tread.Sleep(1000)".
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep3000">
+            <summary>
+            Call method with "Tread.Sleep(3000)".
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSteps">
+            <summary>
+            Call method with few steps.
+            </summary>
+            <returns>
+            Return elapsed total milliseconds for all steps.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetMethod(System.UInt32)">
+            <summary>
+            Test GET method with using HttpContextAccessor and adding custom data.
+            </summary>
+            <remarks>
+            With executed command after performance watching.
+            </remarks>
+            <param name="value">Some value.</param>
+            <returns>
+            Returns input value.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicPostMethod(System.String)">
+            <summary>
+            Test POST method with caller name and executed command.
+            </summary>
+            <param name="value">Some value from body.</param>
+            <returns>
+            Returns input value.
+            </returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.CustomException">
+            <summary>
+            Custom exception.
+            </summary>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Program">
+            <summary>
+            Startup program.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Program.Main(System.String[])">
+            <summary>
+            Main method.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            Create WebHost.
+            </summary>
+            <param name="args">Arguments.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Hosting.IWebHostBuilder"/>.</returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Startup">
+            <summary>
+            Startup.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="configuration"><see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.</param>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.TestWebAPI.Startup.Configuration">
+            <summary>
+            Configuration.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime.
+            Use this method to add services to the container.
+            </summary>
+            <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime.
+            Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <param name="env"><see cref="T:Microsoft.AspNetCore.Hosting.IHostingEnvironment"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.SwaggerExamples.ResponseExamples.GetPerformanceInfoResponse200Example.Swashbuckle#AspNetCore#Filters#IExamplesProvider#GetExamples">
+            <summary>
+            Get examples.
+            </summary>
+        </member>
+    </members>
+</doc>
