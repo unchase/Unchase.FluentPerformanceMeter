@@ -78,9 +78,9 @@
             Test GET method with simple watching and executing some code (Action) with trows the exception.
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithNotWatchingBlock">
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithoutWatchingBlock">
             <summary>
-            Test GET method with simple watching and executing some code (Action) with trows the exception.
+            Test GET method with simple watching and executing some code (Action) without watching.
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsCustomException">

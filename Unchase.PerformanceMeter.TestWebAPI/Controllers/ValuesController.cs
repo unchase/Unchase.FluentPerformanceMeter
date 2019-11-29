@@ -90,10 +90,10 @@ namespace Unchase.PerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Test GET method with simple watching and executing some code (Action) with trows the exception.
+        /// Test GET method with simple watching and executing some code (Action) without watching.
         /// </summary>
-        [HttpGet("TestGetSimpleWithNotWatchingBlock")]
-        public ActionResult PublicTestGetSimpleWithNotWatchingBlock()
+        [HttpGet("TestGetSimpleWithoutWatchingBlock")]
+        public ActionResult PublicTestGetSimpleWithoutWatchingBlock()
         {
             //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
             using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
