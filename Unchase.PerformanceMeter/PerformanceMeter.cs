@@ -253,6 +253,8 @@ namespace Unchase.PerformanceMeter
         /// <returns></returns>
         public static IPerformanceInfo Reset()
         {
+            DefaultExceptionHandler = (ex) => { AddCustomData("Last exception", ex); };
+
             return Performance<TClass>.Reset();
         }
 
