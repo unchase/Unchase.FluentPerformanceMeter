@@ -70,27 +70,27 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethod">
             <summary>
-            Test GET method with simple watching.
+            Test GET method with performance watching.
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsException">
             <summary>
-            Test GET method with simple watching and executing some code (Action) with trows the exception.
+            Test GET method with performance watching (with executing some code (Action) throws the exception).
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithoutWatchingBlock">
+        <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithoutWatching">
             <summary>
-            Test GET method with simple watching and executing some code (Action) without watching.
+            Test GET method with performance watching (with executing some code (Action) without performance watching).
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsCustomException">
             <summary>
-            Test GET method with simple watching and executing some code (Action) with trows the custom exception.
+            Test GET method with performance watching (with executing some code (Action) throws the custom exception).
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetAnotherMethod">
             <summary>
-            Test GET method for another class with public method.
+            Test GET method for public method <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> of the <see cref="T:System.Threading.Thread"/>.
             </summary>
             <returns>
             Returns current method calls count before performance watching complete.
@@ -98,22 +98,22 @@
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallFor1to1000000">
             <summary>
-            Call method with for from 0 to 999999.
+            Call method with "for from 0 to 999999".
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep1000">
             <summary>
-            Call method with Tread.Sleep(1000).
+            Call method with "Tread.Sleep(1000)".
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep3000">
             <summary>
-            Call method with Tread.Sleep(3000).
+            Call method with "Tread.Sleep(3000)".
             </summary>
         </member>
         <member name="M:Unchase.PerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSteps">
             <summary>
-            Call method with steps.
+            Call method with few steps.
             </summary>
             <returns>
             Return elapsed total milliseconds for all steps.
@@ -124,7 +124,7 @@
             Test GET method with using HttpContextAccessor and adding custom data.
             </summary>
             <remarks>
-            With executed command.
+            With executed command after performance watching.
             </remarks>
             <param name="value">Some value.</param>
             <returns>

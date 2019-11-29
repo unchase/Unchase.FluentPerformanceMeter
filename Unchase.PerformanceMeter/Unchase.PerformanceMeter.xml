@@ -88,42 +88,42 @@
             Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
             </returns>
         </member>
-        <member name="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2">
+        <member name="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2">
             <summary>
             Class for configure and execute the code.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
             <typeparam name="TException">Type of exception of the exception handler.</typeparam>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2.#ctor">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2.#ctor">
             <summary>
-            Default constructor for <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Default constructor for <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2.#ctor(Unchase.PerformanceMeter.PerformanceMeter{`0})">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2.#ctor(Unchase.PerformanceMeter.PerformanceMeter{`0})">
             <summary>
-            Constructor for <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Constructor for <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </summary>
             <param name="performanceMeter"><see cref="T:Unchase.PerformanceMeter.PerformanceMeter`1"/>.</param>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2.WithoutWatching">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2.WithoutWatching">
             <summary>
             Stop watching when executing the code.
             </summary>
             <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2.WithExceptionHandler(System.Action{`1})">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2.WithExceptionHandler(System.Action{`1})">
             <summary>
             Set exception handler for executed code.
             </summary>
             <param name="exceptionHandler">Exception handler for executed code.</param>
             <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2.Execute``1(System.Func{``0},``0)">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2.Execute``1(System.Func{``0},``0)">
             <summary>
             Execute the Func.
             </summary>
@@ -134,57 +134,57 @@
             Returns result.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2.Execute(System.Action)">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2.Execute(System.Action)">
             <summary>
             Execute the Action.
             </summary>
             <param name="action">Executed Action.</param>
         </member>
-        <member name="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilderExtensions">
+        <member name="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilderExtensions">
             <summary>
-            Extension methods for <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Extension methods for <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </summary>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilderExtensions.WithoutWatching``2(Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder{``0,``1})">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilderExtensions.WithoutWatching``2(Unchase.PerformanceMeter.Builders.CodeExecutorBuilder{``0,``1})">
             <summary>
             Stop watching when executing the code.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
             <typeparam name="TException">Type of exception of the exception handler.</typeparam>
-            <param name="executingCodeBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.</param>
+            <param name="codeExecutorBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilderExtensions.WithExceptionHandler``2(Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder{``0,``1},System.Action{``1})">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilderExtensions.WithExceptionHandler``2(Unchase.PerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Action{``1})">
             <summary>
             Set exception handler for executed code.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
             <typeparam name="TException">Type of exception of the exception handler.</typeparam>
-            <param name="executingCodeBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.</param>
+            <param name="codeExecutorBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <param name="exceptionHandler">Exception handler for executed code.</param>
             <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilderExtensions.Start``2(Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder{``0,``1},System.Action)">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilderExtensions.Start``2(Unchase.PerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Action)">
             <summary>
             Execute the Action.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
             <typeparam name="TException">Type of exception of the exception handler.</typeparam>
-            <param name="executingCodeBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.</param>
+            <param name="codeExecutorBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <param name="action">Executed Action.</param>
         </member>
-        <member name="M:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilderExtensions.Start``3(Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder{``0,``1},System.Func{``2},``2)">
+        <member name="M:Unchase.PerformanceMeter.Builders.CodeExecutorBuilderExtensions.Start``3(Unchase.PerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Func{``2},``2)">
             <summary>
             Execute the Func.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
             <typeparam name="TException">Type of exception of the exception handler.</typeparam>
             <typeparam name="TResult">Type of result.</typeparam>
-            <param name="executingCodeBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.</param>
+            <param name="codeExecutorBuilder"><see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <param name="func">Executed Func.</param>
             <param name="defaultResult">Default result if exception will occured.</param>
             <returns>
@@ -743,7 +743,7 @@
             </summary>
             <typeparam name="TException"></typeparam>
             <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
         <member name="M:Unchase.PerformanceMeter.PerformanceMeter`1.Executing">
@@ -751,7 +751,7 @@
             Allows execute configured Action or Func.
             </summary>
             <returns>
-            Returns <see cref="T:Unchase.PerformanceMeter.Builders.ExecutingCodeBuilder`2"/>.
+            Returns <see cref="T:Unchase.PerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
     </members>
