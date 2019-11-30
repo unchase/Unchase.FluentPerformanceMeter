@@ -133,7 +133,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
                     this.PerformanceMeter.InnerStopwatch.Stop();
                 try
                 {
-                    result = await task;
+                    result = await task.ConfigureAwait(false);
                 }
                 catch (TException ex)
                 {
@@ -156,7 +156,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
             {
                 if (this._stopWatching)
                     this.PerformanceMeter.InnerStopwatch.Stop();
-                var result = await task;
+                var result = await task.ConfigureAwait(false);
                 this.PerformanceMeter.InnerStopwatch.Start();
                 return result;
             }
@@ -213,7 +213,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
                     this.PerformanceMeter.InnerStopwatch.Stop();
                 try
                 {
-                    await task;
+                    await task.ConfigureAwait(false);
                 }
                 catch (TException ex)
                 {
@@ -235,7 +235,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
             {
                 if (this._stopWatching)
                     this.PerformanceMeter.InnerStopwatch.Stop();
-                await task;
+                await task.ConfigureAwait(false);
                 this.PerformanceMeter.InnerStopwatch.Start();
             }
         }
