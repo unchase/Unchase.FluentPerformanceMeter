@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Unchase.FluentPerformanceMeter.Builders
 {
@@ -76,7 +77,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <returns>
         /// Returns result.
         /// </returns>
-        internal TResult Execute<TResult>(Func<TResult> func, TResult defaultResult = default) 
+        internal TResult Execute<TResult>(Func<TResult> func, TResult defaultResult = default)
         {
             if (this._useExceptionHandler)
             {
@@ -109,6 +110,53 @@ namespace Unchase.FluentPerformanceMeter.Builders
                 if (this._stopWatching)
                     this.PerformanceMeter.InnerStopwatch.Stop();
                 var result = func();
+                this.PerformanceMeter.InnerStopwatch.Start();
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Execute the Task.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <param name="task">Executed Task.</param>
+        /// <param name="defaultResult">Default result if exception will occured.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        internal async Task<TResult> ExecuteAsync<TResult>(Task<TResult> task, TResult defaultResult = default)
+        {
+            if (this._useExceptionHandler)
+            {
+                TResult result = defaultResult;
+                if (this._stopWatching)
+                    this.PerformanceMeter.InnerStopwatch.Stop();
+                try
+                {
+                    result = await task;
+                }
+                catch (TException ex)
+                {
+                    if (this._exceptionHandler != null)
+                        this._exceptionHandler(ex);
+                    else
+                        throw;
+                }
+                catch (Exception ex)
+                {
+                    if (this.PerformanceMeter.ExceptionHandler != null)
+                        this.PerformanceMeter.ExceptionHandler(ex);
+                    else
+                        throw;
+                }
+                this.PerformanceMeter.InnerStopwatch.Start();
+                return result;
+            }
+            else
+            {
+                if (this._stopWatching)
+                    this.PerformanceMeter.InnerStopwatch.Stop();
+                var result = await task;
                 this.PerformanceMeter.InnerStopwatch.Start();
                 return result;
             }
@@ -149,6 +197,45 @@ namespace Unchase.FluentPerformanceMeter.Builders
                 if (this._stopWatching)
                     this.PerformanceMeter.InnerStopwatch.Stop();
                 action();
+                this.PerformanceMeter.InnerStopwatch.Start();
+            }
+        }
+
+        /// <summary>
+        /// Execute the Task.
+        /// </summary>
+        /// <param name="task">Executed Task.</param>
+        internal async Task ExecuteAsync(Task task)
+        {
+            if (this._useExceptionHandler)
+            {
+                if (this._stopWatching)
+                    this.PerformanceMeter.InnerStopwatch.Stop();
+                try
+                {
+                    await task;
+                }
+                catch (TException ex)
+                {
+                    if (this._exceptionHandler != null)
+                        this._exceptionHandler(ex);
+                    else
+                        throw;
+                }
+                catch (Exception ex)
+                {
+                    if (this.PerformanceMeter.ExceptionHandler != null)
+                        this.PerformanceMeter.ExceptionHandler(ex);
+                    else
+                        throw;
+                }
+                this.PerformanceMeter.InnerStopwatch.Start();
+            }
+            else
+            {
+                if (this._stopWatching)
+                    this.PerformanceMeter.InnerStopwatch.Stop();
+                await task;
                 this.PerformanceMeter.InnerStopwatch.Start();
             }
         }
@@ -205,6 +292,18 @@ namespace Unchase.FluentPerformanceMeter.Builders
         }
 
         /// <summary>
+        /// Execute the Task.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <typeparam name="TException">Type of exception of the exception handler.</typeparam>
+        /// <param name="codeExecutorBuilder"><see cref="CodeExecutorBuilder{TClass, TException}"/>.</param>
+        /// <param name="task">Executed Task.</param>
+        public static async Task StartAsync<TClass, TException>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, Task task) where TClass : class where TException : Exception
+        {
+            await codeExecutorBuilder.ExecuteAsync(task);
+        }
+
+        /// <summary>
         /// Execute the Func.
         /// </summary>
         /// <typeparam name="TClass">Class with methods.</typeparam>
@@ -218,7 +317,24 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// </returns>
         public static TResult Start<TClass, TException, TResult>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, Func<TResult> func, TResult defaultResult = default) where TClass : class where TException : Exception
         {
-            return codeExecutorBuilder.Execute(func);
+            return codeExecutorBuilder.Execute(func, defaultResult);
+        }
+
+        /// <summary>
+        /// Execute the Task.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <typeparam name="TException">Type of exception of the exception handler.</typeparam>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <param name="codeExecutorBuilder"><see cref="CodeExecutorBuilder{TClass, TException}"/>.</param>
+        /// <param name="task">Executed Task.</param>
+        /// <param name="defaultResult">Default result if exception will occured.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        public static async Task<TResult> StartAsync<TClass, TException, TResult>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, Task<TResult> task, TResult defaultResult = default) where TClass : class where TException : Exception
+        {
+            return await codeExecutorBuilder.ExecuteAsync(task, defaultResult);
         }
 
         #endregion

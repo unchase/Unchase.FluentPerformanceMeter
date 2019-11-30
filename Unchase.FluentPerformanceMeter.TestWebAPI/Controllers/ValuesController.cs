@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Unchase.FluentPerformanceMeter.Attributes;
 using Unchase.FluentPerformanceMeter.Builders;
 using Unchase.FluentPerformanceMeter.TestWebAPI.Commands;
@@ -102,7 +103,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
 
                 pm.Executing()
                     .WithExceptionHandler((ex) => { Trace.WriteLine(ex.Message); })
-                    .Start(() => { throw new Exception("Action exception!!!"); });
+                    .Start(() => throw new Exception("Action exception!!!"));
 
                 return Ok();
             }
@@ -125,12 +126,33 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     .WithoutWatching()
                     .Start(() => { Thread.Sleep(2000); });
 
-                pm.Executing<CustomException>()
+                pm.Executing()
                     .Start(() =>
                     {
                         Thread.Sleep(2000);
                         return "1";
                     });
+
+                return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with performance watching (with executing some code (Task) without performance watching).
+        /// </summary>
+        [HttpGet("TestGetSimpleWithoutWatchingTaskAsync")]
+        public async Task<ActionResult> PublicTestGetSimpleWithoutWatchingTaskAsync()
+        {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
+            using (var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start())
+            {
+                // Place your code with some logic there
+
+                Thread.Sleep(1000);
+
+                await pm.Executing()
+                    .WithoutWatching()
+                    .StartAsync(Task.Run(() => Thread.Sleep(2000)));
 
                 return Ok();
             }

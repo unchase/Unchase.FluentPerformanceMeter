@@ -83,6 +83,11 @@
             Test GET method with performance watching (with executing some code (Action) without performance watching).
             </summary>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithoutWatchingTaskAsync">
+            <summary>
+            Test GET method with performance watching (with executing some code (Task) without performance watching).
+            </summary>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsCustomException">
             <summary>
             Test GET method with performance watching (with executing some code (Action) throws the custom exception).
