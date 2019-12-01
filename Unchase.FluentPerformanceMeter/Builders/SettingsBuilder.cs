@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Runtime.CompilerServices;
+using Unchase.FluentPerformanceMeter.Attributes;
 
 namespace Unchase.FluentPerformanceMeter.Builders
 {
@@ -19,6 +20,17 @@ namespace Unchase.FluentPerformanceMeter.Builders
         public SettingsBuilder(PerformanceMeter<TClass> performanceMeter)
         {
             this.PerformanceMeter = performanceMeter;
+            foreach (var performanceCustomDataAttribute in performanceMeter.MethodInfo.GetCustomAttributes(typeof(MethodCustomDataAttribute), false))
+            {
+                if (performanceCustomDataAttribute is MethodCustomDataAttribute customDataAttribute)
+                    AddCustomData(customDataAttribute.Key, customDataAttribute.Value);
+            }
+
+            foreach (var methodCallerAttribute in performanceMeter.MethodInfo.GetCustomAttributes(typeof(MethodCallerAttribute), false))
+            {
+                if (methodCallerAttribute is MethodCallerAttribute caller)
+                    WithCaller(caller.Caller);
+            }
         }
 
         #endregion

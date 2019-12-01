@@ -177,7 +177,7 @@ namespace Unchase.FluentPerformanceMeter
         {
             if (!_cachedMethodInfos.Contains(new KeyValuePair<string, MethodInfo>(method.Name, method)))
                 _cachedMethodInfos.TryAdd(method.Name, method);
-                        
+
             return new PerformanceMeterBuilder<TClass>(new PerformanceMeter<TClass>(method));
         }
 

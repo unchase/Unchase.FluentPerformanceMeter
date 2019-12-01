@@ -251,14 +251,14 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             var correlationId = Guid.NewGuid();
             using (PerformanceMeter<ValuesController>
                 .WatchingMethod()
-                .WithSetting
+                .WithSettingData
                     .CustomData("corellationId", correlationId)
                     .CallerSourceData()
                 .Start())
             {
                 using (PerformanceMeter<ValuesController>
                 .WatchingMethod(nameof(CallFor1to1000000))
-                .WithSetting
+                .WithSettingData
                     .CustomData("corellationId", correlationId)
                     .CustomData("step", 1)
                     .CallerSourceData()
@@ -269,7 +269,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
 
                 using (PerformanceMeter<ValuesController>
                     .WatchingMethod(nameof(CallThreadSleep1000))
-                    .WithSetting
+                    .WithSettingData
                         .CustomData("corellationId", correlationId)
                         .CustomData("step", 2)
                         .CallerSourceData()
@@ -280,7 +280,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
 
                 using (PerformanceMeter<ValuesController>
                     .WatchingMethod(nameof(CallThreadSleep3000))
-                    .WithSetting
+                    .WithSettingData
                         .CustomData("corellationId", correlationId)
                         .CustomData("step", 3)
                         .CallerSourceData()
@@ -325,7 +325,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             // custom "CustomDataCommand" will be executed after performance watching is completed (work with method calls custom data)
             using (PerformanceMeter<ValuesController>
                 .WatchingMethod(nameof(PublicTestGetMethod))
-                .WithSetting
+                .WithSettingData
                     .CallerFrom(_httpContextAccessor)
                     .CallerSourceData()
                     .CustomData(nameof(value), value)
@@ -355,13 +355,15 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// Returns input value.
         /// </returns>
         [HttpPost("TestPost")]
+        [MethodCustomData("customData123", 123)]
+        //[MethodCaller("testCaller")]
         public ActionResult<string> PublicPostMethod([FromBody] string value)
         {
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
             // custom "ExecuteCommand" will be executed after performance watching is completed (for example, you can write data to the database or log the result or perform any other operation)
             using (var pm = PerformanceMeter<ValuesController>
                 .WatchingMethod()
-                .WithSetting
+                .WithSettingData
                     .CallerFrom("Test caller")
                 .Start())
             {

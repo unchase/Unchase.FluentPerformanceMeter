@@ -21,7 +21,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <summary>
         /// Allows to configure method performance watching settings.
         /// </summary>
-        public SettingsBuilder<TClass> WithSetting => new SettingsBuilder<TClass>(this.PerformanceMeter);
+        public SettingsBuilder<TClass> WithSettingData => new SettingsBuilder<TClass>(this.PerformanceMeter);
 
         #endregion
 
