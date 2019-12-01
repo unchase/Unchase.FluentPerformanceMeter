@@ -119,43 +119,49 @@ namespace Unchase.FluentPerformanceMeter
         /// <remarks>
         /// <see cref="MethodInfo"/>.
         /// </remarks>
-        public T Method { get; set; }
+        public T Method { get; }
 
         /// <summary>
         /// Method name.
         /// </summary>
         [DataMember]
-        public string MethodName { get; set; }
+        public string MethodName { get; }
 
         /// <summary>
         /// Method call duration.
         /// </summary>
         [DataMember]
-        public TimeSpan Elapsed { get; set; }
+        public TimeSpan Elapsed { get; }
 
         /// <summary>
         /// Caller name.
         /// </summary>
         [DataMember]
-        public string Caller { get; set; }
+        public string Caller { get; }
 
         /// <summary>
         /// Method call start date.
         /// </summary>
         [DataMember]
-        public DateTime StartTime { get; set; }
+        public DateTime StartTime { get; }
 
         /// <summary>
         /// Method call end date.
         /// </summary>
         [DataMember]
-        public DateTime EndTime { get; set; }
+        public DateTime EndTime { get; }
 
         /// <summary>
         /// Custom data for a specific method call.
         /// </summary>
         [DataMember]
-        public IDictionary<string, object> CustomData { get; set; }
+        public IDictionary<string, object> CustomData { get; }
+
+        /// <summary>
+        /// Collection of performance meter steps.
+        /// </summary>
+        [DataMember]
+        public IEnumerable<IPerformanceInfoStepData> Steps { get; }
 
         #endregion
 
@@ -174,7 +180,8 @@ namespace Unchase.FluentPerformanceMeter
         /// <param name="caller"><see cref="Caller"/>.</param>
         /// <param name="ds"><see cref="StartTime"/>.</param>
         /// <param name="customData"><see cref="CustomData"/>.</param>
-        public MethodCallInfo(T m, TimeSpan elapsed, string caller, DateTime ds, IDictionary<string, object> customData)
+        /// <param name="steps"><see cref="Steps"/>.</param>
+        public MethodCallInfo(T m, TimeSpan elapsed, string caller, DateTime ds, IDictionary<string, object> customData, IEnumerable<IPerformanceInfoStepData> steps)
         {
             Method = m;
             if (m != null)
@@ -184,6 +191,7 @@ namespace Unchase.FluentPerformanceMeter
             StartTime = ds;
             EndTime = ds + elapsed;
             CustomData = customData;
+            Steps = steps;
         }
 
         #endregion
@@ -204,19 +212,19 @@ namespace Unchase.FluentPerformanceMeter
         /// <remarks>
         /// <see cref="MethodInfo"/>.
         /// </remarks>
-        public T Method { get; set; }
+        public T Method { get; }
 
         /// <summary>
         /// Method name.
         /// </summary>
         [DataMember]
-        public string MethodName { get; set; }
+        public string MethodName { get; }
 
         /// <summary>
         /// Method calls count.
         /// </summary>
         [DataMember]
-        public long CallsCount { get; set; }
+        public long CallsCount { get; internal set; }
 
         #endregion
 

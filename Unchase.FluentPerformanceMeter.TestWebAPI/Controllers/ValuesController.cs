@@ -101,6 +101,16 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             {
                 // Place your code with some logic there
 
+                using (pm.AddStep("Step1"))
+                {
+                    Thread.Sleep(1000);
+                }
+
+                using (pm.AddStep("Step2"))
+                {
+                    pm.Executing().WithoutWatching().Start(() => Thread.Sleep(2000));
+                }
+
                 pm.Executing()
                     .WithExceptionHandler((ex) => { Trace.WriteLine(ex.Message); })
                     .Start(() => throw new Exception("Action exception!!!"));

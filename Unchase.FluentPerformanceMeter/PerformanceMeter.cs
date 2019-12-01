@@ -12,7 +12,7 @@ using Unchase.FluentPerformanceMeter.Builders;
 namespace Unchase.FluentPerformanceMeter
 {
     /// <summary>
-    /// Class for starting and stopping method performance wathing.
+    /// Class for starting and stopping method performance watching.
     /// </summary>
     /// <typeparam name="TClass">Class with methods.</typeparam>
     public sealed class PerformanceMeter<TClass> : IDisposable where TClass : class
@@ -48,7 +48,7 @@ namespace Unchase.FluentPerformanceMeter
         #region Other properties and fields
 
         // Track whether Dispose has been called.
-        private bool disposed;
+        private bool _disposed;
 
         private static ConcurrentDictionary<string, MethodInfo> _cachedMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
 
@@ -61,6 +61,8 @@ namespace Unchase.FluentPerformanceMeter
         internal DateTime DateStart { get; set; } = DateTime.UtcNow;
 
         internal string Caller { get; set; } = "unknown";
+
+        internal List<IPerformanceInfoStepData> Steps { get; set; } = new List<IPerformanceInfoStepData>();
 
         /// <summary>
         /// Action to handle exceptions that occur.
@@ -302,7 +304,7 @@ namespace Unchase.FluentPerformanceMeter
         private void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called.
-            if (!this.disposed)
+            if (!this._disposed)
             {
                 if (disposing)
                 {
@@ -310,7 +312,7 @@ namespace Unchase.FluentPerformanceMeter
                     {
                         this.InnerStopwatch.Stop();
                         this.Caller = this.HttpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? this.Caller;
-                        var performanceInfo = Performance<TClass>.Output(this.Caller, this.MethodInfo, this.InnerStopwatch.Elapsed, this.DateStart, this.CustomData);
+                        var performanceInfo = Performance<TClass>.Output(this.Caller, this.MethodInfo, this.InnerStopwatch.Elapsed, this.DateStart, this.CustomData, this.Steps);
                         this.InnerStopwatch = null;
                         foreach (var performanceCommand in this.RegisteredCommands)
                             performanceCommand.Execute(performanceInfo);
@@ -320,7 +322,7 @@ namespace Unchase.FluentPerformanceMeter
                     }
                 }
             }
-            this.disposed = true;
+            this._disposed = true;
         }
 
         #endregion
@@ -351,6 +353,31 @@ namespace Unchase.FluentPerformanceMeter
         }
 
         #endregion
+
+        #endregion
+    }
+
+
+    /// <summary>
+    /// Extension methods for <see cref="PerformanceMeter{TClass}"/>.
+    /// </summary>
+    public static class PerformanceMeterExtensions
+    {
+        #region Extension methods
+
+        /// <summary>
+        /// Add performance meter step.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="performanceMeter"><see cref="PerformanceMeter{TClass}"/>.</param>
+        /// <param name="stepName">Step name.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
+        /// </returns>
+        public static PerformanceInfoStep<TClass> AddStep<TClass>(this PerformanceMeter<TClass> performanceMeter, string stepName) where TClass : class
+        {
+            return PerformanceInfoStep<TClass>.WatchingStep(performanceMeter, stepName);
+        }
 
         #endregion
     }

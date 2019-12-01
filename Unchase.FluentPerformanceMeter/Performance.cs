@@ -82,13 +82,14 @@ namespace Unchase.FluentPerformanceMeter
         /// <param name="elapsed">Elapsed time from the running of a method.</param>
         /// <param name="dateStart">Method start date.</param>
         /// <param name="customData">Custom data for a specific method call.</param>
-        internal static IPerformanceInfo Output(string caller, MethodInfo method, TimeSpan elapsed, DateTime dateStart, IDictionary<string, object> customData = null)
+        /// <param name="steps">Performance meter steps.</param>
+        internal static IPerformanceInfo Output(string caller, MethodInfo method, TimeSpan elapsed, DateTime dateStart, IDictionary<string, object> customData = null, IEnumerable<IPerformanceInfoStepData> steps = null)
         {
             var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
             if (currentActivity != null)
                 currentActivity.CallsCount--;
             if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
-                PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, elapsed, caller, dateStart, customData));
+                PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, elapsed, caller, dateStart, customData, steps));
             var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
             if (totalActivity != null)
                 totalActivity.CallsCount++;
