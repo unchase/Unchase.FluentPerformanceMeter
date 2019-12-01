@@ -66,6 +66,17 @@
             Returns result.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync``1(System.Threading.Tasks.ValueTask{``0},``0)">
+            <summary>
+            Execute the Task.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <param name="task">Executed Task.</param>
+            <param name="defaultResult">Default result if exception will occured.</param>
+            <returns>
+            Returns result.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.Execute(System.Action)">
             <summary>
             Execute the Action.
@@ -73,6 +84,12 @@
             <param name="action">Executed Action.</param>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync(System.Threading.Tasks.Task)">
+            <summary>
+            Execute the Task.
+            </summary>
+            <param name="task">Executed Task.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync(System.Threading.Tasks.ValueTask)">
             <summary>
             Execute the Task.
             </summary>
@@ -124,6 +141,15 @@
             <param name="codeExecutorBuilder"><see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <param name="task">Executed Task.</param>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``2(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.ValueTask)">
+            <summary>
+            Execute the Task.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <typeparam name="TException">Type of exception of the exception handler.</typeparam>
+            <param name="codeExecutorBuilder"><see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
+            <param name="task">Executed Task.</param>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.Start``3(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Func{``2},``2)">
             <summary>
             Execute the Func.
@@ -139,6 +165,20 @@
             </returns>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``3(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.Task{``2},``2)">
+            <summary>
+            Execute the Task.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <typeparam name="TException">Type of exception of the exception handler.</typeparam>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <param name="codeExecutorBuilder"><see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
+            <param name="task">Executed Task.</param>
+            <param name="defaultResult">Default result if exception will occured.</param>
+            <returns>
+            Returns result.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``3(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.ValueTask{``2},``2)">
             <summary>
             Execute the Task.
             </summary>
