@@ -107,9 +107,15 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     Thread.Sleep(1000);
                 }
 
-                using (pm.AddStep("Step2").WithCustomData("step2 custom data", "data!"))
+                using (var pmStep = pm.AddStep("Step2").WithCustomData("step2 custom data", "data!"))
                 {
+                    using (pm.AddStep("Step3 in Step2"))
+                    {
+                        Thread.Sleep(1000);
+                    }
+
                     pm.Executing().WithoutWatching().Start(() => Thread.Sleep(2000));
+                    pmStep.WithCustomData("step2 another custom data", "data2!");
                 }
 
                 pm.Executing()
