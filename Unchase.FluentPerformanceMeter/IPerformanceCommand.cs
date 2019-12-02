@@ -1,4 +1,6 @@
-﻿namespace Unchase.FluentPerformanceMeter
+﻿using Unchase.FluentPerformanceMeter.Models;
+
+namespace Unchase.FluentPerformanceMeter
 {
     /// <summary>
     /// Command for executing after stop watching method performance.

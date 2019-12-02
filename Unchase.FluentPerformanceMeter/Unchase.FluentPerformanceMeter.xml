@@ -211,7 +211,7 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1.AddActions(System.Action{Unchase.FluentPerformanceMeter.IPerformanceInfo}[])">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1.AddActions(System.Action{Unchase.FluentPerformanceMeter.Models.IPerformanceInfo}[])">
             <summary>
             Register actions which will be executed after the performance watching is completed.
             </summary>
@@ -247,7 +247,7 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Action``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},System.Action{Unchase.FluentPerformanceMeter.IPerformanceInfo}[])">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Action``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},System.Action{Unchase.FluentPerformanceMeter.Models.IPerformanceInfo}[])">
             <summary>
             Register actions which will be executed after the performance watching is completed.
             </summary>
@@ -258,7 +258,7 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Action``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},System.Action{Unchase.FluentPerformanceMeter.IPerformanceInfo})">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Action``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},System.Action{Unchase.FluentPerformanceMeter.Models.IPerformanceInfo})">
             <summary>
             Register action which will be executed after the performance watching is completed.
             </summary>
@@ -450,65 +450,11 @@
             Command Name.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.IPerformanceCommand.Execute(Unchase.FluentPerformanceMeter.IPerformanceInfo)">
+        <member name="M:Unchase.FluentPerformanceMeter.IPerformanceCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
             <summary>
             Execute command.
             </summary>
-            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.IPerformanceInfo"/>.</param>
-        </member>
-        <member name="T:Unchase.FluentPerformanceMeter.IPerformanceInfo">
-            <summary>
-            Method performance information.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.MethodCalls">
-            <summary>
-            List of method calls information.
-            </summary>
-            <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.MethodCallInfo`1"/>.
-            </remarks>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.TotalActivity">
-            <summary>
-            List of total method calls count information.
-            </summary>
-            <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.MethodCallsCount`1"/>.
-            </remarks>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.CurrentActivity">
-            <summary>
-            List of current method calls count information.
-            </summary>
-            <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.MethodCallsCount`1"/>.
-            </remarks>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.UptimeSince">
-            <summary>
-            Uptime.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.TimerFrequency">
-            <summary>
-            Frequency of the timer as the number of ticks per second.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.ClassName">
-            <summary>
-            Class name.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.MethodNames">
-            <summary>
-            List of method names.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.CustomData">
-            <summary>
-            Custom data.
-            </summary>
+            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.IPerformanceInfoStepData">
             <summary>
@@ -530,13 +476,67 @@
             Custom data.
             </summary>
         </member>
-        <member name="T:Unchase.FluentPerformanceMeter.MethodCallInfo`1">
+        <member name="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo">
+            <summary>
+            Method performance information.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.MethodCalls">
+            <summary>
+            List of method calls information.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1"/>.
+            </remarks>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.TotalActivity">
+            <summary>
+            List of total method calls count information.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1"/>.
+            </remarks>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.CurrentActivity">
+            <summary>
+            List of current method calls count information.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1"/>.
+            </remarks>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.UptimeSince">
+            <summary>
+            Uptime.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.TimerFrequency">
+            <summary>
+            Frequency of the timer as the number of ticks per second.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.ClassName">
+            <summary>
+            Class name.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.MethodNames">
+            <summary>
+            List of method names.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.CustomData">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1">
             <summary>
             Method calls information.
             </summary>
             <typeparam name="T">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</typeparam>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.Method">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.Method">
             <summary>
             Method information.
             </summary>
@@ -544,64 +544,64 @@
             <see cref="T:System.Reflection.MethodInfo"/>.
             </remarks>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.MethodName">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.MethodName">
             <summary>
             Method name.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.Elapsed">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.Elapsed">
             <summary>
             Method call duration.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.Caller">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.Caller">
             <summary>
             Caller name.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.StartTime">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.StartTime">
             <summary>
             Method call start date.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.EndTime">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.EndTime">
             <summary>
             Method call end date.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.CustomData">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.CustomData">
             <summary>
             Custom data for a specific method call.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.Steps">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.Steps">
             <summary>
             Collection of performance meter steps.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.MethodCallInfo`1.#ctor">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.#ctor">
             <summary>
-            Default constructor for <see cref="T:Unchase.FluentPerformanceMeter.MethodCallInfo`1"/>.
+            Default constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1"/>.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.MethodCallInfo`1.#ctor(`0,System.TimeSpan,System.String,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{Unchase.FluentPerformanceMeter.IPerformanceInfoStepData})">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.#ctor(`0,System.TimeSpan,System.String,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{Unchase.FluentPerformanceMeter.IPerformanceInfoStepData})">
             <summary>
-            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.MethodCallInfo`1"/>.
+            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1"/>.
             </summary>
-            <param name="m"><see cref="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.Method"/>.</param>
+            <param name="m"><see cref="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.Method"/>.</param>
             <param name="elapsed">Elapsed time.</param>
-            <param name="caller"><see cref="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.Caller"/>.</param>
-            <param name="ds"><see cref="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.StartTime"/>.</param>
-            <param name="customData"><see cref="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.CustomData"/>.</param>
-            <param name="steps"><see cref="P:Unchase.FluentPerformanceMeter.MethodCallInfo`1.Steps"/>.</param>
+            <param name="caller"><see cref="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.Caller"/>.</param>
+            <param name="ds"><see cref="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.StartTime"/>.</param>
+            <param name="customData"><see cref="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.CustomData"/>.</param>
+            <param name="steps"><see cref="P:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.Steps"/>.</param>
         </member>
-        <member name="T:Unchase.FluentPerformanceMeter.MethodCallsCount`1">
+        <member name="T:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1">
             <summary>
             Method calls count information.
             </summary>
             <typeparam name="T">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</typeparam>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallsCount`1.Method">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1.Method">
             <summary>
             Method information.
             </summary>
@@ -609,26 +609,86 @@
             <see cref="T:System.Reflection.MethodInfo"/>.
             </remarks>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallsCount`1.MethodName">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1.MethodName">
             <summary>
             Method name.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.MethodCallsCount`1.CallsCount">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1.CallsCount">
             <summary>
             Method calls count.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.MethodCallsCount`1.#ctor">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1.#ctor">
             <summary>
-            Default constructor for <see cref="T:Unchase.FluentPerformanceMeter.MethodCallsCount`1"/>.
+            Default constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1"/>.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.MethodCallsCount`1.#ctor(`0)">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1.#ctor(`0)">
             <summary>
-            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.MethodCallsCount`1"/>.
+            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1"/>.
             </summary>
-            <param name="m"><see cref="P:Unchase.FluentPerformanceMeter.MethodCallsCount`1.Method"/>.</param>
+            <param name="m"><see cref="P:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1.Method"/>.</param>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1">
+            <summary>
+            Method performance information.
+            </summary>
+            <typeparam name="TClass">Class with public methods.</typeparam>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.MethodCalls">
+            <summary>
+            List of method calls information.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1"/>.
+            </remarks>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.TotalActivity">
+            <summary>
+            List of total method calls count information.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1"/>.
+            </remarks>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.CurrentActivity">
+            <summary>
+            List of current method calls count information.
+            </summary>
+            <remarks>
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallsCount`1"/>.
+            </remarks>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.UptimeSince">
+            <summary>
+            Uptime.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.ClassName">
+            <summary>
+            Class name.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.MethodNames">
+            <summary>
+            List of method names.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.CustomData">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.TimerFrequency">
+            <summary>
+            Frequency of the timer as the number of ticks per second.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1.#ctor">
+            <summary>
+            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1"/>.
+            </summary>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.Performance`1">
             <summary>
@@ -646,7 +706,7 @@
             Time in minutes to clear list of the method calls.
             </summary>
             <remarks>
-            <see cref="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.MethodCalls"/>.
+            <see cref="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.MethodCalls"/>.
             </remarks>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.Performance`1.Input(System.Reflection.MethodInfo)">
@@ -671,68 +731,8 @@
             Clear all performance watching information.
             </summary>
             <returns>
-            Returns <see cref="T:Unchase.FluentPerformanceMeter.IPerformanceInfo"/>.
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.
             </returns>
-        </member>
-        <member name="T:Unchase.FluentPerformanceMeter.PerformanceInfo`1">
-            <summary>
-            Method performance information.
-            </summary>
-            <typeparam name="TClass">Class with public methods.</typeparam>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.MethodCalls">
-            <summary>
-            List of method calls information.
-            </summary>
-            <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.MethodCallInfo`1"/>.
-            </remarks>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.TotalActivity">
-            <summary>
-            List of total method calls count information.
-            </summary>
-            <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.MethodCallsCount`1"/>.
-            </remarks>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.CurrentActivity">
-            <summary>
-            List of current method calls count information.
-            </summary>
-            <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.MethodCallsCount`1"/>.
-            </remarks>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.UptimeSince">
-            <summary>
-            Uptime.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.ClassName">
-            <summary>
-            Class name.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.MethodNames">
-            <summary>
-            List of method names.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.CustomData">
-            <summary>
-            Custom data.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfo`1.TimerFrequency">
-            <summary>
-            Frequency of the timer as the number of ticks per second.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfo`1.#ctor">
-            <summary>
-            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfo`1"/>.
-            </summary>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1">
             <summary>
@@ -858,7 +858,7 @@
             Methods performance information.
             </summary>
             <returns>
-            Return method performance information with type <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfo`1"/>.
+            Return method performance information with type <see cref="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1"/>.
             </returns>
         </member>
         <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeter`1.MethodCallsCacheTime">
@@ -866,7 +866,7 @@
             Time in minutes to clear list of the method calls.
             </summary>
             <remarks>
-            <see cref="P:Unchase.FluentPerformanceMeter.IPerformanceInfo.MethodCalls"/>.
+            <see cref="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.MethodCalls"/>.
             </remarks>
         </member>
         <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeter`1.ExceptionHandler">

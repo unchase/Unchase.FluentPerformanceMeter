@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Swashbuckle.AspNetCore.Filters;
+using Unchase.FluentPerformanceMeter.Models;
 
 namespace Unchase.FluentPerformanceMeter.TestWebAPI.SwaggerExamples
 {

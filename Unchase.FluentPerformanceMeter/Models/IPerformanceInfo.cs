@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Unchase.FluentPerformanceMeter
+namespace Unchase.FluentPerformanceMeter.Models
 {
     /// <summary>
     /// Method performance information.

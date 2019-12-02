@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unchase.FluentPerformanceMeter.Attributes;
 using Unchase.FluentPerformanceMeter.Builders;
+using Unchase.FluentPerformanceMeter.Models;
 using Unchase.FluentPerformanceMeter.TestWebAPI.Commands;
 using Unchase.FluentPerformanceMeter.TestWebAPI.SwaggerExamples;
 

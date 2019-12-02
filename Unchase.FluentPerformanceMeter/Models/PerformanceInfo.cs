@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using Unchase.FluentPerformanceMeter.Attributes;
 
-namespace Unchase.FluentPerformanceMeter
+namespace Unchase.FluentPerformanceMeter.Models
 {
     /// <summary>
     /// Method performance information.

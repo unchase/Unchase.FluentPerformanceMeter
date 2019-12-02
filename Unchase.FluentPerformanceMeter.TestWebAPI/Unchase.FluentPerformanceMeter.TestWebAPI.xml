@@ -14,11 +14,11 @@
             Executed commad name.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.Execute(Unchase.FluentPerformanceMeter.IPerformanceInfo)">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
             <summary>
             Execute command.
             </summary>
-            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.IPerformanceInfo"/>.</param>
+            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand">
             <summary>
@@ -39,11 +39,11 @@
             </remarks>
             <param name="customString"></param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.Execute(Unchase.FluentPerformanceMeter.IPerformanceInfo)">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
             <summary>
             Execute command.
             </summary>
-            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.IPerformanceInfo"/>.</param>
+            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController">
             <summary>

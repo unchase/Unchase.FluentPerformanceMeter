@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Unchase.FluentPerformanceMeter.Models;
 
 namespace Unchase.FluentPerformanceMeter.TestWebAPI.Commands
 {

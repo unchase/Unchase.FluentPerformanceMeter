@@ -1,4 +1,5 @@
 ﻿using System;
+using Unchase.FluentPerformanceMeter.Models;
 
 namespace Unchase.FluentPerformanceMeter.Builders
 {

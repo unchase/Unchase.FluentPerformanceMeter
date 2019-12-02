@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Unchase.FluentPerformanceMeter.Attributes;
+using Unchase.FluentPerformanceMeter.Models;
 
 namespace Unchase.FluentPerformanceMeter
 {

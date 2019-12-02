@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace Unchase.FluentPerformanceMeter
+namespace Unchase.FluentPerformanceMeter.Models
 {
     /// <summary>
     /// Method calls information.

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Unchase.FluentPerformanceMeter.Builders;
+using Unchase.FluentPerformanceMeter.Models;
 
 namespace Unchase.FluentPerformanceMeter
 {
