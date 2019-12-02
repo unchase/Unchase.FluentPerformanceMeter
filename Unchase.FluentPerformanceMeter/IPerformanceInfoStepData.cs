@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Unchase.FluentPerformanceMeter
 {
@@ -16,5 +17,10 @@ namespace Unchase.FluentPerformanceMeter
         /// Performance meter step call duration.
         /// </summary>
         TimeSpan Elapsed { get; }
+
+        /// <summary>
+        /// Custom data.
+        /// </summary>
+        IDictionary<string, object> CustomData { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 
 namespace Unchase.FluentPerformanceMeter
@@ -18,6 +19,8 @@ namespace Unchase.FluentPerformanceMeter
         private PerformanceMeter<TClass> _performanceMeter { get; }
 
         private string _stepName { get; }
+
+        private ConcurrentDictionary<string, object> _customData { get; } = new ConcurrentDictionary<string, object>();
 
         #endregion
 
@@ -72,6 +75,20 @@ namespace Unchase.FluentPerformanceMeter
         }
 
         /// <summary>
+        /// Add custom data to performance meter step information.
+        /// </summary>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
+        /// </returns>
+        internal PerformanceInfoStep<TClass> AddCustomData(string key, object value)
+        {
+            this._customData.TryAdd(key, value);
+            return this;
+        }
+
+        /// <summary>
         /// Implement IDisposable.
         /// </summary>
         /// <remarks>
@@ -105,12 +122,37 @@ namespace Unchase.FluentPerformanceMeter
                     if (this._innerStopwatch?.IsRunning == true)
                     {
                         this._innerStopwatch.Stop();
-                        this._performanceMeter.Steps.Add(PerformanceInfoStepData.Create(this._stepName, this._innerStopwatch.Elapsed));
+                        this._performanceMeter.Steps.Add(PerformanceInfoStepData.Create(this._stepName, this._innerStopwatch.Elapsed, this._customData));
                         this._innerStopwatch = null;
                     }
                 }
             }
             this._disposed = true;
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Extension methods for <see cref="PerformanceInfoStep{TClass}"/>.
+    /// </summary>
+    public static class PerformanceInfoStepExtensions
+    {
+        #region Extension methods
+
+        /// <summary>
+        /// Add custom data to performance meter step information.
+        /// </summary>
+        /// <typeparam name="TClass">Class with methods.</typeparam>
+        /// <param name="performanceInfoStep"><see cref="PerformanceInfoStep{TClass}"/></param>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
+        /// </returns>
+        public static PerformanceInfoStep<TClass> WithCustomData<TClass>(this PerformanceInfoStep<TClass> performanceInfoStep, string key, object value) where TClass : class
+        {
+            return performanceInfoStep.AddCustomData(key, value);
         }
 
         #endregion
