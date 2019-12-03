@@ -107,6 +107,16 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     Thread.Sleep(1000);
                 }
 
+                using (pm.StepIf("SkipedStep", 100))
+                {
+                    Thread.Sleep(10);
+                }
+
+                using(pm.Ignore())
+                {
+                    Thread.Sleep(5000);
+                }
+
                 using (var pmStep = pm.Step("Step2").WithCustomData("step2 custom data", "data!"))
                 {
                     using (pm.Step("Step3 in Step2"))

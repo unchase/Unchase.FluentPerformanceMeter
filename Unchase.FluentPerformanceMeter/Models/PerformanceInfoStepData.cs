@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Unchase.FluentPerformanceMeter
+namespace Unchase.FluentPerformanceMeter.Models
 {
     /// <summary>
     /// Performace meter step information.

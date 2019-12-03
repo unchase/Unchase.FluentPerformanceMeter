@@ -456,26 +456,6 @@
             </summary>
             <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.</param>
         </member>
-        <member name="T:Unchase.FluentPerformanceMeter.IPerformanceInfoStepData">
-            <summary>
-            Performace meter step information.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfoStepData.StepName">
-            <summary>
-            Step name.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfoStepData.Elapsed">
-            <summary>
-            Performance meter step call duration.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceInfoStepData.CustomData">
-            <summary>
-            Custom data.
-            </summary>
-        </member>
         <member name="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo">
             <summary>
             Method performance information.
@@ -526,6 +506,26 @@
             </summary>
         </member>
         <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo.CustomData">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData">
+            <summary>
+            Performace meter step information.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData.StepName">
+            <summary>
+            Step name.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData.Elapsed">
+            <summary>
+            Performance meter step call duration.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData.CustomData">
             <summary>
             Custom data.
             </summary>
@@ -584,7 +584,7 @@
             Default constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1"/>.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.#ctor(`0,System.TimeSpan,System.String,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{Unchase.FluentPerformanceMeter.IPerformanceInfoStepData})">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1.#ctor(`0,System.TimeSpan,System.String,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData})">
             <summary>
             Constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.MethodCallInfo`1"/>.
             </summary>
@@ -690,6 +690,45 @@
             Constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfo`1"/>.
             </summary>
         </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData">
+            <summary>
+            Performace meter step information.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.StepName">
+            <summary>
+            Step name.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.Elapsed">
+            <summary>
+            Performance meter step call duration.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.CustomData">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.#ctor(System.String,System.TimeSpan,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData"/>.
+            </summary>
+            <param name="stepName">Step name.</param>
+            <param name="elapsed">Performance meter step call duration.</param>
+            <param name="customData">Custom data.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.Create(System.String,System.TimeSpan,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Create performance meter step data class instance.
+            </summary>
+            <param name="stepName">Step name.</param>
+            <param name="elapsed">Performance meter step call duration.</param>
+            <param name="customData">Custom data.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData"/>.
+            </returns>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.Performance`1">
             <summary>
             Additional class for performance information.
@@ -715,7 +754,7 @@
             </summary>
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Performance`1.Output(System.String,System.Reflection.MethodInfo,System.TimeSpan,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{Unchase.FluentPerformanceMeter.IPerformanceInfoStepData})">
+        <member name="M:Unchase.FluentPerformanceMeter.Performance`1.Output(System.String,System.Reflection.MethodInfo,System.TimeSpan,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData})">
             <summary>
             Stop watching method performance.
             </summary>
@@ -740,7 +779,7 @@
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.#ctor(Unchase.FluentPerformanceMeter.PerformanceMeter{`0},System.String)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.#ctor(Unchase.FluentPerformanceMeter.PerformanceMeter{`0},System.String,System.Double)">
             <summary>
             Private constructor for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </summary>
@@ -765,12 +804,31 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.WatchingStepIf(Unchase.FluentPerformanceMeter.PerformanceMeter{`0},System.String,System.Double)">
+            <summary>
+            Create an instance of the class to watching method step performance.
+            </summary>
+            <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="stepName">Step name.</param>
+            <param name="minSaveMs">The minimum time to take before this step is saved (e.g. if it’s fast, leave it out).</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.AddCustomData(System.String,System.Object)">
             <summary>
             Add custom data to performance meter step information.
             </summary>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.WithoutWatching">
+            <summary>
+            Silences a performance meter for the duration, use in a using to silence for the duration.
+            </summary>
             <returns>
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
@@ -793,50 +851,21 @@
             Add custom data to performance meter step information.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceInfoStep"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/></param>
+            <param name="performanceInfoStep"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.</param>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
             <returns>
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
         </member>
-        <member name="T:Unchase.FluentPerformanceMeter.PerformanceInfoStepData">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStepExtensions.WithoutWatching``1(Unchase.FluentPerformanceMeter.PerformanceInfoStep{``0})">
             <summary>
-            Performace meter step information.
+            Silences a performance meter for the duration, use in a using to silence for the duration.
             </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfoStepData.StepName">
-            <summary>
-            Step name.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfoStepData.Elapsed">
-            <summary>
-            Performance meter step call duration.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.PerformanceInfoStepData.CustomData">
-            <summary>
-            Custom data.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStepData.#ctor(System.String,System.TimeSpan,System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>
-            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStepData"/>.
-            </summary>
-            <param name="stepName">Step name.</param>
-            <param name="elapsed">Performance meter step call duration.</param>
-            <param name="customData">Custom data.</param>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStepData.Create(System.String,System.TimeSpan,System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>
-            Create performance meter step data class instance.
-            </summary>
-            <param name="stepName">Step name.</param>
-            <param name="elapsed">Performance meter step call duration.</param>
-            <param name="customData">Custom data.</param>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceInfoStep"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.</param>
             <returns>
-            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStepData"/>.
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1">
@@ -983,13 +1012,34 @@
             Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions.AddStep``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0},System.String)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions.Step``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0},System.String)">
             <summary>
             Add performance meter step.
             </summary>
             <typeparam name="TClass">Class with methods.</typeparam>
             <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
             <param name="stepName">Step name.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions.StepIf``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0},System.String,System.Double)">
+            <summary>
+            Add performance meter step, but only saves when over <paramref name="minSaveMs"/>.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="stepName">Step name.</param>
+            <param name="minSaveMs">The minimum time to take before this step is saved (e.g. if it’s fast, leave it out).</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions.Ignore``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0})">
+            <summary>
+            Silences a performance meter for the duration, use in a using to silence for the duration.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
             <returns>
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
