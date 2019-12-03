@@ -258,7 +258,7 @@ namespace Unchase.FluentPerformanceMeter
         /// Returns <see cref="PerformanceMeter{TClass}"/>.
         /// </returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static PerformanceMeter<TClass> GetForMethod([CallerMemberName] string methodName = null)
+        public static PerformanceMeter<TClass> StartWatching([CallerMemberName] string methodName = null)
         {
             return WatchingMethod(methodName).Start();
         }
@@ -270,7 +270,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
         /// </returns>
-        public static PerformanceMeter<TClass> GetForMethod(MethodInfo method)
+        public static PerformanceMeter<TClass> StartWatching(MethodInfo method)
         {
             return WatchingMethod(method).Start();
         }

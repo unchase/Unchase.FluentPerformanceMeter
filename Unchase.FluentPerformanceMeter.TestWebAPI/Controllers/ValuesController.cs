@@ -92,6 +92,21 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
+        /// Test GET method with performance watching.
+        /// </summary>
+        [HttpGet("TestGetSimple2")]
+        public ActionResult PublicTestGetSimpleMethod2()
+        {
+            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
+            using (PerformanceMeter<ValuesController>.StartWatching())
+            {
+                // Place your code with some logic there
+
+                return Ok();
+            }
+        }
+
+        /// <summary>
         /// Test GET method with performance watching (with executing some code (Action) throws the exception).
         /// </summary>
         [HttpGet("TestGetSimpleWithActionThrowsException")]
