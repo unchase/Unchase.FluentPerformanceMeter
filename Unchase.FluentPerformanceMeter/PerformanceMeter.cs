@@ -375,7 +375,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
         /// </returns>
-        public static PerformanceInfoStep<TClass> AddStep<TClass>(this PerformanceMeter<TClass> performanceMeter, string stepName) where TClass : class
+        public static PerformanceInfoStep<TClass> Step<TClass>(this PerformanceMeter<TClass> performanceMeter, string stepName) where TClass : class
         {
             return PerformanceInfoStep<TClass>.WatchingStep(performanceMeter, stepName);
         }

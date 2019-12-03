@@ -102,14 +102,14 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             {
                 // Place your code with some logic there
 
-                using (pm.AddStep("Step1"))
+                using (pm.Step("Step1"))
                 {
                     Thread.Sleep(1000);
                 }
 
-                using (var pmStep = pm.AddStep("Step2").WithCustomData("step2 custom data", "data!"))
+                using (var pmStep = pm.Step("Step2").WithCustomData("step2 custom data", "data!"))
                 {
-                    using (pm.AddStep("Step3 in Step2"))
+                    using (pm.Step("Step3 in Step2"))
                     {
                         Thread.Sleep(1000);
                     }
@@ -119,7 +119,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                 }
 
                 pm.Executing()
-                    .WithExceptionHandler((ex) => { Trace.WriteLine(ex.Message); })
+                    .WithExceptionHandler((ex) => Debug.WriteLine(ex.Message))
                     .Start(() => throw new Exception("Action exception!!!"));
 
                 return Ok();
@@ -141,7 +141,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
 
                 pm.Executing()
                     .WithoutWatching()
-                    .Start(() => { Thread.Sleep(2000); });
+                    .Start(() => Thread.Sleep(2000));
 
                 pm.Executing()
                     .Start(() =>
