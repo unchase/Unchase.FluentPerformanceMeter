@@ -251,9 +251,36 @@ namespace Unchase.FluentPerformanceMeter
         #region Main
 
         /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="methodName">Method name.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static PerformanceMeter<TClass> GetForMethod([CallerMemberName] string methodName = null)
+        {
+            return WatchingMethod(methodName).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="method">Method with type <see cref="System.Reflection.MethodInfo"/>.</param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> GetForMethod(MethodInfo method)
+        {
+            return WatchingMethod(method).Start();
+        }
+
+        /// <summary>
         /// Clear all performance watching information.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Returns <see cref="IPerformanceInfo"/>.
+        /// </returns>
         public static IPerformanceInfo Reset()
         {
             DefaultExceptionHandler = (ex) => { AddCustomData("Last exception", ex); };
