@@ -1035,6 +1035,80 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Inline(System.Action)">
+            <summary>
+            Execute the Action.
+            </summary>
+            <param name="action">Executed Action.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync(System.Threading.Tasks.Task)">
+            <summary>
+            Execute the Task.
+            </summary>
+            <param name="task">Executed Task.</param>
+            <returns>
+            Returns <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Inline``1(System.Func{``0},``0)">
+            <summary>
+            Execute the Func.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <param name="func">Executed Func.</param>
+            <param name="defaultResult">Default result if exception will occured.</param>
+            <returns>
+            Returns result.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync``1(System.Threading.Tasks.Task{``0},``0)">
+            <summary>
+            Execute the Func.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <param name="task">Executed Task.</param>
+            <param name="defaultResult">Default result if exception will occured.</param>
+            <returns>
+            Resturns Task of result.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnored(System.Action)">
+            <summary>
+            Execute the Action.
+            </summary>
+            <param name="action">Executed Action.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync(System.Threading.Tasks.Task)">
+            <summary>
+            Execute the Task.
+            </summary>
+            <param name="task">Executed Task.</param>
+            <returns>
+            Returns <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnored``1(System.Func{``0},``0)">
+            <summary>
+            Execute the Func.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <param name="func">Executed Func.</param>
+            <param name="defaultResult">Default result if exception will occured.</param>
+            <returns>
+            Returns result.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync``1(System.Threading.Tasks.Task{``0},``0)">
+            <summary>
+            Execute the Func.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <param name="task">Executed Task.</param>
+            <param name="defaultResult">Default result if exception will occured.</param>
+            <returns>
+            Resturns Task of result.
+            </returns>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions">
             <summary>
             Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.

@@ -212,6 +212,20 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     .WithoutWatching()
                     .Start(() => Thread.Sleep(2000));
 
+                // execute action with sleeping 500 ms
+                pm.Inline(() => 
+                {
+                    Thread.Sleep(500);
+                    Debug.WriteLine("Sleep 500 ms");
+                });
+
+                // execute action without watching
+                pm.InlineIgnored(() =>
+                {
+                    Thread.Sleep(100);
+                    Debug.WriteLine("Sleep 1000 ms");
+                });
+
                 // execute Func<string> returns string
                 var result = pm.Executing()
                     .Start(() =>

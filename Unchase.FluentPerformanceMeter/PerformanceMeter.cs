@@ -479,6 +479,59 @@ namespace Unchase.FluentPerformanceMeter
 
         #endregion
 
+        #region InlineIgnored
+
+        /// <summary>
+        /// Execute the Action.
+        /// </summary>
+        /// <param name="action">Executed Action.</param>
+        public void InlineIgnored(Action action)
+        {
+            new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().Start(action);
+        }
+
+        /// <summary>
+        /// Execute the Task.
+        /// </summary>
+        /// <param name="task">Executed Task.</param>
+        /// <returns>
+        /// Returns <see cref="Task"/>.
+        /// </returns>
+        public async Task InlineIgnoredAsync(Task task)
+        {
+            await new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().StartAsync(task);
+        }
+
+        /// <summary>
+        /// Execute the Func.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <param name="func">Executed Func.</param>
+        /// <param name="defaultResult">Default result if exception will occured.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        public TResult InlineIgnored<TResult>(Func<TResult> func, TResult defaultResult = default)
+        {
+            return new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().Start(func, defaultResult);
+        }
+
+        /// <summary>
+        /// Execute the Func.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <param name="task">Executed Task.</param>
+        /// <param name="defaultResult">Default result if exception will occured.</param>
+        /// <returns>
+        /// Resturns Task of result.
+        /// </returns>
+        public async Task<TResult> InlineIgnoredAsync<TResult>(Task<TResult> task, TResult defaultResult = default)
+        {
+            return await new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().StartAsync(task, defaultResult);
+        }
+
+        #endregion
+
         #endregion
     }
 
