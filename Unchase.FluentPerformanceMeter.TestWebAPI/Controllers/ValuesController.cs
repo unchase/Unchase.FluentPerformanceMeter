@@ -371,7 +371,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         #region With caller
 
         /// <summary>
-        /// Test POST method with caller name and executed command.
+        /// Test POST method with caller name and custom data (from attribute) and executed command.
         /// </summary>
         /// <param name="value">Some value from body.</param>
         /// <returns>
@@ -379,7 +379,6 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// </returns>
         [HttpPost("StartWatchingWithCallerName")]
         [MethodCustomData("customData123", 123)]
-        //[MethodCaller("testCaller")]
         public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
         {
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
@@ -404,7 +403,6 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// Returns input value.
         /// </returns>
         [HttpPost("StartWatchingWithCallerNameFromAttribute")]
-        [MethodCustomData("customData123", 123)]
         [MethodCaller("testCaller")]
         public ActionResult<string> StartWatchingWithCallerNameFromAttribute([FromBody] string value)
         {

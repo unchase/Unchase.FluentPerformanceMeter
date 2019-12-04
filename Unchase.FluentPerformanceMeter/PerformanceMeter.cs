@@ -285,9 +285,9 @@ namespace Unchase.FluentPerformanceMeter
             text.AppendLine("Method calls:");
             text.AppendLine();
 
-            foreach (var methodCalls in performanceInfo.MethodCalls)
+            foreach (var methodCalls in performanceInfo.MethodCalls.OrderBy(mc => mc.StartTime))
             {
-                text.AppendLine($"\t{methodCalls.MethodName} - and other info");
+                text.AppendLine($"\t{methodCalls.MethodName}:");
             }
 
             return text.ToString();
