@@ -68,63 +68,60 @@
             <returns>Returns methods performance info.</returns>
             <response code="200">Returns methods performance info.</response>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethod">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.GetFakeServicePerformanceInfo">
             <summary>
-            Test GET method with performance watching.
+            Get methods performance info for fake service.
+            </summary>
+            <returns>Returns fake service methods performance info.</returns>
+            <response code="200">Returns fake service methods performance info.</response>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.SimpleWatchingMethodStart">
+            <summary>
+            Test GET method with simple performance watching.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.SimpleStartWatching">
+            <summary>
+            Test GET method with simple performance watching.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.SimpleStartWatchingWithSteps">
+            <summary>
+            Test GET method with simple performance watching (with steps).
             </summary>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsException">
             <summary>
-            Test GET method with performance watching (with executing some code (Action) throws the exception).
+            Test GET method with simple performance watching (with executing some code (Action) throws the exception) with exception handler.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithoutWatching">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.SimpleStartWatchingWithoutWatching">
             <summary>
-            Test GET method with performance watching (with executing some code (Action) without performance watching).
+            Test GET method with simple performance watching (with executing some code (Action and Func{string}) without performance watching).
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleWithoutWatchingTaskAsync">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.SimpleStartWatchingWithActionThrowsCustomException">
             <summary>
-            Test GET method with performance watching (with executing some code (Task) without performance watching).
+            Test GET method with simple performance watching (with executing some code (Action) throws the custom exception).
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSimpleMethodWithActionThrowsCustomException">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.GetThreadSleepPerformance">
             <summary>
-            Test GET method with performance watching (with executing some code (Action) throws the custom exception).
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetAnotherMethod">
-            <summary>
-            Test GET method for public method <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> of the <see cref="T:System.Threading.Thread"/>.
+            Test GET method for public method <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> of the public class <see cref="T:System.Threading.Thread"/>.
             </summary>
             <returns>
             Returns current method calls count before performance watching complete.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.CallFor1to1000000">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.WatchingMethodStartWithCorrelationIdAndFakeServiceSteps">
             <summary>
-            Call method with "for from 0 to 999999".
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep1000">
-            <summary>
-            Call method with "Tread.Sleep(1000)".
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.CallThreadSleep3000">
-            <summary>
-            Call method with "Tread.Sleep(3000)".
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetSteps">
-            <summary>
-            Call method with few steps.
+            Call method with calling fake service methods in steps.
             </summary>
             <returns>
             Return elapsed total milliseconds for all steps.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicTestGetMethod(System.UInt32)">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.WatchingMethodWithExecutedCommands(System.UInt32)">
             <summary>
             Test GET method with using HttpContextAccessor and adding custom data.
             </summary>
@@ -136,9 +133,18 @@
             Returns input value.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.PublicPostMethod(System.String)">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.StartWatchingWithCallerName(System.String)">
             <summary>
             Test POST method with caller name and executed command.
+            </summary>
+            <param name="value">Some value from body.</param>
+            <returns>
+            Returns input value.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.StartWatchingWithCallerNameFromAttribute(System.String)">
+            <summary>
+            Test POST method with caller (from attribute) name and executed command.
             </summary>
             <param name="value">Some value from body.</param>
             <returns>
@@ -149,6 +155,24 @@
             <summary>
             Custom exception.
             </summary>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService">
+            <summary>
+            Fake service class.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService.FakeMethod1">
+            <summary>
+            Fake method 1.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService.FakeMethod2">
+            <summary>
+            Fake method 2.
+            </summary>
+            <returns>
+            Return string.
+            </returns>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Program">
             <summary>

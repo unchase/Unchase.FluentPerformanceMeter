@@ -971,11 +971,31 @@
             </summary>
             <param name="minutes">Time in minutes to clear list of the method calls.</param>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching(System.String)">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="methodName">Method name.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching(System.Reflection.MethodInfo)">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Reset">
             <summary>
             Clear all performance watching information.
             </summary>
-            <returns></returns>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.
+            </returns>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StopWatching">
             <summary>
