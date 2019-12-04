@@ -971,6 +971,14 @@
             </summary>
             <param name="minutes">Time in minutes to clear list of the method calls.</param>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Print">
+            <summary>
+            Print performance information for this class.
+            </summary>
+            <returns>
+            Returns performance information for this class.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching(System.String)">
             <summary>
             Create an instance of the class to watching method performance.

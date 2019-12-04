@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Unchase.FluentPerformanceMeter.Builders;
 using Unchase.FluentPerformanceMeter.Models;
 
@@ -249,6 +250,48 @@ namespace Unchase.FluentPerformanceMeter
         #endregion
 
         #region Main
+
+        /// <summary>
+        /// Print performance information for this class.
+        /// </summary>
+        /// <returns>
+        /// Returns performance information for this class.
+        /// </returns>
+        public static string Print()
+        {
+            var performanceInfo = PerformanceInfo;
+            var text = new StringBuilder();
+            text.AppendLine($"Performance information for class \"{performanceInfo.ClassName}\"");
+            text.AppendLine();
+            text.AppendLine();
+            text.AppendLine("Current activity:");
+            text.AppendLine();
+
+            foreach (var currentActivity in performanceInfo.CurrentActivity)
+            {
+                text.AppendLine($"\t{currentActivity.MethodName} - {currentActivity.CallsCount} calls");
+            }
+
+            text.AppendLine();
+            text.AppendLine("Total activity:");
+            text.AppendLine();
+
+            foreach (var totalActivity in performanceInfo.TotalActivity)
+            {
+                text.AppendLine($"\t{totalActivity.MethodName} - {totalActivity.CallsCount} calls");
+            }
+
+            text.AppendLine();
+            text.AppendLine("Method calls:");
+            text.AppendLine();
+
+            foreach (var methodCalls in performanceInfo.MethodCalls)
+            {
+                text.AppendLine($"\t{methodCalls.MethodName} - and other info");
+            }
+
+            return text.ToString();
+        }
 
         /// <summary>
         /// Create an instance of the class to watching method performance.

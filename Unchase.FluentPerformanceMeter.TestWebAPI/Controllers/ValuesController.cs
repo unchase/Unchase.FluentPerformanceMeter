@@ -187,7 +187,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                 // execute action throws Exception with exception handler
                 pm.Executing()
                     .WithExceptionHandler((ex) => Debug.WriteLine(ex.Message))
-                    .Start(() => throw new Exception("Action exception!!!"));
+                    .Start(() => throw new Exception(PerformanceMeter<ValuesController>.Print()));
 
                 return Ok();
             }
