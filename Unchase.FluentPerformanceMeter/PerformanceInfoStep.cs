@@ -17,6 +17,8 @@ namespace Unchase.FluentPerformanceMeter
 
         private Stopwatch _innerStopwatch { get; set; } = new Stopwatch();
 
+        private DateTime _dateStart { get; } = DateTime.UtcNow;
+
         private PerformanceMeter<TClass> _performanceMeter { get; }
 
         private string _stepName { get; }
@@ -40,6 +42,7 @@ namespace Unchase.FluentPerformanceMeter
             this._stepName = stepName;
             this._minSaveMs = minSaveMs;
             this._innerStopwatch.Start();
+            this._dateStart = DateTime.UtcNow - this._innerStopwatch.Elapsed;
 
         }
 
@@ -169,7 +172,7 @@ namespace Unchase.FluentPerformanceMeter
                     {
                         this._innerStopwatch.Stop();
                         if (this._minSaveMs <= 0 || this._innerStopwatch.Elapsed.TotalMilliseconds >= this._minSaveMs)
-                            this._performanceMeter.Steps.Add(PerformanceInfoStepData.Create(this._stepName, this._innerStopwatch.Elapsed, this._customData));
+                            this._performanceMeter.Steps.Add(PerformanceInfoStepData.Create(this._stepName, this._innerStopwatch.Elapsed, this._dateStart, this._customData));
                         this._innerStopwatch = null;
                         if (this._wasStopped)
                             this._performanceMeter.InnerStopwatch.Start();
@@ -199,7 +202,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
         /// </returns>
-        public static PerformanceInfoStep<TClass> WithCustomData<TClass>(this PerformanceInfoStep<TClass> performanceInfoStep, string key, object value) where TClass : class
+        public static PerformanceInfoStep<TClass> AddCustomData<TClass>(this PerformanceInfoStep<TClass> performanceInfoStep, string key, object value) where TClass : class
         {
             return performanceInfoStep.AddCustomData(key, value);
         }

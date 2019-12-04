@@ -525,6 +525,16 @@
             Performance meter step call duration.
             </summary>
         </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData.StartTime">
+            <summary>
+            Step call start date.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData.EndTime">
+            <summary>
+            Step call end date.
+            </summary>
+        </member>
         <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceInfoStepData.CustomData">
             <summary>
             Custom data.
@@ -705,25 +715,37 @@
             Performance meter step call duration.
             </summary>
         </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.StartTime">
+            <summary>
+            Step call start date.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.EndTime">
+            <summary>
+            Step call end date.
+            </summary>
+        </member>
         <member name="P:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.CustomData">
             <summary>
             Custom data.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.#ctor(System.String,System.TimeSpan,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.#ctor(System.String,System.TimeSpan,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Constructor for <see cref="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData"/>.
             </summary>
             <param name="stepName">Step name.</param>
             <param name="elapsed">Performance meter step call duration.</param>
+            <param name="dateStart">Step call start date.</param>
             <param name="customData">Custom data.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.Create(System.String,System.TimeSpan,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData.Create(System.String,System.TimeSpan,System.DateTime,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Create performance meter step data class instance.
             </summary>
             <param name="stepName">Step name.</param>
             <param name="elapsed">Performance meter step call duration.</param>
+            <param name="dateStart">Step call start date.</param>
             <param name="customData">Custom data.</param>
             <returns>
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Models.PerformanceInfoStepData"/>.
@@ -851,7 +873,7 @@
             Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStepExtensions.WithCustomData``1(Unchase.FluentPerformanceMeter.PerformanceInfoStep{``0},System.String,System.Object)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStepExtensions.AddCustomData``1(Unchase.FluentPerformanceMeter.PerformanceInfoStep{``0},System.String,System.Object)">
             <summary>
             Add custom data to performance meter step information.
             </summary>

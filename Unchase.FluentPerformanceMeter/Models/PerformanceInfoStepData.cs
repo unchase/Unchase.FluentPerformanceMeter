@@ -21,6 +21,16 @@ namespace Unchase.FluentPerformanceMeter.Models
         public TimeSpan Elapsed { get; }
 
         /// <summary>
+        /// Step call start date.
+        /// </summary>
+        public DateTime StartTime { get; }
+
+        /// <summary>
+        /// Step call end date.
+        /// </summary>
+        public DateTime EndTime { get; }
+
+        /// <summary>
         /// Custom data.
         /// </summary>
         public IDictionary<string, object> CustomData { get; }
@@ -34,11 +44,14 @@ namespace Unchase.FluentPerformanceMeter.Models
         /// </summary>
         /// <param name="stepName">Step name.</param>
         /// <param name="elapsed">Performance meter step call duration.</param>
+        /// <param name="dateStart">Step call start date.</param>
         /// <param name="customData">Custom data.</param>
-        private PerformanceInfoStepData(string stepName, TimeSpan elapsed, IDictionary<string, object> customData)
+        private PerformanceInfoStepData(string stepName, TimeSpan elapsed, DateTime dateStart, IDictionary<string, object> customData)
         {
             this.StepName = stepName;
             this.Elapsed = elapsed;
+            this.StartTime = dateStart;
+            this.EndTime = dateStart + elapsed;
             this.CustomData = customData;
         }
 
@@ -51,13 +64,14 @@ namespace Unchase.FluentPerformanceMeter.Models
         /// </summary>
         /// <param name="stepName">Step name.</param>
         /// <param name="elapsed">Performance meter step call duration.</param>
+        /// <param name="dateStart">Step call start date.</param>
         /// <param name="customData">Custom data.</param>
         /// <returns>
         /// Returns <see cref="PerformanceInfoStepData"/>.
         /// </returns>
-        internal static PerformanceInfoStepData Create(string stepName, TimeSpan elapsed, IDictionary<string, object> customData)
+        internal static PerformanceInfoStepData Create(string stepName, TimeSpan elapsed, DateTime dateStart, IDictionary<string, object> customData)
         {
-            return new PerformanceInfoStepData(stepName, elapsed, customData);
+            return new PerformanceInfoStepData(stepName, elapsed, dateStart, customData);
         }
 
         #endregion

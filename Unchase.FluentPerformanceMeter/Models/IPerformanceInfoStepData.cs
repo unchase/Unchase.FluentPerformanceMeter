@@ -19,6 +19,16 @@ namespace Unchase.FluentPerformanceMeter.Models
         TimeSpan Elapsed { get; }
 
         /// <summary>
+        /// Step call start date.
+        /// </summary>
+        DateTime StartTime { get; }
+
+        /// <summary>
+        /// Step call end date.
+        /// </summary>
+        DateTime EndTime { get; }
+
+        /// <summary>
         /// Custom data.
         /// </summary>
         IDictionary<string, object> CustomData { get; }

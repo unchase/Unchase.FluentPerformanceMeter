@@ -156,7 +156,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                 }
 
                 // add "Step 2" with custom data
-                using (var pmStep = pm.Step("Step2 ").WithCustomData("step2 custom data", "data!"))
+                using (var pmStep = pm.Step("Step 2").AddCustomData("step2 custom data", "data!"))
                 {
                     // add "Step 3 in Step 2"
                     using (pm.Step("Step 3 in Step 2"))
@@ -168,7 +168,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     pm.Executing().WithoutWatching().Start(() => Thread.Sleep(2000));
 
                     // add custom data to "Step 2"
-                    pmStep.WithCustomData("step2 another custom data", "data2!");
+                    pmStep.AddCustomData("step2 another custom data", "data2!");
                 }
 
                 return Ok();
