@@ -847,6 +847,16 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.RemoveAndGetCustomData``1(System.String)">
+            <summary>
+            Remove and get custom data from performance meter step information.
+            </summary>
+            <typeparam name="TResult">Type of custom data result.</typeparam>
+            <param name="key">Key.</param>
+            <returns>
+            Returns typed result.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.ClearCustomData">
             <summary>
             Clear custom data to performance meter step information.
@@ -985,6 +995,15 @@
             </summary>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.RemoveCustomData(System.String)">
+            <summary>
+            Remove common custom data of the class.
+            </summary>
+            <param name="key">Key.</param>
+            <returns>
+            Returns typed result.
+            </returns>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.ClearCustomData">
             <summary>

@@ -231,6 +231,24 @@ namespace Unchase.FluentPerformanceMeter
         }
 
         /// <summary>
+        /// Remove common custom data of the class.
+        /// </summary>
+        /// <param name="key">Key.</param>
+        /// <returns>
+        /// Returns typed result.
+        /// </returns>
+        internal static void RemoveCustomData(string key)
+        {
+            lock (PerformanceMeterLock)
+            {
+                if (Performance<TClass>.PerformanceInfo.CustomData.ContainsKey(key))
+                {
+                    Performance<TClass>.PerformanceInfo.CustomData.Remove(key);
+                }
+            }
+        }
+
+        /// <summary>
         /// Clear common custom data of the class.
         /// </summary>
         public static void ClearCustomData()
