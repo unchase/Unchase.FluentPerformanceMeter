@@ -24,10 +24,10 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI
         /// <returns>
         /// Return string.
         /// </returns>
-        public static string FakeMethod2()
+        public static string FakeMethod2(string parameter)
         {
             Thread.Sleep(1000);
-            return "Fake method result";
+            return $"Fake method result with parameter value = {parameter}";
         }
     }
 }

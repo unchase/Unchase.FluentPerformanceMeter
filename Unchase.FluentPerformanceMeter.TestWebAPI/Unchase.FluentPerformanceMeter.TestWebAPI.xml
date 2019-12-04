@@ -166,7 +166,7 @@
             Fake method 1.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService.FakeMethod2">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService.FakeMethod2(System.String)">
             <summary>
             Fake method 2.
             </summary>

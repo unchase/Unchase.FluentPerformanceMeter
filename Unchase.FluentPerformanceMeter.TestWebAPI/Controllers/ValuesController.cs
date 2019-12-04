@@ -296,6 +296,8 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             // generate correlationId (for example)
             var correlationId = Guid.NewGuid();
 
+            var parameterForMethod2 = "parameter";
+
             // start performance watching with correlationId and caller source data
             using (PerformanceMeter<ValuesController>
                 .WatchingMethod()
@@ -304,6 +306,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     .CallerSourceData()
                 .Start())
             {
+                // add step with calling FakeService.FakeMethod2 with custom data (corellationId)
                 using (PerformanceMeter<FakeService>
                 .WatchingMethod(nameof(FakeService.FakeMethod1))
                 .WithSettingData
@@ -315,15 +318,17 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     FakeService.FakeMethod1();
                 }
 
+                // add step with calling FakeService.FakeMethod2 with custom data (corellationId and perameter for FakeMethod2)
                 using (PerformanceMeter<FakeService>
                     .WatchingMethod(nameof(FakeService.FakeMethod2))
                     .WithSettingData
                         .CustomData("corellationId", correlationId)
                         .CustomData("fake service method 2 step", 2)
+                        .CustomData("method parameter", parameterForMethod2)
                         .CallerSourceData()
                     .Start())
                 {
-                    FakeService.FakeMethod2();
+                    FakeService.FakeMethod2(parameterForMethod2);
                 }
             }
 
