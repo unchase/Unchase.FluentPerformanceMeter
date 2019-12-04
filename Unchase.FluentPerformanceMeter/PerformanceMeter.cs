@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using Unchase.FluentPerformanceMeter.Builders;
 using Unchase.FluentPerformanceMeter.Models;
 
@@ -421,6 +422,59 @@ namespace Unchase.FluentPerformanceMeter
         public CodeExecutorBuilder<TClass, Exception> Executing()
         {
             return new CodeExecutorBuilder<TClass, Exception>(this);
+        }
+
+        #endregion
+
+        #region Inline
+
+        /// <summary>
+        /// Execute the Action.
+        /// </summary>
+        /// <param name="action">Executed Action.</param>
+        public void Inline(Action action)
+        {
+            new CodeExecutorBuilder<TClass, Exception>(this).Start(action);
+        }
+
+        /// <summary>
+        /// Execute the Task.
+        /// </summary>
+        /// <param name="task">Executed Task.</param>
+        /// <returns>
+        /// Returns <see cref="Task"/>.
+        /// </returns>
+        public async Task InlineAsync(Task task)
+        {
+            await new CodeExecutorBuilder<TClass, Exception>(this).StartAsync(task);
+        }
+
+        /// <summary>
+        /// Execute the Func.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <param name="func">Executed Func.</param>
+        /// <param name="defaultResult">Default result if exception will occured.</param>
+        /// <returns>
+        /// Returns result.
+        /// </returns>
+        public TResult Inline<TResult>(Func<TResult> func, TResult defaultResult = default)
+        {
+            return new CodeExecutorBuilder<TClass, Exception>(this).Start(func, defaultResult);
+        }
+
+        /// <summary>
+        /// Execute the Func.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <param name="task">Executed Task.</param>
+        /// <param name="defaultResult">Default result if exception will occured.</param>
+        /// <returns>
+        /// Resturns Task of result.
+        /// </returns>
+        public async Task<TResult> InlineAsync<TResult>(Task<TResult> task, TResult defaultResult = default)
+        {
+            return await new CodeExecutorBuilder<TClass, Exception>(this).StartAsync(task, defaultResult);
         }
 
         #endregion

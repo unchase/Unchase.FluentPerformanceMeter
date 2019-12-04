@@ -135,7 +135,7 @@
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.ValuesController.StartWatchingWithCallerName(System.String)">
             <summary>
-            Test POST method with caller name and executed command.
+            Test POST method with caller name and custom data (from attribute) and executed command.
             </summary>
             <param name="value">Some value from body.</param>
             <returns>
