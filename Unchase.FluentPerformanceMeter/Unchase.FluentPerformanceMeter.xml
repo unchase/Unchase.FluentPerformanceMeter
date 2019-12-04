@@ -202,7 +202,7 @@
             </summary>
             <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1.AddCommands(Unchase.FluentPerformanceMeter.IPerformanceCommand[])">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1.AddCommands(Unchase.FluentPerformanceMeter.Models.IPerformanceCommand[])">
             <summary>
             Register commands which will be executed after the performance watching is completed.
             </summary>
@@ -225,7 +225,7 @@
             Extension methods for the <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Commands``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},Unchase.FluentPerformanceMeter.IPerformanceCommand[])">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Commands``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},Unchase.FluentPerformanceMeter.Models.IPerformanceCommand[])">
             <summary>
             Register commands which will be executed after the performance watching is completed.
             </summary>
@@ -236,7 +236,7 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Command``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},Unchase.FluentPerformanceMeter.IPerformanceCommand)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilderExtensions.Command``1(Unchase.FluentPerformanceMeter.Builders.ExecutedCommandsBuilder{``0},Unchase.FluentPerformanceMeter.Models.IPerformanceCommand)">
             <summary>
             Register command which will be executed after the performance watching is completed.
             </summary>
@@ -440,17 +440,81 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>
         </member>
-        <member name="T:Unchase.FluentPerformanceMeter.IPerformanceCommand">
+        <member name="T:Unchase.FluentPerformanceMeter.Extensions.PerformanceInfoStepExtensions">
+            <summary>
+            Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Extensions.PerformanceInfoStepExtensions.AddCustomData``1(Unchase.FluentPerformanceMeter.PerformanceInfoStep{``0},System.String,System.Object)">
+            <summary>
+            Add custom data to performance meter step information.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceInfoStep"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.</param>
+            <param name="key">Key.</param>
+            <param name="value">Value.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Extensions.PerformanceInfoStepExtensions.WithoutWatching``1(Unchase.FluentPerformanceMeter.PerformanceInfoStep{``0})">
+            <summary>
+            Silences a performance meter for the duration, use in a using to silence for the duration.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceInfoStep"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Extensions.PerformanceMeterExtensions">
+            <summary>
+            Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Extensions.PerformanceMeterExtensions.Step``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0},System.String)">
+            <summary>
+            Add performance meter step.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="stepName">Step name.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Extensions.PerformanceMeterExtensions.StepIf``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0},System.String,System.Double)">
+            <summary>
+            Add performance meter step, but only saves when over <paramref name="minSaveMs"/>.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
+            <param name="stepName">Step name.</param>
+            <param name="minSaveMs">The minimum time to take before this step is saved (e.g. if it’s fast, leave it out).</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Extensions.PerformanceMeterExtensions.Ignore``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0})">
+            <summary>
+            Silences a performance meter for the duration, use in a using to silence for the duration.
+            </summary>
+            <typeparam name="TClass">Class with methods.</typeparam>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
+            </returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand">
             <summary>
             Command for executing after stop watching method performance.
             </summary>
         </member>
-        <member name="P:Unchase.FluentPerformanceMeter.IPerformanceCommand.CommandName">
+        <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand.CommandName">
             <summary>
             Command Name.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.IPerformanceCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
+        <member name="M:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
             <summary>
             Execute command.
             </summary>
@@ -847,9 +911,9 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.RemoveAndGetCustomData``1(System.String)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.GetAndRemoveCustomData``1(System.String)">
             <summary>
-            Remove and get custom data from performance meter step information.
+            Get and remove custom data from performance meter step information.
             </summary>
             <typeparam name="TResult">Type of custom data result.</typeparam>
             <param name="key">Key.</param>
@@ -877,33 +941,6 @@
             <remarks>
             Stop watching method step performance.
             </remarks>
-        </member>
-        <member name="T:Unchase.FluentPerformanceMeter.PerformanceInfoStepExtensions">
-            <summary>
-            Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStepExtensions.AddCustomData``1(Unchase.FluentPerformanceMeter.PerformanceInfoStep{``0},System.String,System.Object)">
-            <summary>
-            Add custom data to performance meter step information.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceInfoStep"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.</param>
-            <param name="key">Key.</param>
-            <param name="value">Value.</param>
-            <returns>
-            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStepExtensions.WithoutWatching``1(Unchase.FluentPerformanceMeter.PerformanceInfoStep{``0})">
-            <summary>
-            Silences a performance meter for the duration, use in a using to silence for the duration.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceInfoStep"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.</param>
-            <returns>
-            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
-            </returns>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1">
             <summary>
@@ -945,7 +982,7 @@
             Collection of registered executed commands.
             </summary>
             <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.IPerformanceCommand"/>.
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand"/>.
             </remarks>
         </member>
         <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeter`1.RegisteredActions">
@@ -953,7 +990,7 @@
             Collection of registered executed actions.
             </summary>
             <remarks>
-            <see cref="T:Unchase.FluentPerformanceMeter.IPerformanceCommand"/>.
+            <see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand"/>.
             </remarks>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.#ctor(System.Reflection.MethodInfo)">
@@ -995,6 +1032,16 @@
             </summary>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.GetAndRemoveCustomData``1(System.String)">
+            <summary>
+            Get and remove custom data from performance meter information.
+            </summary>
+            <typeparam name="TResult">Type of custom data result.</typeparam>
+            <param name="key">Key.</param>
+            <returns>
+            Returns typed result.
+            </returns>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.RemoveCustomData(System.String)">
             <summary>
@@ -1158,43 +1205,6 @@
             <param name="defaultResult">Default result if exception will occured.</param>
             <returns>
             Resturns Task of result.
-            </returns>
-        </member>
-        <member name="T:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions">
-            <summary>
-            Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions.Step``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0},System.String)">
-            <summary>
-            Add performance meter step.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
-            <param name="stepName">Step name.</param>
-            <returns>
-            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions.StepIf``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0},System.String,System.Double)">
-            <summary>
-            Add performance meter step, but only saves when over <paramref name="minSaveMs"/>.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <param name="performanceMeter"><see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.</param>
-            <param name="stepName">Step name.</param>
-            <param name="minSaveMs">The minimum time to take before this step is saved (e.g. if it’s fast, leave it out).</param>
-            <returns>
-            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
-            </returns>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterExtensions.Ignore``1(Unchase.FluentPerformanceMeter.PerformanceMeter{``0})">
-            <summary>
-            Silences a performance meter for the duration, use in a using to silence for the duration.
-            </summary>
-            <typeparam name="TClass">Class with methods.</typeparam>
-            <returns>
-            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
         </member>
     </members>

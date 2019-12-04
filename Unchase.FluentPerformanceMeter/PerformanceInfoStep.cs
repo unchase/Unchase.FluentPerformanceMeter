@@ -106,21 +106,21 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
         /// </returns>
-        internal PerformanceInfoStep<TClass> AddCustomData(string key, object value)
+        public PerformanceInfoStep<TClass> AddCustomData(string key, object value)
         {
             this._customData.TryAdd(key, value);
             return this;
         }
 
         /// <summary>
-        /// Remove and get custom data from performance meter step information.
+        /// Get and remove custom data from performance meter step information.
         /// </summary>
         /// <typeparam name="TResult">Type of custom data result.</typeparam>
         /// <param name="key">Key.</param>
         /// <returns>
         /// Returns typed result.
         /// </returns>
-        internal TResult RemoveAndGetCustomData<TResult>(string key)
+        public TResult GetAndRemoveCustomData<TResult>(string key)
         {
             if (this._customData.ContainsKey(key))
             {
@@ -200,44 +200,6 @@ namespace Unchase.FluentPerformanceMeter
                 }
             }
             this._disposed = true;
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Extension methods for <see cref="PerformanceInfoStep{TClass}"/>.
-    /// </summary>
-    public static class PerformanceInfoStepExtensions
-    {
-        #region Extension methods
-
-        /// <summary>
-        /// Add custom data to performance meter step information.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceInfoStep"><see cref="PerformanceInfoStep{TClass}"/>.</param>
-        /// <param name="key">Key.</param>
-        /// <param name="value">Value.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
-        /// </returns>
-        public static PerformanceInfoStep<TClass> AddCustomData<TClass>(this PerformanceInfoStep<TClass> performanceInfoStep, string key, object value) where TClass : class
-        {
-            return performanceInfoStep.AddCustomData(key, value);
-        }
-
-        /// <summary>
-        /// Silences a performance meter for the duration, use in a using to silence for the duration.
-        /// </summary>
-        /// <typeparam name="TClass">Class with methods.</typeparam>
-        /// <param name="performanceInfoStep"><see cref="PerformanceInfoStep{TClass}"/>.</param>
-        /// <returns>
-        /// Returns <see cref="PerformanceInfoStep{TClass}"/>.
-        /// </returns>
-        public static PerformanceInfoStep<TClass> WithoutWatching<TClass>(this PerformanceInfoStep<TClass> performanceInfoStep) where TClass : class
-        {
-            return performanceInfoStep.WithoutWatching();
         }
 
         #endregion

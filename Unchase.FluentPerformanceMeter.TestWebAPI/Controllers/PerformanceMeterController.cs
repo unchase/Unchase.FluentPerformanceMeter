@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using Unchase.FluentPerformanceMeter.Attributes;
 using Unchase.FluentPerformanceMeter.Builders;
+using Unchase.FluentPerformanceMeter.Extensions;
 using Unchase.FluentPerformanceMeter.Models;
 using Unchase.FluentPerformanceMeter.TestWebAPI.Commands;
 using Unchase.FluentPerformanceMeter.TestWebAPI.SwaggerExamples;
@@ -21,7 +22,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
     [Route("api/v1/[controller]")]
     [Produces("application/json")]
     [SwaggerTag("Unchase.PerformanceMeter Test WebAPI Controller")]
-    public class ValuesController : ControllerBase
+    public class PerformanceMeterController : ControllerBase
     {
         #region Fields
 
@@ -34,26 +35,26 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// <summary>
         /// Static constructor.
         /// </summary>
-        static ValuesController()
+        static PerformanceMeterController()
         {
             // set cache time
-            PerformanceMeter<ValuesController>.SetMethodCallsCacheTime(5);
+            PerformanceMeter<PerformanceMeterController>.SetMethodCallsCacheTime(5);
 
             // add common custom data (string) to class performance information
-            PerformanceMeter<ValuesController>.AddCustomData("Tag", "CustomTag");
+            PerformanceMeter<PerformanceMeterController>.AddCustomData("Tag", "CustomTag");
 
             // add common custom data (anonymous class) to class performance information
-            PerformanceMeter<ValuesController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
+            PerformanceMeter<PerformanceMeterController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
 
             // set default exception handler
-            PerformanceMeter<ValuesController>.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
+            PerformanceMeter<PerformanceMeterController>.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
         }
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
-        public ValuesController(IHttpContextAccessor httpContextAccessor)
+        public PerformanceMeterController(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
@@ -75,7 +76,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         [IgnoreMethodPerformance]
         public ActionResult<IPerformanceInfo> GetPerformanceInfo()
         {
-            return Ok(PerformanceMeter<ValuesController>.PerformanceInfo);
+            return Ok(PerformanceMeter<PerformanceMeterController>.PerformanceInfo);
         }
 
         /// <summary>
@@ -102,8 +103,8 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         [HttpGet("SimpleWatchingMethodStart")]
         public ActionResult SimpleWatchingMethodStart()
         {
-            //using var pm = PerformanceMeter<ValuesController>.WatchingMethod().Start();
-            using (PerformanceMeter<ValuesController>.WatchingMethod().Start())
+            //using var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start();
+            using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
             {
                 // Place your code with some logic there
 
@@ -117,8 +118,8 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         [HttpGet("SimpleStartWatching")]
         public ActionResult SimpleStartWatching()
         {
-            //using var pm = PerformanceMeter<ValuesController>.StartWatching();
-            using (PerformanceMeter<ValuesController>.StartWatching())
+            //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+            using (PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
                 // Place your code with some logic there
 
@@ -132,8 +133,8 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         [HttpGet("SimpleStartWatchingWithSteps")]
         public ActionResult SimpleStartWatchingWithSteps()
         {
-            //using var pm = PerformanceMeter<ValuesController>.StartWatching();
-            using (var pm = PerformanceMeter<ValuesController>.StartWatching())
+            //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
                 // Place your code with some logic there
 
@@ -181,13 +182,13 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         [HttpGet("SimpleStartWatchingWithActionThrowsException")]
         public ActionResult PublicTestGetSimpleMethodWithActionThrowsException()
         {
-            //using var pm = PerformanceMeter<ValuesController>.StartWatching();
-            using (var pm = PerformanceMeter<ValuesController>.StartWatching())
+            //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
                 // execute action throws Exception with exception handler
                 pm.Executing()
                     .WithExceptionHandler((ex) => Debug.WriteLine(ex.Message))
-                    .Start(() => throw new Exception(PerformanceMeter<ValuesController>.Print()));
+                    .Start(() => throw new Exception(PerformanceMeter<PerformanceMeterController>.Print()));
 
                 return Ok();
             }
@@ -199,8 +200,8 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         [HttpGet("SimpleStartWatchingWithoutWatching")]
         public ActionResult<string> SimpleStartWatchingWithoutWatching()
         {
-            //using var pm = PerformanceMeter<ValuesController>.StartWatching();
-            using (var pm = PerformanceMeter<ValuesController>.StartWatching())
+            //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
                 // Place your code with some logic there
 
@@ -213,7 +214,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     .Start(() => Thread.Sleep(2000));
 
                 // execute action with sleeping 500 ms
-                pm.Inline(() => 
+                pm.Inline(() =>
                 {
                     Thread.Sleep(500);
                     Debug.WriteLine("Sleep 500 ms");
@@ -244,8 +245,8 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         [HttpGet("SimpleStartWatchingWithActionThrowsCustomException")]
         public ActionResult SimpleStartWatchingWithActionThrowsCustomException()
         {
-            //using var pm = PerformanceMeter<ValuesController>.StartWatching();
-            using (var pm = PerformanceMeter<ValuesController>.StartWatching())
+            //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
                 // Place your code with some logic there
 
@@ -299,7 +300,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             var parameterForMethod2 = "parameter";
 
             // start performance watching with correlationId and caller source data
-            using (PerformanceMeter<ValuesController>
+            using (PerformanceMeter<PerformanceMeterController>
                 .WatchingMethod()
                 .WithSettingData
                     .CustomData("corellationId", correlationId)
@@ -365,7 +366,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
 
             // method performance info will reach with HttpContextAccessor and custom data
             // custom "CustomDataCommand" will be executed after performance watching is completed (work with method calls custom data)
-            using (PerformanceMeter<ValuesController>
+            using (PerformanceMeter<PerformanceMeterController>
                 .WatchingMethod(nameof(WatchingMethodWithExecutedCommands))
                 .WithSettingData
                     .CallerFrom(_httpContextAccessor)
@@ -401,7 +402,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
         {
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
-            using (var pm = PerformanceMeter<ValuesController>
+            using (var pm = PerformanceMeter<PerformanceMeterController>
                 .WatchingMethod()
                 .WithSettingData
                     .CallerFrom("Test caller")
@@ -426,7 +427,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         public ActionResult<string> StartWatchingWithCallerNameFromAttribute([FromBody] string value)
         {
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
-            using (var pm = PerformanceMeter<ValuesController>.StartWatching())
+            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
                 pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
                 Thread.Sleep(2000);
