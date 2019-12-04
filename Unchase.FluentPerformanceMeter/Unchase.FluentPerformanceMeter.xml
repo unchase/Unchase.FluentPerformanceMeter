@@ -825,6 +825,11 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.ClearCustomData">
+            <summary>
+            Clear custom data to performance meter step information.
+            </summary>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.WithoutWatching">
             <summary>
             Silences a performance meter for the duration, use in a using to silence for the duration.
@@ -958,6 +963,11 @@
             </summary>
             <param name="key">Key.</param>
             <param name="value">Value.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.ClearCustomData">
+            <summary>
+            Clear common custom data of the class.
+            </summary>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.SetDefaultExceptionHandler(System.Action{System.Exception})">
             <summary>

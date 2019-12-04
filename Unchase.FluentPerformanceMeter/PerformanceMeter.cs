@@ -231,6 +231,17 @@ namespace Unchase.FluentPerformanceMeter
         }
 
         /// <summary>
+        /// Clear common custom data of the class.
+        /// </summary>
+        public static void ClearCustomData()
+        {
+            lock (PerformanceMeterLock)
+            {
+                Performance<TClass>.PerformanceInfo.CustomData.Clear();
+            }
+        }
+
+        /// <summary>
         /// Set Action to handle exceptions that occur by default.
         /// </summary>
         /// <param name="exceptionHandler">Action to handle exceptions that occur.</param>

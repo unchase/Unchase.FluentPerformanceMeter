@@ -110,6 +110,14 @@ namespace Unchase.FluentPerformanceMeter
         }
 
         /// <summary>
+        /// Clear custom data to performance meter step information.
+        /// </summary>
+        public void ClearCustomData()
+        {
+            this._customData.Clear();
+        }
+
+        /// <summary>
         /// Silences a performance meter for the duration, use in a using to silence for the duration.
         /// </summary>
         /// <returns>
