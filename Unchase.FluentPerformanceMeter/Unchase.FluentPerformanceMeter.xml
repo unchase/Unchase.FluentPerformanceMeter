@@ -506,12 +506,12 @@
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand">
             <summary>
-            Command for executing after stop watching method performance.
+            Custom executed command interface.
             </summary>
         </member>
         <member name="P:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand.CommandName">
             <summary>
-            Command Name.
+            Executed command name.
             </summary>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">

@@ -170,6 +170,10 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
 
                     // add custom data to "Step 2"
                     pmStep.AddCustomData("step2 another custom data", "data2!");
+
+                    // get and remove custom data
+                    var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
+                    Debug.WriteLine($"{customData}!!!");
                 }
 
                 return Ok();

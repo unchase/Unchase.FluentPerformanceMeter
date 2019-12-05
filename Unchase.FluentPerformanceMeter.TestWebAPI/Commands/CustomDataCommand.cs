@@ -9,7 +9,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Commands
     public class CustomDataCommand : IPerformanceCommand
     {
         /// <summary>
-        /// Executed commad name.
+        /// Executed command name.
         /// </summary>
         public string CommandName => this.GetType().Name;
 

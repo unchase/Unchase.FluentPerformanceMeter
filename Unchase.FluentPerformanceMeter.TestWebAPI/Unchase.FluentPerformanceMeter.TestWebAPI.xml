@@ -11,7 +11,7 @@
         </member>
         <member name="P:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.CommandName">
             <summary>
-            Executed commad name.
+            Executed command name.
             </summary>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
