@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unchase.FluentPerformanceMe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unchase.FluentPerformanceMeter.Tests", "Unchase.FluentPerformanceMeter.Tests\Unchase.FluentPerformanceMeter.Tests.csproj", "{A744F33B-FCF3-4E12-A47D-1F3554087F85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.FluentPerformanceMeter.TestWebAPI", "Unchase.FluentPerformanceMeter.TestWebAPI\Unchase.FluentPerformanceMeter.TestWebAPI.csproj", "{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unchase.FluentPerformanceMeter.TestWebAPI", "Unchase.FluentPerformanceMeter.TestWebAPI\Unchase.FluentPerformanceMeter.TestWebAPI.csproj", "{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
