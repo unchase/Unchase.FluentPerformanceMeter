@@ -80,9 +80,9 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 /// </summary>
 [HttpGet("SimpleWatchingMethodStart")]
 public ActionResult SimpleWatchingMethodStart()
-{
-	// for C# 8 you can use:
-	//using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+{	
+// for C# 8 you can use:
+//using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
 
     using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
     {
@@ -166,7 +166,7 @@ public class PerformanceMeterController : ControllerBase
         PerformanceMeter<PerformanceMeterController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
     }
 
-	// ... actions and others
+// ... actions and others
 }
 ```
 
@@ -184,7 +184,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>
         })
     .Start())
 {
-	// put your code with some logic there
+// put your code with some logic there
 
     // add "Step 1"
     using (pm.Step("Step 1"))
@@ -192,7 +192,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>
         Thread.Sleep(1000);
     }
 
-	// add "Step 2" with custom data
+// add "Step 2" with custom data
     using (var pmStep = pm.Step("Step 2").AddCustomData("step2 custom data", "data!"))
     {
         // add "Step 3 in Step 2"
@@ -207,7 +207,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>
         // get and remove custom data from "Step 2"
         var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
         
-		// ...
+	// ...
     }
 }
 ```
