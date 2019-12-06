@@ -4,37 +4,37 @@
 
 ----------
 
-[Russian Documentation](README_RU.md) | [English Documentation](README.md)
+[Документация на Русском](README_RU.md) | [Документация на Английском](README.md)
 
 
 ----------
 
 
-**Unchase Fluent Performance Meter** is an open-source and cross-platform *.Net Standart 2.0* library is designed for watching the performance of methods.
+**Unchase Fluent Performance Meter** это кросс-платформенная open-source *.Net Standart 2.0* библиотека, предназначенная для подсчёта производительности выполнения методов.
 
-The library can be used in .NET Core and .NET Framework applications that support *.Net Standart 2.0*, and allows:
+Библиотека может быть использована в .NET Core и .NET Framework приложениях, поддерживающих *.Net Standart 2.0*, и позволяет:
 
-* [**Make exact measurements**](#SimpleSamples) of the performance of ***public* methods** for ***public* classes** for your code and [used libraries code](#SampleExternal) (with fixing the exact time of the start and end of the measurement);
+* [**Производить точные замеры**](#SimpleSamples) производительности ***public* методов** для ***public* классов** как вашего кода, так и [кода используемых библиотек](#SampleExternal) (с фиксацией точного времени начала и окончания выполнения замера);
 
-* [**Add custom data**](#SampleCustomData) to the measurement results. For example, the values of the input parameters of the method and the result; or method execution context data; or *corellationId*, by which it will be possible to link several measurements of the performance of methods;
+* [**Добавлять к результатам**](#SampleCustomData) замеров **дополнительные данные** (Custom Data). Например, значения входных параметров метода и полученный результат; или данные контекста выполнения метода; или *corellationId*, по которому можно будет связать несколько замеров производительности методов;
 
-* [**Split**](#SampleCustomData) method performance measurement **into separate steps** with fixing of own data for each step. In addition, you can [set the minimum execution time](#SampleIgnore), starting from which the step will be save into the measurement (if the step is completed faster, it will not be saved);
+* [**Разбивать замер**](#SampleCustomData) производительности метода **на отдельные шаги** (Steps) с фиксацией собственных данных для каждого шага. Кроме того можно [задать минимальное время](#SampleIgnore) выполнения, начиная с которого шаг будет учитываться в замере (если шаг выполнится быстрее, то не попадёт в замер);
 
-* [**Exclude individual parts of the code**](#SampleIgnore) from performance measurement (for example, calls to individual methods whose execution time does not need to be watching);
+* [**Исключать из замера**](#SampleIgnore) производительности **отдельные части кода** (например, вызовы отдельных методов, время исполнения которых не нужно учитывать при замере);
 
-* [**Add custom Commands**](#SampleCustomCommands), which are guaranteed **to be executed immediately after the end of the measurement** of the method’s performance (for example, to add additional processing of the obtained results, such as logging or writing data to the storage);
+* [**Добавлять собственные команды**](#SampleCustomCommands) (Commands), которые гарантированно **будут исполнены сразу после** окончания замера производительности метода (например, для добавления дополнительной обработки полученных результатов, таких как логирование или запись данных в хранилище);
 
-* [**Add custom exception handler**](#SampleCustomExceptionHandler) for code executed in the context of measuring the performance of the method (for all measurements, and for each measurement separately);
+* [**Добавлять свой обработчик исключений**](#SampleCustomExceptionHandler) для кода, выполняемого в контексте замера производительности метода (как общий для всех замеров, так и для каждого замера в отдельности);
 
-* [**Set the cache time**](#SampleSetCacheTime) for the results of measurements of the methods performance, after which the results will be deleted;
+* [**Устанавливать время хранения результатов**](#SampleSetCacheTime) замеров производительности методов, по истечении которого результаты будут удалены;
 
-* [**Add to the measurement results**](#SampleSetCallerAndSourceWithStop) data about, **who is calling** (Caller) the method  with *IHttpContextAccesor* or setting Caller in the code (for example, you can specify the name of the external service that called the method);
+* [**Добавить в результаты замера**](#SampleSetCallerAndSourceWithStop) данные о том, **кто вызывает метод** (Caller) через *IHttpContextAccesor* или задание Caller'а в коде (например, можно указать название внешнего сервиса, который вызвал метод);
 
-* [**Add to the measurement results**](#SampleSetCallerAndSourceWithStop) data on the **place** where the performance measurement was started (file name and line number with the place of the call in the code);
+* [**Добавить в результаты замера**](#SampleSetCallerAndSourceWithStop) данные о месте запуска замера производительности (название файла и номер строки с местом вызова в коде);
 
-* [**Stop watching**](#SampleSetCallerAndSourceWithStop) method performance **before the end of its execution**.
+* [**Прервать замер**](#SampleSetCallerAndSourceWithStop) производительности метода **до окончания его выполнения**.
 
-The data obtained as a result of measuring the methods performance can be used to analyze the performance of the application (its individual parts, and internal — native code, or external — the code of used libraries) and displayed in a graphical form convenient for you. For example:
+Полученные в результате замеров производительности методов данные можно использовать для анализа производительности приложения (отдельных его частей, как внутренних - собственный код, так и внешних - код используемых библиотек) и вывести в удобном для вас графическом виде. Например, в таком:
 
 ![Performance charts](img/charts1.png)
 
@@ -44,7 +44,7 @@ The data obtained as a result of measuring the methods performance can be used t
 
 ![Performance charts](img/charts4.png)
 
-> The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](https://github.com/unchase).
+> Проект разработан и поддерживается [Чеботовым Николаем (**Unchase**)](https://github.com/unchase).
 
 ## Builds status
 
@@ -56,45 +56,45 @@ The data obtained as a result of measuring the methods performance can be used t
 |GitHub Release Date|[![GitHub Release Date](https://img.shields.io/github/release-date/unchase/Unchase.fluentperformancemeter.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
 |GitHub Release Downloads|[![Github Releases](https://img.shields.io/github/downloads/unchase/Unchase.fluentperformancemeter/total.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
 
-## Table of content
+## Содержание
 
-* [Getting Started](#Start)
-* [Examples of using](#SimpleSamples)
-	* [Method Performance Measurement](#SimpleSamples)
-	* [Measuring the performance of the method of the used external library](#SampleExternal)
-	* [Add Custom Data and split on Steps](#SampleCustomData)
-	* [Ignore watching](#SampleIgnore)
-	* [Add custom Commands and Actions](#SampleCustomCommands)
-	* [Add an Exception Handlers](#SampleCustomExceptionHandler)
-	* [Set the Cache Time](#SampleSetCacheTime)
-	* [Adding caller and source place data (and stop watching)](#SampleSetCallerAndSourceWithStop)
+* [Начало работы](#Start)
+* [Примеры использования](#SimpleSamples)
+	* [Измерение производительности метода](#SimpleSamples)
+	* [Измерение производительности метода используемой библиотеки](#SampleExternal)
+	* [Добавление дополнительных данных (Custom Data) и разбиение на шаги (Steps)](#SampleCustomData)
+	* [Исключение из замера (Ignore)](#SampleIgnore)
+	* [Добавление команд (Commands) и действий (Actions)](#SampleCustomCommands)
+	* [Добавление обработчиков исключений (Exception Handlers)](#SampleCustomExceptionHandler)
+	* [Установка времени хранения данных (Set Cache Time)](#SampleSetCacheTime)
+	* [Добавление данных о вызывающем метод и месте вызова (прерывание замера производительности)](#SampleSetCallerAndSourceWithStop)
 
-## <a name="Start"></a> Getting Started
+## <a name="Start"></a> Начало работы
 
-To use the library, install [*NuGet* пакет](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter/) in your project:
+Для использования библиотеки установите [*NuGet* пакет](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter/) в ваш проект:
 
-#### Manually with the *NuGet* Package Manager:
+#### Вручную с помощью менеджера *NuGet* пакетов (Package Manager):
 
 ```powershell
 Install-Package Unchase.FluentPerformanceMeter
 ```
 
-#### Using the .NET CLI:
+#### С помощью .NET CLI:
 
 ```powershell
 dotnet add package Unchase.FluentPerformanceMeter --version {version}
 ```
 
-> Where {version} is the version of the package you want to install. 
-> For example, `dotnet add package Unchase.FluentPerformanceMeter --version 1.0.0`
+> Где {version} - это версия пакета, которую вы хотите установить. 
+> Например, `dotnet add package Unchase.FluentPerformanceMeter --version 1.0.0`
 
-## <a name="SimpleSamples"></a> Examples of using
+## <a name="SimpleSamples"></a> Примеры использования 
 
-### Method Performance Measurement
+### Измерение производительности метода
 
-The following is a simple library usage example (without configuration and additional settings) to measure method performance (Action) `SimpleWatchingMethodStart` for Controller `PerformanceMeterController` in *Asp.Net Core 2.2 WebAPI* application. You can use the extension method `.WatchingMethod().Start()` or `.StartWatching()` for this.
+Далее приведён простейший пример использования библиотеки (без конфигурирования и дополнительных настроек) для замера производительности метода (Action) `SimpleWatchingMethodStart` контроллера (Controller) `PerformanceMeterController` *Asp.Net Core 2.2 WebAPI* приложения. Для это можно использовать метод расширения `.WatchingMethod().Start()` или аналогичный по функциональности `.StartWatching()`.
 
-> All examples of using the library can be found in the `Unchase.FluentPerformanceMeter.Test*` projects of this repository.
+> Все примеры использования библиотеки можно найти в проектах `Unchase.FluentPerformanceMeter.Test*` данного репозитория.
 
 ```csharp
 /// <summary>
@@ -115,7 +115,7 @@ public ActionResult SimpleWatchingMethodStart()
 }
 ```
 
-To get the results of performance measurements of public methods of the controller class `PerformanceMeterController` you can call the following method:
+Для получения результатов замеров производительности публичных методов класса-контроллера `PerformanceMeterController` можно вызвать следующий метод:
 
 ```csharp
 /// <summary>
@@ -130,7 +130,7 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
 }
 ```
 
-After calling the method `SimpleWatchingMethodStart` and after calling `GetPerformanceInfo` we get:
+После вызова метода `SimpleWatchingMethodStart` при вызове `GetPerformanceInfo` получим:
 
 ```json
 {
@@ -167,9 +167,9 @@ After calling the method `SimpleWatchingMethodStart` and after calling `GetPerfo
 }
 ```
 
-### <a name="SampleExternal"></a> Measuring the performance of the method of the used external library
+### <a name="SampleExternal"></a> Измерение производительности метода используемой библиотеки
 
-To measure the performance of the *public* method of the *public* class of a third-party used library, you must explicitly set the class itself and the name of its method:
+Чтобы замерить производительность *public* метода *public* класса сторонней используемой библиотеки, необходимо явно задать сам класс и имя его метода:
 
 ```csharp
 [HttpGet("GetThreadSleepPerformance")]
@@ -184,13 +184,13 @@ public ActionResult<string> GetThreadSleepPerformance()
 }
 ```
 
-The executed method will return:
+Выполненный метод вернёт:
 
 ```
 "00:00:01.0033040"
 ```
 
-You can get performance data about calling this method through a call:
+Вы можете получить данные о вызове этого метода через вызов:
 
 ```csharp
 /// <summary>
@@ -205,7 +205,7 @@ public ActionResult<IPerformanceInfo> GetThreadPerformanceInfo()
 }
 ```
 
-In response to a call to this method will be:
+В ответе на вызов этого метода будет:
 
 ```json
 {
@@ -762,9 +762,9 @@ In response to a call to this method will be:
 }
 ```
 
-### <a name="SampleCustomData"></a> Add Custom Data and split on Steps
+### <a name="SampleCustomData"></a> Добавление дополнительных данных (Custom Data) и разбиение на шаги (Steps)
 
-You can add Custom Data for all performance measurements of methods of a particular class. For example, in the static constructor of the `PerformanceMeterController` controller class:
+Можно добавить дополнительные данные (Custom Data) для всех замеров производительности методов конкретного класса. Например, в статическом конструкторе класса-контроллера `PerformanceMeterController`:
 
 ```csharp
 [ApiController]
@@ -787,7 +787,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-In addition, you can add Custom Data for a specific measurement using the extension method `.WithSettingData.CustomData("<key>", <value>)` (including through the special attribute `MethodCustomDataAttribute`) and for each Step of this measurement, added using the extension method `.Step("<step_name>")`:
+Кроме того, можно добавить дополнительные данные (Custom Data) для определённого замера с помощью метода расширения `.WithSettingData.CustomData("<key>", <value>)` (в том числе, через специальный атрибут метода `MethodCustomDataAttribute`) и для каждого шага (Step) этого замера, добавленного с помощью метода расширения `.Step("<step_name>")`:
 
 ```csharp
 /// <summary>
@@ -837,7 +837,7 @@ public ActionResult SimpleStartWatchingWithSteps()
 }
 ```
 
-As a result, when called `GetPerformanceInfo` we get:
+В результате при вызове `GetPerformanceInfo` получим:
 
 ```json
 {
@@ -911,9 +911,9 @@ As a result, when called `GetPerformanceInfo` we get:
 }
 ```
 
-### <a name="SampleIgnore"></a> Ignore watching
+### <a name="SampleIgnore"></a> Исключение из замера (Ignore)
 
-You can ignore individual parts of the method in measuring performance (using `.Ignore()` or `.Executing().WithoutWatching().Start(<Action>)` extension methods), and also do not save individual Steps (with `.StepIf("<step_name>", <minSaveMs>)` extension method), if they do not satisfy the condition (the step execution time will be taken into the method execution time):
+Вы можете не учитывать в замере производительности отдельные части метода (с помощью `.Ignore()` или `.Executing().WithoutWatching().Start(<Action>)`), а также не сохранять отдельные шаги (метод расширения `.StepIf("<step_name>", <minSaveMs>)`), если они не удовлетворяют условию (при этом время выполнения шага будет учитываться во времени выполнения метода):
 
 ```csharp
 using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
@@ -945,7 +945,7 @@ using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
 }
 ```
 
-As a result, we get:
+В результате получим:
 
 ```json
 {
@@ -982,10 +982,10 @@ As a result, we get:
 }
 ```
 
-### <a name="SampleCustomCommands"></a> Add custom Commands and Actions
+### <a name="SampleCustomCommands"></a> Добавление команд (Commands) и действий (Actions)
 
-To add a custom Command that will be guaranteed to be executed upon completion of measuring the performance of a method, it is necessary to create a command class that will implement the `IPerformanceCommand` interface. 
-In this case, you can transfer arbitrary data through the constructor of the created command that will be used when the command is executed, for example:
+Для добавления команды, которая будет гарантированно исполнена по завершении замера производительности метода, необходимо создать класс команды, который будет реализовывать интерфейс `IPerformanceCommand`. 
+При этом вы можете через конструктор созданной команды передавать произвольные данные, которые будут использованы при выполнении команды, например:
 
 ```csharp
 /// <summary>
@@ -1029,7 +1029,7 @@ public class ExecutedCommand : IPerformanceCommand
 }
 ```
 
-You can add a custom Command and an Action so that they are executed at the end of the measurement in the following way:
+Добавить команду и действие (Action), чтобы они выполнились по окончании замера, можно следующим способом:
 
 ```csharp
 // custom "ExecutedCommand" will be executed after performance watching is completed
@@ -1047,7 +1047,7 @@ using (PerformanceMeter<PerformanceMeterController>
 }
 ```
 
-As a result, at the end of measuring the performance of the method in the Debug console, it will display:
+В результате, по окончанию замера производительности метода в Debug-консоли будет выведено:
 
 ```
 ExecutedCommand
@@ -1056,9 +1056,9 @@ Method names count: 13
 Class name: Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController
 ```
 
-### <a name="SampleCustomExceptionHandler"></a> Add an Exception Handlers
+### <a name="SampleCustomExceptionHandler"></a> Добавление обработчиков исключений (Exception Handlers)
 
-If you need to handle exceptions that may occur during the execution of a part of the method for which performance is watched, you need to add an Exception Handler as follows:
+Если вам необходимо обрабатывать исключения, которые могут возникнуть при выполнении части метода, для которого отслеживается производительность, то необходимо добавить обработчик исключений (Exception handler) следующим образом:
 
 ```csharp
 using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
@@ -1080,7 +1080,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
 }
 ```
 
-Where the `CustomException` class is:
+Где класс `CustomException`:
 
 ```csharp
 /// <summary>
@@ -1096,14 +1096,14 @@ public class CustomException : Exception
 }
 ```
 
-As a result, the following will be displayed in the Debug console:
+В результате в Debug-консоли будет выведено:
 
 ```
 Exception
 Custom exception was occured!
 ```
 
-In addition, you can specify an Exception Handler that will be used by default to measure the performance of any method of this class, for example, through the static constructor of the `PerformanceMeterController` controller class:
+Кроме того, вы можете задать обработчик исключений, который будет использован по-умолчанию для замеров производительности любого метода данного класса, например, через статический конструктор класса-контроллера `PerformanceMeterController`:
 
 ```csharp
 [ApiController]
@@ -1123,9 +1123,9 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-### <a name="#SampleSetCacheTime"></a> Set the Cache Time
+### <a name="#SampleSetCacheTime"></a> Установка времени хранения данных (Set Cache Time)
 
-You can set the Cache Time for the data of the performance measurements of methods, after which this data will be deleted. For each class for which measurement is made, this time is set separately. For example, the time can be set through the static constructor of the `PerformanceMeterController` controller class:
+Вы можете установить время хранения данных замеров производительности методов, по истечении которого эти данные будут удалены. Для каждого класса, для которого производится замер, это время устанавливается отдельно. Например, время можно задать через статический конструктор класса-контроллера `PerformanceMeterController`:
 
 ```csharp
 [ApiController]
@@ -1145,13 +1145,13 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-### <a name="SampleSetCallerAndSourceWithStop"></a> Adding caller and source place data (and stop watching)
+### <a name="SampleSetCallerAndSourceWithStop"></a> Добавление данных о вызывающем метод и месте вызова (прерывание замера производительности)
 
-You can specify who is calling the method using the extension method `.CallerFrom("<caller_name>")` (either a string or *IHttpContextAccessor* is passed to it) or a special attribute `[MethodCaller ("<caller_name>")]` for the method. Moreover, if both the attribute and the extension method are used, then the value will be taken from the latter.
+Вы можете задать данные о том, кто вызывает метод с помощью метода расширения `.CallerFrom("<caller_name>")` (ему передаётся либо строка, либо *IHttpContextAccessor*) или специального атрибута метода `[MethodCaller("<caller_name>")]`. При этом, если используется и атрибут и метод расширения, то значение будет браться из последнего.
 
-To add a call source for measuring performance, use the extension method `.CallerSourceData()`.
+Для добавления места вызова замера производительности используется метод расширения `.CallerSourceData()`.
 
-To stop measuring performance inside the *using* block, use the `.StopWatching()` extension method or the `Dispose()` method directly:
+Для остановки замера производительности внутри блока `using` используется метод расширения `.StopWatching()` или непосредственно метод `Dispose()`:
 
 ```csharp
 [HttpPost("StartWatchingWithCallerName")]
@@ -1174,7 +1174,7 @@ public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
 }
 ```
 
-As a result of calling the `GetPerformanceInfo` method, you will get:
+В результате вызова метода `GetPerformanceInfo` получите:
 
 ```json
 {
@@ -1217,20 +1217,20 @@ As a result of calling the `GetPerformanceInfo` method, you will get:
 
 ## HowTos
 
-- [ ] Add HowTos in a future
-- [ ] ... [request for HowTo you need](https://github.com/unchase/Unchase.FluentPerformanceMeter/issues/new?title=DOC)
+- [ ] Добавить больше HowTos в будущем
+- [ ] ... [запросить HowTo, которое вам необходимо](https://github.com/unchase/Unchase.FluentPerformanceMeter/issues/new?title=DOC)
 
-## Roadmap
+## Дорожная карта (Roadmap)
 
-See the [changelog](CHANGELOG.md) for the further development plans and version history.
+Дальнейшие планы развития библиотеки и историю версий смотрите в [changelog](CHANGELOG.md).
 
-## Thank me!
+## Поблагодарить меня
 
-If you like what I am doing and you would like to thank me, please consider:
+Если вам нравится то, что я делаю, и вы хотели бы поблагодарить меня, пожалуйста, поддержите по ссылке:
 
 [![Buy me a coffe!](img/buymeacoffe.png)](https://www.buymeacoffee.com/nikolaychebotov)
 
-Thank you for your support!
+Спасибо за вашу поддержку!
 
 ----------
 
