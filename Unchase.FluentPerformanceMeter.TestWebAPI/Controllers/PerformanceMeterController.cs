@@ -37,7 +37,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// </summary>
         static PerformanceMeterController()
         {
-            // set cache time
+            // set cache time for PerformanceMeterController class
             PerformanceMeter<PerformanceMeterController>.SetMethodCallsCacheTime(5);
 
             // add common custom data (string) to class performance information
@@ -46,7 +46,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             // add common custom data (anonymous class) to class performance information
             PerformanceMeter<PerformanceMeterController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
 
-            // set default exception handler
+            // set default exception handler for PerformanceMeterController class
             PerformanceMeter<PerformanceMeterController>.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
         }
 
@@ -93,6 +93,20 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             return Ok(PerformanceMeter<FakeService>.PerformanceInfo);
         }
 
+        /// <summary>
+        /// Get methods performance info for Thread class.
+        /// </summary>
+        /// <returns>Returns Thread methods performance info.</returns>
+        /// <response code="200">Returns Thread methods performance info.</response>
+        [HttpGet("GetThreadPerformanceInfo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(ResponseExamples.GetPerformanceInfoResponse200Example))]
+        [IgnoreMethodPerformance]
+        public ActionResult<IPerformanceInfo> GetThreadPerformanceInfo()
+        {
+            return Ok(PerformanceMeter<Thread>.PerformanceInfo);
+        }
+
         #endregion
 
         #region Simple
@@ -106,7 +120,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start();
             using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
             {
-                // Place your code with some logic there
+                // put your code with some logic there
 
                 return Ok();
             }
@@ -121,7 +135,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
             using (PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                // Place your code with some logic there
+                // put your code with some logic there
 
                 return Ok();
             }
@@ -154,13 +168,13 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     Thread.Sleep(1000);
                 }
 
-                // skip this step with minSavems
+                // skip this step with minSavems (not save, but consider duration in method performance watching)
                 using (pm.StepIf("Skipped step", minSaveMs: 100))
                 {
                     Thread.Sleep(10);
                 }
 
-                // ignore this block in performance wathing
+                // ignore this block in performance watching
                 using (pm.Ignore())
                 {
                     Thread.Sleep(5000);
@@ -185,6 +199,40 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
                     Debug.WriteLine($"{customData}!!!");
                 }
+
+                return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with simple performance watching (with ignored blocks).
+        /// </summary>
+        [HttpGet("SimpleStartWatchingWithIgnored")]
+        [MethodCustomData("Custom data from attribute", "Attr")]
+        public ActionResult SimpleStartWatchingWithIgnored()
+        {
+            //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
+            {
+                // put your code with some logic there
+
+                // sleep 1 sec
+                Thread.Sleep(1000);
+
+                // ignore this block in performance watching
+                using (pm.Ignore())
+                {
+                    Thread.Sleep(5000);
+                }
+
+                // skip this step with minSaveMs (not save, but consider duration in method performance watching)
+                using (pm.StepIf("Skipped step", minSaveMs: 1000))
+                {
+                    Thread.Sleep(999);
+                }
+
+                // execute action without performance watching
+                pm.Executing().WithoutWatching().Start(() => Thread.Sleep(2000));
 
                 return Ok();
             }
@@ -217,7 +265,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
             using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                // Place your code with some logic there
+                // put your code with some logic there
 
                 // sleep 1 sec
                 Thread.Sleep(1000);
@@ -262,7 +310,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
             using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                // Place your code with some logic there
+                // put your code with some logic there
 
                 // execute action throws custom Exception with exception handler
                 pm.Executing<CustomException>()
@@ -270,6 +318,31 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                    .Start(() =>
                    {
                        throw new CustomException("Action exception!!!");
+                   });
+
+                return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Test GET method with simple performance watching (with throws the exceptions) with exception handlers.
+        /// </summary>
+        [HttpGet("SimpleStartWatchingWithThrowsExceptions")]
+        public ActionResult SimpleStartWatchingWithThrowsExceptions()
+        {
+            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
+            {
+                // execute action throws Exception with exception handler
+                pm.Executing()
+                    .WithExceptionHandler((ex) => Debug.WriteLine(ex.Message))
+                    .Start(() => throw new Exception("Exception"));
+
+                // execute action throws custom Exception with exception handler
+                pm.Executing<CustomException>()
+                   .WithExceptionHandler((ex) => { Debug.WriteLine(ex.Message); })
+                   .Start(() =>
+                   {
+                       throw new CustomException("Custom exception was occured!");
                    });
 
                 return Ok();
@@ -284,15 +357,17 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// Test GET method for public method <see cref="Thread.Sleep(int)"/> of the public class <see cref="Thread"/>.
         /// </summary>
         /// <returns>
-        /// Returns current method calls count before performance watching complete.
+        /// Returns external method call elapsed time.
         /// </returns>
         [HttpGet("GetThreadSleepPerformance")]
-        public ActionResult<long> GetThreadSleepPerformance()
+        public ActionResult<string> GetThreadSleepPerformance()
         {
             using (PerformanceMeter<Thread>.WatchingMethod(nameof(Thread.Sleep)).Start())
             {
-                return Ok(PerformanceMeter<Thread>.PerformanceInfo.CurrentActivity.FirstOrDefault(ta => ta.MethodName == nameof(Thread.Sleep))?.CallsCount);
+                Thread.Sleep(1000);
             }
+
+            return Ok(PerformanceMeter<Thread>.PerformanceInfo.MethodCalls.FirstOrDefault(ta => ta.MethodName == nameof(Thread.Sleep))?.Elapsed);
         }
 
         #endregion
@@ -400,6 +475,33 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Test GET method with adding custom data.
+        /// </summary>
+        /// <remarks>
+        /// With executed command after performance watching.
+        /// </remarks>
+        /// <returns>
+        /// Returns input value.
+        /// </returns>
+        [HttpGet("WatchingMethodWithExecutedCommand")]
+        public ActionResult WatchingMethodWithExecutedCommand()
+        {
+            // custom "ExecutedCommand" will be executed after performance watching is completed
+            using (PerformanceMeter<PerformanceMeterController>
+                .WatchingMethod()
+                .WithExecutingOnComplete
+                    .Command(new ExecutedCommand("bla-bla-bla"))
+                    .Action((pi) =>
+                    {
+                        Debug.WriteLine($"Class name: {pi.ClassName}");
+                    })
+                .Start())
+            {
+                return Ok();
+            }
+        }
+
         #endregion
 
         #region With caller
@@ -413,12 +515,14 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// </returns>
         [HttpPost("StartWatchingWithCallerName")]
         [MethodCustomData("customData123", 123)]
+        [MethodCaller("testCaller")]
         public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
         {
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
             using (var pm = PerformanceMeter<PerformanceMeterController>
                 .WatchingMethod()
                 .WithSettingData
+                    .CallerSourceData()
                     .CallerFrom("Test caller")
                 .Start())
             {

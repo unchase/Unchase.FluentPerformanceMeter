@@ -12,8 +12,9 @@
 * [**Добавлять собственные команды**](#SampleCustomCommands) (Commands), которые гарантированно **будут исполнены сразу после** окончания замера производительности метода (например, для добавления дополнительной обработки полученных результатов, таких как логирование или запись данных в хранилище);
 * [**Добавлять свой обработчик исключений**](#SampleCustomExceptionHandler) для кода, выполняемого в контексте замера производительности метода (как общий для всех замеров, так и для каждого замера в отдельности);
 * [**Устанавливать время хранения результатов**](#SampleSetCacheTime) замеров производительности методов, по истечении которого результаты будут очищены;
-* [**Добавить в результаты замера**](#SampleSetCallerAndSource) данные о том, **кто вызывает метод** (Caller) через *IHttpContextAccesor* или задание Caller'а в коде (например, можно указать название внешнего сервиса, который вызвал метод);
-* [**Добавить в результаты замера**](#SampleSetCallerAndSource) данные о месте запуска замера производительности (название файла и номер строки с местом вызова в коде).
+* [**Добавить в результаты замера**](#SampleSetCallerAndSourceWithStop) данные о том, **кто вызывает метод** (Caller) через *IHttpContextAccesor* или задание Caller'а в коде (например, можно указать название внешнего сервиса, который вызвал метод);
+* [**Добавить в результаты замера**](#SampleSetCallerAndSourceWithStop) данные о месте запуска замера производительности (название файла и номер строки с местом вызова в коде);
+* [**Прервать замер**](#SampleSetCallerAndSourceWithStop) производительности метода **до окончания его выполнения**.
 
 Полученные в результате замеров производительности методов данные можно использовать для анализа производительности приложения (отдельных его частей, как внутренних - собственный код, так и внешних - код подключенных библиотек) и вывести в удобном для вас графическом виде. Например, в таком:
 
@@ -40,7 +41,6 @@
 ## Содержание
 
 * [Начало работы](#Start)
-* [Конфигурарование и кастомизация](#Customization)
 * [Примеры использования](#SimpleSamples)
 
 ## <a name="Start"></a> Начало работы
@@ -62,15 +62,11 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 > Где {version} - это версия пакета, которую вы хотите установить. 
 > Например, `dotnet add package Unchase.FluentPerformanceMeter --version 1.0.0`
 
-## <a name="Customization"></a> Конфигурарование и кастомизация
-
-
-
 ## <a name="SimpleSamples"></a> Примеры использования 
 
 ### Измерение производительности метода
 
-Далее приведён простейший пример использования библиотеки (без конфигурирования и дополнительных настроек) для замера производительности метода (Action) `SimpleWatchingMethodStart` контроллера (Controller) `PerformanceMeterController` *Asp.Net Core 2.2 WebAPI* приложения.
+Далее приведён простейший пример использования библиотеки (без конфигурирования и дополнительных настроек) для замера производительности метода (Action) `SimpleWatchingMethodStart` контроллера (Controller) `PerformanceMeterController` *Asp.Net Core 2.2 WebAPI* приложения. Для это можно использовать метод расширения `.WatchingMethod().Start()` или аналогичный по функциональности `.StartWatching()`.
 
 > Все примеры использования библиотеки можно найти в проектах `Unchase.FluentPerformanceMeter.Test*` данного репозитория.
 
@@ -145,6 +141,601 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
 }
 ```
 
+### <a name="SmapleExternal"></a> Измерение производительности метода подключенной библиотеки
+
+Чтобы замерить производительность *public* метода *public* класса сторонней подключенной библиотеки, необходимо явно задать сам класс и имя его метода:
+
+```csharp
+[HttpGet("GetThreadSleepPerformance")]
+public ActionResult<string> GetThreadSleepPerformance()
+{
+    using (PerformanceMeter<Thread>.WatchingMethod(nameof(Thread.Sleep)).Start())
+    {
+        Thread.Sleep(1000);
+    }
+
+    return Ok(PerformanceMeter<Thread>.PerformanceInfo.MethodCalls.FirstOrDefault(ta => ta.MethodName == nameof(Thread.Sleep))?.Elapsed);
+}
+```
+
+Выполненный метод вернёт:
+
+```
+"00:00:01.0033040"
+```
+
+Вы можете получить данные о вызове этого метода через вызов:
+
+```csharp
+/// <summary>
+/// Get methods performance info for Thread class.
+/// </summary>
+/// <returns>Returns Thread methods performance info.</returns>
+[HttpGet("GetThreadPerformanceInfo")]
+[IgnoreMethodPerformance]
+public ActionResult<IPerformanceInfo> GetThreadPerformanceInfo()
+{
+    return Ok(PerformanceMeter<Thread>.PerformanceInfo);
+}
+```
+
+В ответе на вызов этого метода будет:
+
+```json
+{
+  "methodCalls": [
+    {
+      "methodName": "Sleep",
+      "elapsed": "00:00:01.0033040",
+      "caller": "unknown",
+      "startTime": "2019-12-06T13:08:09.336624Z",
+      "endTime": "2019-12-06T13:08:10.339928Z",
+      "customData": {},
+      "steps": []
+    }
+  ],
+  "totalActivity": [
+    {
+      "methodName": "Abort",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Abort",
+      "callsCount": 0
+    },
+    {
+      "methodName": "ResetAbort",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Suspend",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Resume",
+      "callsCount": 0
+    },
+    {
+      "methodName": "BeginCriticalRegion",
+      "callsCount": 0
+    },
+    {
+      "methodName": "EndCriticalRegion",
+      "callsCount": 0
+    },
+    {
+      "methodName": "BeginThreadAffinity",
+      "callsCount": 0
+    },
+    {
+      "methodName": "EndThreadAffinity",
+      "callsCount": 0
+    },
+    {
+      "methodName": "AllocateDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "AllocateNamedDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetNamedDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "FreeNamedDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetData",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SetData",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SetApartmentState",
+      "callsCount": 0
+    },
+    {
+      "methodName": "TrySetApartmentState",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetCompressedStack",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SetCompressedStack",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetCurrentProcessorId",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetDomain",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetDomainID",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetHashCode",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Interrupt",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Join",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Join",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Join",
+      "callsCount": 0
+    },
+    {
+      "methodName": "MemoryBarrier",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Sleep",
+      "callsCount": 1
+    },
+    {
+      "methodName": "Sleep",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SpinWait",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Yield",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Start",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Start",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetApartmentState",
+      "callsCount": 0
+    },
+    {
+      "methodName": "DisableComObjectEagerCleanup",
+      "callsCount": 0
+    }
+  ],
+  "currentActivity": [
+    {
+      "methodName": "Abort",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Abort",
+      "callsCount": 0
+    },
+    {
+      "methodName": "ResetAbort",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Suspend",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Resume",
+      "callsCount": 0
+    },
+    {
+      "methodName": "BeginCriticalRegion",
+      "callsCount": 0
+    },
+    {
+      "methodName": "EndCriticalRegion",
+      "callsCount": 0
+    },
+    {
+      "methodName": "BeginThreadAffinity",
+      "callsCount": 0
+    },
+    {
+      "methodName": "EndThreadAffinity",
+      "callsCount": 0
+    },
+    {
+      "methodName": "AllocateDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "AllocateNamedDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetNamedDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "FreeNamedDataSlot",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetData",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SetData",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SetApartmentState",
+      "callsCount": 0
+    },
+    {
+      "methodName": "TrySetApartmentState",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetCompressedStack",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SetCompressedStack",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetCurrentProcessorId",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetDomain",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetDomainID",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetHashCode",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Interrupt",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Join",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Join",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Join",
+      "callsCount": 0
+    },
+    {
+      "methodName": "MemoryBarrier",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Sleep",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Sleep",
+      "callsCount": 0
+    },
+    {
+      "methodName": "SpinWait",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Yield",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Start",
+      "callsCount": 0
+    },
+    {
+      "methodName": "Start",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileRead",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "VolatileWrite",
+      "callsCount": 0
+    },
+    {
+      "methodName": "GetApartmentState",
+      "callsCount": 0
+    },
+    {
+      "methodName": "DisableComObjectEagerCleanup",
+      "callsCount": 0
+    }
+  ],
+  "uptimeSince": "2019-12-06T13:08:09.3357028Z",
+  "className": "System.Threading.Thread",
+  "methodNames": [
+    "Abort",
+    "ResetAbort",
+    "Suspend",
+    "Resume",
+    "BeginCriticalRegion",
+    "EndCriticalRegion",
+    "BeginThreadAffinity",
+    "EndThreadAffinity",
+    "AllocateDataSlot",
+    "AllocateNamedDataSlot",
+    "GetNamedDataSlot",
+    "FreeNamedDataSlot",
+    "GetData",
+    "SetData",
+    "SetApartmentState",
+    "TrySetApartmentState",
+    "GetCompressedStack",
+    "SetCompressedStack",
+    "GetCurrentProcessorId",
+    "GetDomain",
+    "GetDomainID",
+    "GetHashCode",
+    "Interrupt",
+    "Join",
+    "MemoryBarrier",
+    "Sleep",
+    "SpinWait",
+    "Yield",
+    "Start",
+    "VolatileRead",
+    "VolatileWrite",
+    "GetApartmentState",
+    "DisableComObjectEagerCleanup"
+  ],
+  "customData": {},
+  "timerFrequency": 10000000
+}
+```
+
 ### <a name="SampleCustomData"></a> Добавление дополнительных данных (разбиение на шаги)
 
 Можно добавить дополнительные данные (Custom Data) для всех замеров производительности методов конкретного класса. Например, в статическом конструкторе класса-контроллера `PerformanceMeterController`:
@@ -170,7 +761,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-Кроме того, можно добавить дополнительные данные (Custom Data) для определённого замера (в том числе черех специальный атрибут метода `MethodCustomDataAttribute`) и для каждого шага (Step) этого замера:
+Кроме того, можно добавить дополнительные данные (Custom Data) для определённого замера с помощью метода расширения `.WithSettingData.CustomData("<key>", <value>)` (в том числе, через специальный атрибут метода `MethodCustomDataAttribute`) и для каждого шага (Step) этого замера, добавленного с помощью метода расширения `.Step("<step_name>")`:
 
 ```csharp
 /// <summary>
@@ -296,23 +887,307 @@ public ActionResult SimpleStartWatchingWithSteps()
 
 ### <a name="SampleIgnore"></a> Исключение из замера
 
+Вы можете не учитывать в замере производительности отдельные части метода (с помощью `.Ignore()` или `.Executing().WithoutWatching().Start(<Action>)`), а также не сохранять отдельные шаги (метод расширения `.StepIf("<step_name>", <minSaveMs>)`), если они не удовлетворяют условию (при этом время выполнения шага будет учитываться во времени выполнения метода):
 
+```csharp
+using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
+{
+    // put your code with some logic there
 
-### <a name="SampleCustomCommands"></a> Добавление команд
+    // sleep 1 sec
+    Thread.Sleep(1000);
 
+	// ignore this block in performance watching
+    using (pm.Ignore())
+    {
+        Thread.Sleep(5000);
+    }
 
+    // skip this step with minSaveMs (not save, but consider duration in method performance watching)
+    using (pm.StepIf("Skipped step", minSaveMs: 1000))
+    {
+        Thread.Sleep(500);
+    }
+
+    // execute action without performance watching
+    pm.Executing().WithoutWatching().Start(() => 
+    {
+        Thread.Sleep(2000);
+    });
+
+    return Ok();
+}
+```
+
+В результате получим:
+
+```json
+{
+  "methodCalls": [
+    {
+      "methodName": "SimpleStartWatchingWithIgnored",
+      "elapsed": "00:00:01.5080227",
+      "caller": "unknown",
+      "startTime": "2019-12-06T12:34:36.9187359Z",
+      "endTime": "2019-12-06T12:34:38.4267586Z",
+      "customData": {},
+      "steps": []
+    }
+  ],
+  "totalActivity": [
+    {
+      "methodName": "SimpleStartWatchingWithIgnored",
+      "callsCount": 1
+    }
+  ],
+  "currentActivity": [
+    {
+      "methodName": "SimpleStartWatchingWithIgnored",
+      "callsCount": 0
+    }
+  ],
+  "uptimeSince": "2019-12-06T12:34:36.9035129Z",
+  "className": "Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController",
+  "methodNames": [
+    "SimpleStartWatchingWithIgnored"
+  ],
+  "customData": { },
+  "timerFrequency": 10000000
+}
+```
+
+### <a name="SampleCustomCommands"></a> Добавление команд и действий
+
+Для добавления команды, которая будет гарантированно исполнена по завершении замера производительности метода, необходимо создать класс команды, который будет реализовывать интерфейс `IPerformanceCommand`. 
+При этом вы можете через конструктор созданной команды передавать произвольные данные, которые будут использованы при выполнении команды, например:
+
+```csharp
+/// <summary>
+/// Custom executed command.
+/// </summary>
+public class ExecutedCommand : IPerformanceCommand
+{
+    /// <summary>
+    /// Executed commad name.
+    /// </summary>
+    public string CommandName => this.GetType().Name;
+
+    private string _customString { get; }
+
+    internal bool IsCommandExecuted { get; private set; }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <remarks>
+    /// You can pass any data through the command constructor.
+    /// </remarks>
+    /// <param name="customString"></param>
+    public ExecutedCommand(string customString) 
+    {
+        this._customString = customString;
+    }
+
+    /// <summary>
+    /// Execute command.
+    /// </summary>
+    /// <param name="performanceInfo"><see cref="IPerformanceInfo"/>.</param>
+    public void Execute(IPerformanceInfo performanceInfo)
+    {
+        // for example, write to the debug console some information
+        Debug.WriteLine(this.CommandName);
+        Debug.WriteLine(this._customString);
+        Debug.WriteLine($"Method names count: {performanceInfo.MethodNames.Count}");
+        this.IsCommandExecuted = true;
+    }
+}
+```
+
+Добавить команду и действие (Action), чтобы они выполнились по окончании замера, можно следующим способом:
+
+```csharp
+// custom "ExecutedCommand" will be executed after performance watching is completed
+using (PerformanceMeter<PerformanceMeterController>
+    .WatchingMethod()
+    .WithExecutingOnComplete
+        .Command(new ExecutedCommand("bla-bla-bla"))
+        .Action((pi) =>
+        {
+            Debug.WriteLine($"Class name: {pi.ClassName}");
+        })
+    .Start())
+{
+    return Ok();
+}
+```
+
+В результате, по окончанию замера производительности метода в Debug-консоли будет выведено:
+
+```
+ExecutedCommand
+bla-bla-bla
+Method names count: 13
+Class name: Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController
+```
 
 ### <a name="SampleCustomExceptionHandler"></a> Добавление обработчиков исключений
 
+Если вам необходимо обрабатывать исключения, которые могут возникнуть при выполнении части метода, для которого отслеживается производительность, то необходимо добавить обработчик исключений (Exception handler) следующим образом:
 
+```csharp
+using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
+{
+    // execute action throws Exception with exception handler
+    pm.Executing()
+        .WithExceptionHandler((ex) => Debug.WriteLine(ex.Message))
+        .Start(() => throw new Exception("Exception"));
+
+    // execute action throws custom Exception with exception handler
+    pm.Executing<CustomException>()
+       .WithExceptionHandler((ex) => { Debug.WriteLine(ex.Message); })
+       .Start(() =>
+       {
+           throw new CustomException("Custom exception was occured!");
+       });
+
+    return Ok();
+}
+```
+
+Где класс `CustomException`:
+
+```csharp
+/// <summary>
+/// Custom exception.
+/// </summary>
+public class CustomException : Exception
+{
+    public CustomException(string message) : base(message) { }
+
+    public CustomException(string message, Exception innerException) : base(message, innerException) { }
+
+    public CustomException() { }
+}
+```
+
+В результате в Debug-консоли будет выведено:
+
+```
+Exception
+Custom exception was occured!
+```
+
+Кроме того, вы можете задать обработчик исключений, который будет использован по-умолчанию для замеров производительности любого метода данного класса, например, через статический конструктор класса-контроллера `PerformanceMeterController`:
+
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+public class PerformanceMeterController : ControllerBase
+{
+    /// <summary>
+    /// Static constructor.
+    /// </summary>
+    static PerformanceMeterController()
+    {
+        // set default exception handler for PerformanceMeterController class
+        PerformanceMeter<PerformanceMeterController>.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
+    }
+
+    // ... actions and others
+}
+```
 
 ### <a name="SampleCustomExceptionHandler"></a> Установка времени хранения данных
 
+Вы можете установить время хранения данных замеров производительности методов, по истечении которого эти данные будут удалены. Для каждого класса, для которого производится замер, это время устанавливается отдельно. Например, время можно задать через статический конструктор класса-контроллера `PerformanceMeterController`:
 
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+public class PerformanceMeterController : ControllerBase
+{
+    /// <summary>
+    /// Static constructor.
+    /// </summary>
+    static PerformanceMeterController()
+    {
+        // set cache time for PerformanceMeterController class
+        PerformanceMeter<PerformanceMeterController>.SetMethodCallsCacheTime(5);
+    }
 
-### <a name="SampleSetCallerAndSource"></a> Добавление данных о вызывающем метод и месте вызова
+    // ... actions and others
+}
+```
 
+### <a name="SampleSetCallerAndSourceWithStop"></a> Добавление данных о вызывающем метод и месте вызова (прерывание замера производительности)
 
+Вы можете задать данные о том, кто вызывает метод с помощью метода расширения `.CallerFrom("<caller_name>")` (ему передаётся либо строка, либо *IHttpContextAccessor*) или специального атрибута метода `[MethodCaller("<caller_name>")]`. При этом, если используется и атрибут и метод расширения, то значение будет браться из последнего.
+
+Для добавления места вызова замера производительности используется метод расширения `.CallerSourceData()`.
+
+Для остановки замера производительности внутри блока `using` используется метод расширения `.StopWatching()` или непосредственно метод `Dispose()`:
+
+```csharp
+[HttpPost("StartWatchingWithCallerName")]
+[MethodCaller("testCaller")]
+public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
+{
+    // method performance info will reach with caller name (if internal HttpContextAccessor is null)
+    using (var pm = PerformanceMeter<PerformanceMeterController>
+        .WatchingMethod()
+        .WithSettingData
+            .CallerSourceData()
+            .CallerFrom("Test caller")
+        .Start())
+    {
+        pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
+        Thread.Sleep(2000);
+
+        return Ok(value);
+    }
+}
+```
+
+В результате вызова метода `GetPerformanceInfo` получите:
+
+```json
+{
+  "methodCalls": [
+    {
+      "methodName": "StartWatchingWithCallerName",
+      "elapsed": "00:00:00.0019172",
+      "caller": "Test caller",
+      "startTime": "2019-12-06T13:35:45.3164507Z",
+      "endTime": "2019-12-06T13:35:45.3183679Z",
+      "customData": {
+        "customData123": 123,
+        "callerSourceLineNumber": 525,
+        "callerSource": "D:\\GitHub\\Unchase.FluentPerformanceMeter\\Unchase.FluentPerformanceMeter.TestWebAPI\\Controllers\\PerformanceMeterController.cs"
+      },
+      "steps": []
+    }
+  ],
+  "totalActivity": [
+    {
+      "methodName": "StartWatchingWithCallerName",
+      "callsCount": 1
+    }
+  ],
+  "currentActivity": [
+    {
+      "methodName": "StartWatchingWithCallerName",
+      "callsCount": 0
+    }
+  ],
+  "uptimeSince": "2019-12-06T13:35:45.2601668Z",
+  "className": "Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController",
+  "methodNames": [
+    "StartWatchingWithCallerName"
+  ],
+  "customData": { },
+  "timerFrequency": 10000000
+}
+```
 
 ## HowTos
 
