@@ -16,7 +16,7 @@ The library can be used in .NET Core and .NET Framework applications that suppor
 
 * [**Make exact measurements**](#SimpleSamples) of the performance of ***public* methods** for ***public* classes** for your code and [used libraries code](#SampleExternal) (with fixing the exact time of the start and end of the measurement);
 
-* [**Add custom data**](#SampleCustomData) to the measurement results. For example, the values of the input parameters of the method and the result; or method execution context data; or *corellationId*, by which it will be possible to link several measurements of the performance of methods;
+* [**Add Custom Data**](#SampleCustomData) to the measurement results. For example, the values of the input parameters of the method and the result; or method execution context data; or *corellationId*, by which it will be possible to link several measurements of the performance of methods;
 
 * [**Split**](#SampleCustomData) method performance measurement **into separate steps** with fixing of own data for each step. In addition, you can [set the minimum execution time](#SampleIgnore), starting from which the step will be save into the measurement (if the step is completed faster, it will not be saved);
 
@@ -24,9 +24,9 @@ The library can be used in .NET Core and .NET Framework applications that suppor
 
 * [**Add custom Commands**](#SampleCustomCommands), which are guaranteed **to be executed immediately after the end of the measurement** of the method’s performance (for example, to add additional processing of the obtained results, such as logging or writing data to the storage);
 
-* [**Add custom exception handler**](#SampleCustomExceptionHandler) for code executed in the context of measuring the performance of the method (for all measurements, and for each measurement separately);
+* [**Add custom Exception Handler**](#SampleCustomExceptionHandler) for code executed in the context of measuring the performance of the method (for all measurements, and for each measurement separately);
 
-* [**Set the cache time**](#SampleSetCacheTime) for the results of measurements of the methods performance, after which the results will be deleted;
+* [**Set the Cache Time**](#SampleSetCacheTime) for the results of measurements of the methods performance, after which the results will be deleted;
 
 * [**Add to the measurement results**](#SampleSetCallerAndSourceWithStop) data about, **who is calling** (Caller) the method  with *IHttpContextAccesor* or setting Caller in the code (for example, you can specify the name of the external service that called the method);
 
