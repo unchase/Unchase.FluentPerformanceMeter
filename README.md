@@ -55,6 +55,8 @@ The data obtained as a result of measuring the methods performance can be used t
 |GitHub Release|[![GitHub release](https://img.shields.io/github/release/unchase/Unchase.fluentperformancemeter.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
 |GitHub Release Date|[![GitHub Release Date](https://img.shields.io/github/release-date/unchase/Unchase.fluentperformancemeter.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
 |GitHub Release Downloads|[![Github Releases](https://img.shields.io/github/downloads/unchase/Unchase.fluentperformancemeter/total.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
+|Nuget Version|[![NuGet Version](http://img.shields.io/nuget/v/Unchase.fluentperformancemeter.svg?style=flat)](https://www.nuget.org/packages/Unchase.fluentperformancemeter/) 
+|Nuget Downloads|[![Nuget Downloads](https://img.shields.io/nuget/dt/Unchase.fluentperformancemeter.svg)](https://www.nuget.org/packages/Unchase.fluentperformancemeter/)
 
 ## Table of content
 
