@@ -736,7 +736,7 @@ public ActionResult<IPerformanceInfo> GetThreadPerformanceInfo()
 }
 ```
 
-### <a name="SampleCustomData"></a> Добавление дополнительных данных (разбиение на шаги)
+### <a name="SampleCustomData"></a> Добавление дополнительных данных (Custom Data) и разбиение на шаги (Steps)
 
 Можно добавить дополнительные данные (Custom Data) для всех замеров производительности методов конкретного класса. Например, в статическом конструкторе класса-контроллера `PerformanceMeterController`:
 
@@ -885,7 +885,7 @@ public ActionResult SimpleStartWatchingWithSteps()
 }
 ```
 
-### <a name="SampleIgnore"></a> Исключение из замера
+### <a name="SampleIgnore"></a> Исключение из замера (Ignore)
 
 Вы можете не учитывать в замере производительности отдельные части метода (с помощью `.Ignore()` или `.Executing().WithoutWatching().Start(<Action>)`), а также не сохранять отдельные шаги (метод расширения `.StepIf("<step_name>", <minSaveMs>)`), если они не удовлетворяют условию (при этом время выполнения шага будет учитываться во времени выполнения метода):
 
@@ -956,7 +956,7 @@ using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
 }
 ```
 
-### <a name="SampleCustomCommands"></a> Добавление команд и действий
+### <a name="SampleCustomCommands"></a> Добавление команд (Commands) и действий (Actions)
 
 Для добавления команды, которая будет гарантированно исполнена по завершении замера производительности метода, необходимо создать класс команды, который будет реализовывать интерфейс `IPerformanceCommand`. 
 При этом вы можете через конструктор созданной команды передавать произвольные данные, которые будут использованы при выполнении команды, например:
@@ -1030,7 +1030,7 @@ Method names count: 13
 Class name: Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController
 ```
 
-### <a name="SampleCustomExceptionHandler"></a> Добавление обработчиков исключений
+### <a name="SampleCustomExceptionHandler"></a> Добавление обработчиков исключений (Exception Handlers)
 
 Если вам необходимо обрабатывать исключения, которые могут возникнуть при выполнении части метода, для которого отслеживается производительность, то необходимо добавить обработчик исключений (Exception handler) следующим образом:
 
@@ -1097,7 +1097,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-### <a name="#SampleSetCacheTime"></a> Установка времени хранения данных
+### <a name="#SampleSetCacheTime"></a> Установка времени хранения данных (Set Cahche Time)
 
 Вы можете установить время хранения данных замеров производительности методов, по истечении которого эти данные будут удалены. Для каждого класса, для которого производится замер, это время устанавливается отдельно. Например, время можно задать через статический конструктор класса-контроллера `PerformanceMeterController`:
 
