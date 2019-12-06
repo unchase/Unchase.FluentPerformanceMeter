@@ -131,6 +131,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         /// Test GET method with simple performance watching (with steps).
         /// </summary>
         [HttpGet("SimpleStartWatchingWithSteps")]
+        [MethodCustomData("Custom data from attribute", "Attr")]
         public ActionResult SimpleStartWatchingWithSteps()
         {
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
