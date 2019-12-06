@@ -43,6 +43,8 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 
 Далее приведён простейший пример использования библиотеки (без конфигурирования и дополнительных настроек) для замера производительности метода (Action) `SimpleWatchingMethodStart` контроллера (Controller) `PerformanceMeterController` *Asp.Net Core 2.2 WebAPI* приложения.
 
+> Все примеры использования библиотеки можно найти в проектах `Unchase.FluentPerformanceMeter.Test*` данного репозитория.
+
 ```csharp
 /// <summary>
 /// Test GET method with simple performance watching.
@@ -81,10 +83,10 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
   "methodCalls": [
     {
       "methodName": "SimpleWatchingMethodStart",
-      "elapsed": "00:00:00.0084887",
+      "elapsed": "00:00:00.0016350",
       "caller": "unknown",
-      "startTime": "2019-12-06T10:15:01.3210151Z",
-      "endTime": "2019-12-06T10:15:01.3295038Z",
+      "startTime": "2019-12-06T10:27:27.3385385Z",
+      "endTime": "2019-12-06T10:27:27.3401735Z",
       "customData": {},
       "steps": []
     }
@@ -101,18 +103,12 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
       "callsCount": 0
     }
   ],
-  "uptimeSince": "2019-12-06T10:15:01.2904207Z",
+  "uptimeSince": "2019-12-06T10:27:27.3370183Z",
   "className": "Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController",
   "methodNames": [
     "SimpleWatchingMethodStart"
   ],
-  "customData": {
-    "Tag": "CustomTag",
-    "Custom anonymous class": {
-      "name": "Custom Name",
-      "value": 1
-    }
-  },
+  "customData": {},
   "timerFrequency": 10000000
 }
 ```
