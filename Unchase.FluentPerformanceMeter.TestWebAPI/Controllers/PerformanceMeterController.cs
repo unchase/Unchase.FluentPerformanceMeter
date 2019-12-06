@@ -134,9 +134,18 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         public ActionResult SimpleStartWatchingWithSteps()
         {
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
-            using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
+            using (var pm = PerformanceMeter<PerformanceMeterController>
+                .WatchingMethod()
+                .WithSettingData
+                    .CustomData("coins", 1)
+                    .CustomData("Coins sets", new 
+                    { 
+                        Gold = "Many",
+                        Silver = 5
+                    })
+                .Start())
             {
-                // Place your code with some logic there
+                // put your code with some logic there
 
                 // add "Step 1"
                 using (pm.Step("Step 1"))
@@ -171,7 +180,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     // add custom data to "Step 2"
                     pmStep.AddCustomData("step2 another custom data", "data2!");
 
-                    // get and remove custom data
+                    // get and remove custom data from "Step 2"
                     var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
                     Debug.WriteLine($"{customData}!!!");
                 }

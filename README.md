@@ -7,7 +7,7 @@
 
 * [**Производить точные замеры**](#SimpleSamples) производительности ***public* методов** для ***public* классов** как вашего кода, так и [кода подключенных библиотек](#SmapleExternal) (с фиксацией точного времени начала и окончания выполнения замера);
 * [**Добавлять к результатам**](#SampleCustomData) замеров **дополнительные данные** (Custom Data). Например, значения входных параметров метода и полученный результат; или данные контекста выполнения метода; или *corellationId*, по которому можно будет связать несколько замеров производительности методов;
-* [**Разбивать замер**](#SampleSteps) производительности метода **на отдельные шаги** (Steps) с фиксацией собственных данных для каждого шага. Кроме того можно [задать минимальное время](#SampleMinSaveMs) выполнения, начиная с которого шаг будет учитываться в замере (если шаг выполнится быстрее, то не попадёт в замер);
+* [**Разбивать замер**](#SampleCustomData) производительности метода **на отдельные шаги** (Steps) с фиксацией собственных данных для каждого шага. Кроме того можно [задать минимальное время](#SampleMinSaveMs) выполнения, начиная с которого шаг будет учитываться в замере (если шаг выполнится быстрее, то не попадёт в замер);
 * [**Исключать из замера**](#SampleIgnore) производительности **отдельные части кода** (например, вызовы отдельных методов, время исполнения которых не нужно учитывать при замере);
 * [**Добавлять собственные команды**](#SampleCustomCommands) (Commands), которые гарантированно **будут исполнены сразу после** окончания замера производительности метода (например, для добавления дополнительной обработки полученных результатов, таких как логирование или запись данных в хранилище);
 * [**Добавлять свой обработчик исключений**](#SampleCustomExceptionHandler) для кода, выполняемого в контексте замера производительности метода (как общий для всех замеров, так и для каждого замера в отдельности);
@@ -81,6 +81,9 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 [HttpGet("SimpleWatchingMethodStart")]
 public ActionResult SimpleWatchingMethodStart()
 {
+	// for C# 8 you can use:
+	//using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+
     using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
     {
         // put your code with some logic there
@@ -142,13 +145,146 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
 }
 ```
 
-### <a name="SampleCustomData"></a> Добавление дополнительных данных
+### <a name="SampleCustomData"></a> Добавление дополнительных данных (разбиение на шаги)
 
+Можно добавить дополнительные данные (Custom Data) для всех замеров производительности методов конкретного класса. Например, в статическом конструкторе класса-контроллера `PerformanceMeterController`:
 
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+public class PerformanceMeterController : ControllerBase
+{
+    /// <summary>
+    /// Static constructor.
+    /// </summary>
+    static PerformanceMeterController()
+    {
+        // add common custom data (string) to class performance information
+        PerformanceMeter<PerformanceMeterController>.AddCustomData("Tag", "CustomTag");
 
-### <a name="SampleSteps"></a> Разбиение на шаги
+        // add common custom data (anonymous class) to class performance information
+        PerformanceMeter<PerformanceMeterController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
+    }
 
+	// ... actions and others
+}
+```
 
+Кроме того, можно добавить дополнительные данные (Custom Data) для определённого замера и для каждого шага (Step) этого замера:
+
+```csharp
+using (var pm = PerformanceMeter<PerformanceMeterController>
+    .WatchingMethod()
+    .WithSettingData
+        .CustomData("coins", 1)
+        .CustomData("Coins sets", new 
+        { 
+            Gold = "Many",
+            Silver = 5
+        })
+    .Start())
+{
+	// put your code with some logic there
+
+    // add "Step 1"
+    using (pm.Step("Step 1"))
+    {
+        Thread.Sleep(1000);
+    }
+
+	// add "Step 2" with custom data
+    using (var pmStep = pm.Step("Step 2").AddCustomData("step2 custom data", "data!"))
+    {
+        // add "Step 3 in Step 2"
+        using (pm.Step("Step 3 in Step 2"))
+        {
+            Thread.Sleep(1000);
+        }
+
+        // add custom data to "Step 2"
+        pmStep.AddCustomData("step2 another custom data", "data2!");
+
+        // get and remove custom data from "Step 2"
+        var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
+        
+		// ...
+    }
+}
+```
+
+В результате при вызове `GetPerformanceInfo` получим:
+
+```json
+{
+  "methodCalls": [
+    {
+      "methodName": "SimpleStartWatchingWithSteps",
+      "elapsed": "00:00:02.0083031",
+      "caller": "unknown",
+      "startTime": "2019-12-06T11:58:18.9006891Z",
+      "endTime": "2019-12-06T11:58:20.9089922Z",
+      "customData": {
+        "Coins sets": {
+          "gold": "Many",
+          "silver": 5
+        },
+        "coins": 1
+      },
+      "steps": [
+        {
+          "stepName": "Step 1",
+          "elapsed": "00:00:01.0009758",
+          "startTime": "2019-12-06T11:58:18.9018272Z",
+          "endTime": "2019-12-06T11:58:19.902803Z",
+          "customData": {}
+        },
+        {
+          "stepName": "Step 3 in Step 2",
+          "elapsed": "00:00:01.0004549",
+          "startTime": "2019-12-06T11:58:19.9046523Z",
+          "endTime": "2019-12-06T11:58:20.9051072Z",
+          "customData": {}
+        },
+        {
+          "stepName": "Step 2",
+          "elapsed": "00:00:01.0029596",
+          "startTime": "2019-12-06T11:58:19.904534Z",
+          "endTime": "2019-12-06T11:58:20.9074936Z",
+          "customData": {
+            "step2 another custom data": "data2!"
+          }
+        }
+      ]
+    }
+  ],
+  "totalActivity": [
+    {
+      "methodName": "SimpleStartWatchingWithSteps",
+      "callsCount": 1
+    }
+    }
+  ],
+  "currentActivity": [
+    {
+      "methodName": "SimpleStartWatchingWithSteps",
+      "callsCount": 0
+    }
+  ],
+  "uptimeSince": "2019-12-06T11:58:18.8801249Z",
+  "className": "Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController",
+  "methodNames": [
+    "SimpleStartWatchingWithSteps"
+  ],
+  "customData": {
+    "Tag": "CustomTag",
+    "Custom anonymous class": {
+      "name": "Custom Name",
+      "value": 1
+    }
+  },
+  "timerFrequency": 10000000
+}
+```
 
 ### <a name="SampleIgnore"></a> Исключение из замера
 
