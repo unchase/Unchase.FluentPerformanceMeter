@@ -180,43 +180,43 @@ public class PerformanceMeterController : ControllerBase
 [MethodCustomData("Custom data from attribute", "Attr")]
 public ActionResult SimpleStartWatchingWithSteps()
 {
-	using (var pm = PerformanceMeter<PerformanceMeterController>
-	    .WatchingMethod()
-	    .WithSettingData
-	        .CustomData("coins", 1)
-	        .CustomData("Coins sets", new 
-	        { 
-	            Gold = "Many",
-	            Silver = 5
-	        })
-	    .Start())
-	{
-	    // put your code with some logic there
-	
-	    // add "Step 1"
-	    using (pm.Step("Step 1"))
-	    {
-	        Thread.Sleep(1000);
-	    }
-	
-	    // add "Step 2" with custom data
-	    using (var pmStep = pm.Step("Step 2").AddCustomData("step2 custom data", "data!"))
-	    {
-	        // add "Step 3 in Step 2"
-	        using (pm.Step("Step 3 in Step 2"))
-	        {
-	            Thread.Sleep(1000);
-	        }
-	
-	        // add custom data to "Step 2"
-	        pmStep.AddCustomData("step2 another custom data", "data2!");
-	
-	        // get and remove custom data from "Step 2"
-	        var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
-	        
-	        // ...
-	    }
-	}
+    using (var pm = PerformanceMeter<PerformanceMeterController>
+        .WatchingMethod()
+        .WithSettingData
+            .CustomData("coins", 1)
+            .CustomData("Coins sets", new 
+            { 
+                Gold = "Many",
+                Silver = 5
+            })
+        .Start())
+    {
+        // put your code with some logic there
+
+        // add "Step 1"
+        using (pm.Step("Step 1"))
+        {
+            Thread.Sleep(1000);
+        }
+
+        // add "Step 2" with custom data
+        using (var pmStep = pm.Step("Step 2").AddCustomData("step2 custom data", "data!"))
+        {
+            // add "Step 3 in Step 2"
+            using (pm.Step("Step 3 in Step 2"))
+            {
+                Thread.Sleep(1000);
+            }
+
+            // add custom data to "Step 2"
+            pmStep.AddCustomData("step2 another custom data", "data2!");
+
+            // get and remove custom data from "Step 2"
+            var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
+        
+            // ...
+        }
+    }
 }
 ```
 
