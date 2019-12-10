@@ -73,7 +73,7 @@ The data obtained as a result of measuring the methods performance can be used t
 
 ## <a name="Start"></a> Getting Started
 
-To use the library, install [*NuGet* пакет](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter/) in your project:
+To use the library, install [*NuGet* package](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter/) in your project:
 
 #### Manually with the *NuGet* Package Manager:
 
