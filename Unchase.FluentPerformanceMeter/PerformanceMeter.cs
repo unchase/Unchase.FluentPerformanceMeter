@@ -316,29 +316,23 @@ namespace Unchase.FluentPerformanceMeter
             text.AppendLine();
             text.AppendLine("Current activity:");
             text.AppendLine();
-
+            text.AppendFormat("{0, 6} | {1}{2}", "Calls", "Method name", Environment.NewLine);
             foreach (var currentActivity in performanceInfo.CurrentActivity)
-            {
-                text.AppendLine($"\t{currentActivity.MethodName} - {currentActivity.CallsCount} calls");
-            }
+                text.AppendFormat("{0, 6} | {1}{2}", currentActivity.CallsCount, currentActivity.MethodName, Environment.NewLine);
 
             text.AppendLine();
             text.AppendLine("Total activity:");
             text.AppendLine();
-
+            text.AppendFormat("{0, 6} | {1}{2}", "Calls", "Method name", Environment.NewLine);
             foreach (var totalActivity in performanceInfo.TotalActivity)
-            {
-                text.AppendLine($"\t{totalActivity.MethodName} - {totalActivity.CallsCount} calls");
-            }
+                text.AppendFormat("{0, 6} | {1}{2}", totalActivity.CallsCount, totalActivity.MethodName, Environment.NewLine);
 
             text.AppendLine();
             text.AppendLine("Method calls:");
             text.AppendLine();
 
             foreach (var methodCalls in performanceInfo.MethodCalls.OrderBy(mc => mc.StartTime))
-            {
                 text.AppendLine($"\t{methodCalls.MethodName}:");
-            }
 
             return text.ToString();
         }
