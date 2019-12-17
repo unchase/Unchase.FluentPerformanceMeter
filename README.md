@@ -1117,7 +1117,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-### <a name="#SampleSettingCacheTime"></a> Setting the Cache Time
+### <a name="SampleSettingCacheTime"></a> Setting the Cache Time
 
 You can set the Cache Time for storing the results of the method’s performance measurement, after which these results will be deleted. For each class that is to be measured, this time is set separately. For example, the time can be set through the static constructor of the `PerformanceMeterController` controller class:
 
