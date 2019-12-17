@@ -781,7 +781,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-In addition, you can add Custom Data for a specific measurement using the extension method `.WithSettingData.CustomData("<key>", <value>)` (including through the special attribute `MethodCustomDataAttribute`) and for each Step of this measurement, added using the extension method `.Step("<step_name>")`:
+In addition, you can add Custom Data for a specific measurement using the extension method `.WithSettingData.CustomData("<key>", <value>)` (including through the special attribute `MethodCustomDataAttribute`) and for each Step of this measurement, added using the extension method `.Step("<step_name>")` using the extension method `.AddCustomData("<key>", <value>)`:
 
 ```csharp
 /// <summary>
@@ -910,7 +910,7 @@ As a result, when called `GetPerformanceInfo` we get:
 You can ignore individual parts of the method in measuring performance (using `.Ignore()` or `.Executing().WithoutWatching().Start(<Action>)` extension methods), and also do not save individual Steps (with `.StepIf("<step_name>", <minSaveMs>)` extension method), if they do not satisfy the condition (the step execution time will be taken into the method execution time):
 
 ```csharp
-using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
+using (var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
 {
     // put your code with some logic there
 
@@ -979,7 +979,7 @@ As a result, we get:
 ### <a name="SampleCustomCommands"></a> Add custom Commands and Actions
 
 To add a custom Command that will be guaranteed to be executed upon completion of measuring the performance of a method, it is necessary to create a command class that will implement the `IPerformanceCommand` interface. 
-In this case, you can transfer arbitrary data through the constructor of the created command that will be used when the command is executed, for example:
+In this case, you can transfer arbitrary data through the constructor of the created command that will be used when the command is executed. For example:
 
 ```csharp
 /// <summary>
@@ -1023,7 +1023,7 @@ public class ExecutedCommand : IPerformanceCommand
 }
 ```
 
-You can add a custom Command and an Action so that they are executed at the end of the measurement in the following way:
+You can add a custom Command (IPerformanceCommand) and an Action so that they are executed at the end of the measurement in the following way:
 
 ```csharp
 // custom "ExecutedCommand" will be executed after performance watching is completed
@@ -1041,7 +1041,7 @@ using (PerformanceMeter<PerformanceMeterController>
 }
 ```
 
-As a result, at the end of measuring the performance of the method in the Debug console, it will display:
+As a result, at the end of measuring the performance of the method in the *Debug* console, it will display:
 
 ```
 ExecutedCommand
@@ -1074,7 +1074,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
 }
 ```
 
-Where the `CustomException` class is:
+Where the `CustomException` class is, for example:
 
 ```csharp
 /// <summary>
@@ -1090,7 +1090,7 @@ public class CustomException : Exception
 }
 ```
 
-As a result, the following will be displayed in the Debug console:
+As a result, the following will be displayed in the *Debug* console:
 
 ```
 Exception
@@ -1141,11 +1141,11 @@ public class PerformanceMeterController : ControllerBase
 
 ### <a name="SampleSetCallerAndSourceWithStop"></a> Adding caller and source place data (and stop watching)
 
-You can specify who is calling the method using the extension method `.CallerFrom("<caller_name>")` (either a string or *IHttpContextAccessor* is passed to it) or a special attribute `[MethodCaller ("<caller_name>")]` for the method. Moreover, if both the attribute and the extension method are used, then the value will be taken from the latter.
+* You can specify who is calling the method using the extension method `.CallerFrom("<caller_name>")` (either a string or *IHttpContextAccessor* is passed to it) or a special attribute `[MethodCaller ("<caller_name>")]` for the method. Moreover, if both the attribute and the extension method are used, then the value will be taken from the latter.
 
-To add a call source for measuring performance, use the extension method `.CallerSourceData()`.
+* To add a call source for measuring performance, use the extension method `.WithSettingData.CallerSourceData()`.
 
-To stop measuring performance inside the *using* block, use the `.StopWatching()` extension method or the `Dispose()` method directly:
+* To stop measuring performance inside the *using* block, use the `.StopWatching()` extension method or the `Dispose()` method directly:
 
 ```csharp
 [HttpPost("StartWatchingWithCallerName")]

@@ -789,7 +789,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-Кроме того, можно добавить дополнительные данные (Custom Data) для определённого замера с помощью метода расширения `.WithSettingData.CustomData("<key>", <value>)` (в том числе, через специальный атрибут метода `MethodCustomDataAttribute`) и для каждого шага (Step) этого замера, добавленного с помощью метода расширения `.Step("<step_name>")`:
+Кроме того, можно добавить дополнительные данные (Custom Data) для определённого замера с помощью метода расширения `.WithSettingData.CustomData("<key>", <value>)` (в том числе, через специальный атрибут метода `MethodCustomDataAttribute`) и для каждого шага (Step) этого замера, добавленного с помощью метода расширения `.Step("<step_name>")`, - с помощью метода расширения `.AddCustomData("<key>", <value>)`:
 
 ```csharp
 /// <summary>
@@ -918,7 +918,7 @@ public ActionResult SimpleStartWatchingWithSteps()
 Вы можете не учитывать в замере производительности отдельные части метода (с помощью `.Ignore()` или `.Executing().WithoutWatching().Start(<Action>)`), а также не сохранять отдельные шаги (метод расширения `.StepIf("<step_name>", <minSaveMs>)`), если они не удовлетворяют условию (при этом время выполнения шага будет учитываться во времени выполнения метода):
 
 ```csharp
-using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
+using (var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
 {
     // put your code with some logic there
 
@@ -987,7 +987,7 @@ using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
 ### <a name="SampleCustomCommands"></a> Добавление команд (Commands) и действий (Actions)
 
 Для добавления команды, которая будет гарантированно исполнена по завершении замера производительности метода, необходимо создать класс команды, который будет реализовывать интерфейс `IPerformanceCommand`. 
-При этом вы можете через конструктор созданной команды передавать произвольные данные, которые будут использованы при выполнении команды, например:
+При этом вы можете через конструктор созданной команды передавать произвольные данные, которые будут использованы при её выполнении. Например:
 
 ```csharp
 /// <summary>
@@ -1031,7 +1031,7 @@ public class ExecutedCommand : IPerformanceCommand
 }
 ```
 
-Добавить команду и действие (Action), чтобы они выполнились по окончании замера, можно следующим способом:
+Добавить команду (IPerformanceCommand) и действие (Action), чтобы они выполнились по окончании замера, можно следующим способом:
 
 ```csharp
 // custom "ExecutedCommand" will be executed after performance watching is completed
@@ -1049,7 +1049,7 @@ using (PerformanceMeter<PerformanceMeterController>
 }
 ```
 
-В результате, по окончанию замера производительности метода в Debug-консоли будет выведено:
+В результате, по окончанию замера производительности метода в *Debug*-консоли будет выведено:
 
 ```
 ExecutedCommand
@@ -1082,7 +1082,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
 }
 ```
 
-Где класс `CustomException`:
+Где класс `CustomException`, например:
 
 ```csharp
 /// <summary>
@@ -1098,7 +1098,7 @@ public class CustomException : Exception
 }
 ```
 
-В результате в Debug-консоли будет выведено:
+В результате в *Debug*-консоли будет выведено:
 
 ```
 Exception
@@ -1147,13 +1147,13 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-### <a name="SampleSetCallerAndSourceWithStop"></a> Добавление данных о вызывающем метод и месте вызова (прерывание замера производительности)
+### <a name="SampleSetCallerAndSourceWithStop"></a> Добавление данных о вызывающем метод и месте вызова (и прерывание замера производительности)
 
-Вы можете задать данные о том, кто вызывает метод с помощью метода расширения `.CallerFrom("<caller_name>")` (ему передаётся либо строка, либо *IHttpContextAccessor*) или специального атрибута метода `[MethodCaller("<caller_name>")]`. При этом, если используется и атрибут и метод расширения, то значение будет браться из последнего.
+* Вы можете задать данные о том, кто вызывает метод, с помощью метода расширения `.CallerFrom("<caller_name>")` (ему передаётся либо строка, либо *IHttpContextAccessor*) или специального атрибута метода `[MethodCaller("<caller_name>")]`. При этом, если используется и атрибут и метод расширения, то значение будет браться из последнего.
 
-Для добавления места вызова замера производительности используется метод расширения `.CallerSourceData()`.
+* Для добавления места вызова замера производительности используется метод расширения `.WithSettingData.CallerSourceData()`.
 
-Для остановки замера производительности внутри блока `using` используется метод расширения `.StopWatching()` или непосредственно метод `Dispose()`:
+* Для остановки замера производительности внутри блока `using` используется метод расширения `.StopWatching()` или непосредственно метод `Dispose()`:
 
 ```csharp
 [HttpPost("StartWatchingWithCallerName")]
