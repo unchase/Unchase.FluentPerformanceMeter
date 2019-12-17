@@ -4,37 +4,37 @@
 
 ----------
 
-[Russian Documentation](README_RU.md) | [English Documentation](README.md)
+[Russian](README_RU.md) | [English](README.md)
 
 
 ----------
 
 
-**Unchase Fluent Performance Meter** is an open-source and cross-platform *.Net Standart 2.0* library is designed for watching the performance of methods.
+**Unchase Fluent Performance Meter** is an open-source and cross-platform *.Net Standart 2.0* library that is designed for the method’s performance measurement.
 
-The library can be used in .NET Core and .NET Framework applications that support *.Net Standart 2.0*, and allows:
+The library can be used in .NET Core and .NET Framework applications that support *.Net Standart 2.0*, and it allows for:
 
-* [**Make exact measurements**](#SimpleSamples) of the performance of ***public* methods** for ***public* classes** for your code and [used libraries code](#SampleExternal) (with fixing the exact time of the start and end of the measurement);
+* [**Making the exact performance measurements**](#SimpleSamples) of the ***public* methods** for ***public* classes** in your code and in the [codes of the utilized libraries](#SampleExternal) (and recording the exact start and end times of the measurements);
 
-* [**Add Custom Data**](#SampleCustomData) to the measurement results. For example, the values of the input parameters of the method and the result; or method execution context data; or *corellationId*, by which it will be possible to link several measurements of the performance of methods;
+* [**Adding Custom Data**](#SampleCustomData) to the measurement results. For example, the input parameters’ values of the method and the result, or context of the method’s execution, or *corellationId*, that can be used for linking several measurements of the methods’ performance;
 
-* [**Split**](#SampleCustomData) method performance measurement **into separate steps** with fixing of own data for each step. In addition, you can [set the minimum execution time](#SampleIgnore), starting from which the step will be save into the measurement (if the step is completed faster, it will not be saved);
+* [**Splitting**](#SampleCustomData) the measurement of the method performance **into separate steps** and storing personal data for each step. In addition, you can [set the minimum execution time](#SampleIgnore) which will be used as a reference for saving the step into the measurement (if a step is completed faster, it will not be saved);
 
-* [**Exclude individual parts of the code**](#SampleIgnore) from performance measurement (for example, calls to individual methods whose execution time does not need to be watching);
+* [**Excluding individual parts of the code**](#SampleIgnore) from the performance measurement (for example, calls to the individual methods the execution time of which does not  have to be saved for the measurement);
 
-* [**Add custom Commands**](#SampleCustomCommands), which are guaranteed **to be executed immediately after the end of the measurement** of the method’s performance (for example, to add additional processing of the obtained results, such as logging or writing data to the storage);
+* [**Adding custom Commands**](#SampleCustomCommands), which are guaranteed **to be executed immediately at the end of the method’s performance measurement** (for example, to add  post-processing of the obtained results, such as logging or writing data to the storage);
 
-* [**Add custom Exception Handler**](#SampleCustomExceptionHandler) for code executed in the context of measuring the performance of the method (for all measurements, and for each measurement separately);
+* [**Adding custom Exception Handler**](#SampleCustomExceptionHandler) for the code executed in the context of the method’s performance measurement  (can be used for all measurements, or for each measurement individually);
 
-* [**Set the Cache Time**](#SampleSetCacheTime) for the results of measurements of the methods performance, after which the results will be deleted;
+* [**Setting the Cache Time**](#SampleSettingCacheTime) for storing the method’s performance measurement results after which they will be deleted;
 
-* [**Add to the measurement results**](#SampleSetCallerAndSourceWithStop) data about, **who is calling** (Caller) the method  with *IHttpContextAccesor* or setting Caller in the code (for example, you can specify the name of the external service that called the method);
+* [**Adding the info about**](#SampleSetCallerAndSourceWithAborting) **the method’s Caller** to the measurement results  which is possible by means of *IHttpContextAccesor* or specifying the Caller in the code (for example, you can specify the name of the external service that called the method);
 
-* [**Add to the measurement results**](#SampleSetCallerAndSourceWithStop) data on the **place** where the performance measurement was started (file name and line number with the place of the call in the code);
+* [**Adding the info about**](#SampleSetCallerAndSourceWithAborting) the **place** where the performance measurement was started to the measurement results (referencing the file name and the exact line number where the method was called);
 
-* [**Stop watching**](#SampleSetCallerAndSourceWithStop) method performance **before the end of its execution**.
+* [**Aborting the method’s performance measurement**](#SampleSetCallerAndSourceWithAborting) **before the process is finished on its own**.
 
-The data obtained as a result of measuring the methods performance can be used to analyze the performance of the application (its individual parts, and internal — native code, or external — the code of used libraries) and displayed in a graphical form convenient for you.
+The data obtained as a result of the method’s performance measurement can be used to analyze the performance of the application (of its individual parts: both internal — native code, and external — the code of used libraries) and displayed in a graphical form convenient for you.
 
 > The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](https://github.com/unchase).
 
@@ -52,20 +52,20 @@ The data obtained as a result of measuring the methods performance can be used t
 
 ## Table of content
 
-* [Getting Started](#Start)
-* [Examples of using](#SimpleSamples)
-	* [Method Performance Measurement](#SimpleSamples)
-	* [Measuring the performance of the method of the used external library](#SampleExternal)
-	* [Add Custom Data and split on Steps](#SampleCustomData)
-	* [Ignore watching](#SampleIgnore)
-	* [Add custom Commands and Actions](#SampleCustomCommands)
-	* [Add an Exception Handlers](#SampleCustomExceptionHandler)
-	* [Set the Cache Time](#SampleSetCacheTime)
-	* [Adding caller and source place data (and stop watching)](#SampleSetCallerAndSourceWithStop)
+* [Getting started](#Start)
+* [Examples of usage](#SimpleSamples)
+	* [Method's performance measurement](#SimpleSamples)
+	* [Measuring the performance of an external library method](#SampleExternal)
+	* [Adding Custom Data and spliting into Steps](#SampleCustomData)
+	* [Excluding the measurement](#SampleIgnore)
+	* [Adding custom Commands and Actions](#SampleCustomCommands)
+	* [Adding Exception Handlers](#SampleCustomExceptionHandler)
+	* [Setting the Cache Time](#SampleSettingCacheTime)
+	* [Adding the info about the caller and call place origin (and aborting the measurement)](#SampleSetCallerAndSourceWithAborting)
 
-## <a name="Start"></a> Getting Started
+## <a name="Start"></a> Getting started
 
-To use the library, install [*NuGet* package](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter/) in your project:
+To use the library, install [*NuGet* package](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter/) into your project:
 
 #### Manually with the *NuGet* Package Manager:
 
@@ -82,11 +82,11 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 > Where {version} is the version of the package you want to install. 
 > For example, `dotnet add package Unchase.FluentPerformanceMeter --version 1.0.0`
 
-## <a name="SimpleSamples"></a> Examples of using
+## <a name="SimpleSamples"></a> Examples of usage
 
-### Method Performance Measurement
+### Method's performance measurement
 
-The following is a simple library usage example (without configuration and additional settings) to measure method performance (Action) `SimpleWatchingMethodStart` for Controller `PerformanceMeterController` in *Asp.Net Core 2.2 WebAPI* application. You can use the extension method `.WatchingMethod().Start()` or `.StartWatching()` for this.
+The following simple library usage example (without configuration and additional settings) meant to demonstrate how to measure a method’s performance (Action) `SimpleWatchingMethodStart` for the Controller `PerformanceMeterController` in *Asp.Net Core 2.2 WebAPI* application. You can use the extension method `.WatchingMethod().Start()` or `.StartWatching()` for this.
 
 > All examples of using the library can be found in the `Unchase.FluentPerformanceMeter.Test*` projects of this repository.
 
@@ -102,14 +102,14 @@ public ActionResult SimpleWatchingMethodStart()
 
     using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
     {
-        // put your code with some logic there
+        // put your code with some logic here
 
         return Ok();
     }
 }
 ```
 
-To get the results of performance measurements of public methods of the controller class `PerformanceMeterController` you can call the following method:
+To get the performance measurements results of public methods of the controller class `PerformanceMeterController` you can call the following method:
 
 ```csharp
 /// <summary>
@@ -124,7 +124,7 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
 }
 ```
 
-After calling the method `SimpleWatchingMethodStart` and after calling `GetPerformanceInfo` we get:
+After calling the method `SimpleWatchingMethodStart` and calling `GetPerformanceInfo` we receive:
 
 ```json
 {
@@ -161,9 +161,9 @@ After calling the method `SimpleWatchingMethodStart` and after calling `GetPerfo
 }
 ```
 
-### <a name="SampleExternal"></a> Measuring the performance of the method of the used external library
+### <a name="SampleExternal"></a> Measuring the performance of an external library method
 
-To measure the performance of the *public* method of the *public* class of a third-party used library, you must explicitly set the class itself and the name of its method:
+To measure the performance of a *public* method of a *public* class of a third-party library, you should explicitly specify the class itself and the name of its method:
 
 ```csharp
 [HttpGet("GetThreadSleepPerformance")]
@@ -184,7 +184,7 @@ The executed method will return:
 "00:00:01.0033040"
 ```
 
-You can get performance data about calling this method through a call:
+You can get performance info related to calling this method through the call:
 
 ```csharp
 /// <summary>
@@ -199,7 +199,7 @@ public ActionResult<IPerformanceInfo> GetThreadPerformanceInfo()
 }
 ```
 
-In response to a call to this method will be:
+In response to the call of this method you will see:
 
 ```json
 {
@@ -756,9 +756,9 @@ In response to a call to this method will be:
 }
 ```
 
-### <a name="SampleCustomData"></a> Add Custom Data and split on Steps
+### <a name="SampleCustomData"></a> Adding Custom Data and splitting into Steps
 
-You can add Custom Data for all performance measurements of methods of a particular class. For example, in the static constructor of the `PerformanceMeterController` controller class:
+You can add Custom Data for all methods’ performance measurements of a particular class. Let’s take the static constructor of the `PerformanceMeterController` controller class as an example:
 
 ```csharp
 [ApiController]
@@ -777,11 +777,11 @@ public class PerformanceMeterController : ControllerBase
         PerformanceMeter<PerformanceMeterController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
     }
 
-    // ... actions and others
+    // ... actions
 }
 ```
 
-In addition, you can add Custom Data for a specific measurement using the extension method `.WithSettingData.CustomData("<key>", <value>)` (including through the special attribute `MethodCustomDataAttribute`) and for each Step of this measurement, added using the extension method `.Step("<step_name>")` using the extension method `.AddCustomData("<key>", <value>)`:
+In addition, you can add Custom Data for a specific measurement using the extension method `.WithSettingData.CustomData("<key>", <value>)` (which can be also utilized through the special attribute `MethodCustomDataAttribute`) and for each Step of this measurement (that was added using the extension method `.Step("<step_name>")`) using the extension method `.AddCustomData("<key>", <value>)`:
 
 ```csharp
 /// <summary>
@@ -802,7 +802,7 @@ public ActionResult SimpleStartWatchingWithSteps()
             })
         .Start())
     {
-        // put your code with some logic there
+        // put your code with some logic here
 
         // add "Step 1"
         using (pm.Step("Step 1"))
@@ -831,7 +831,7 @@ public ActionResult SimpleStartWatchingWithSteps()
 }
 ```
 
-As a result, when called `GetPerformanceInfo` we get:
+As a result, when `GetPerformanceInfo` is called we get:
 
 ```json
 {
@@ -905,14 +905,14 @@ As a result, when called `GetPerformanceInfo` we get:
 }
 ```
 
-### <a name="SampleIgnore"></a> Ignore watching
+### <a name="SampleIgnore"></a> Excluding the measurement
 
-You can ignore individual parts of the method in measuring performance (using `.Ignore()` or `.Executing().WithoutWatching().Start(<Action>)` extension methods), and also do not save individual Steps (with `.StepIf("<step_name>", <minSaveMs>)` extension method), if they do not satisfy the condition (the step execution time will be taken into the method execution time):
+You can exclude individual parts of the method’s performance measurement (using `.Ignore()` or `.Executing().WithoutWatching().Start(<Action>)` extension methods), and also skip saving individual Steps (using `.StepIf("<step_name>", <minSaveMs>)` extension method), if they do not satisfy the condition (the step execution time will be taken into the method execution time):
 
 ```csharp
 using (var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
 {
-    // put your code with some logic there
+    // put your code with some logic here
 
     // sleep 1 sec
     Thread.Sleep(1000);
@@ -976,9 +976,9 @@ As a result, we get:
 }
 ```
 
-### <a name="SampleCustomCommands"></a> Add custom Commands and Actions
+### <a name="SampleCustomCommands"></a> Adding custom Commands and Actions
 
-To add a custom Command that will be guaranteed to be executed upon completion of measuring the performance of a method, it is necessary to create a command class that will implement the `IPerformanceCommand` interface. 
+To add a custom Command that will be guaranteed to be executed upon completion of the method’s performance measurement, it is required to create a command class that will implement the `IPerformanceCommand` interface. 
 In this case, you can transfer arbitrary data through the constructor of the created command that will be used when the command is executed. For example:
 
 ```csharp
@@ -1023,7 +1023,7 @@ public class ExecutedCommand : IPerformanceCommand
 }
 ```
 
-You can add a custom Command (IPerformanceCommand) and an Action so that they are executed at the end of the measurement in the following way:
+You can add a custom Command (IPerformanceCommand) and an Action so that they are executed at the end of the measurement the following way:
 
 ```csharp
 // custom "ExecutedCommand" will be executed after performance watching is completed
@@ -1041,7 +1041,7 @@ using (PerformanceMeter<PerformanceMeterController>
 }
 ```
 
-As a result, at the end of measuring the performance of the method in the *Debug* console, it will display:
+As a result, at the end of the measurement the *Debug* console will display:
 
 ```
 ExecutedCommand
@@ -1050,9 +1050,9 @@ Method names count: 13
 Class name: Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController
 ```
 
-### <a name="SampleCustomExceptionHandler"></a> Add an Exception Handlers
+### <a name="SampleCustomExceptionHandler"></a> Adding Exception Handlers
 
-If you need to handle exceptions that may occur during the execution of a part of the method for which performance is watched, you need to add an Exception Handler as follows:
+If you need to handle exceptions that may occur during the execution of a part of the method for which performance is measured, you need to add an Exception Handler as follows:
 
 ```csharp
 using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
@@ -1074,7 +1074,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
 }
 ```
 
-Where the `CustomException` class is, for example:
+Where the `CustomException` class is (for example):
 
 ```csharp
 /// <summary>
@@ -1097,7 +1097,7 @@ Exception
 Custom exception was occured!
 ```
 
-In addition, you can specify an Exception Handler that will be used by default to measure the performance of any method of this class, for example, through the static constructor of the `PerformanceMeterController` controller class:
+In addition, you can specify an Exception Handler that will be used by default to measure the performance of any method of the given class, for example, through the static constructor of the `PerformanceMeterController` controller class:
 
 ```csharp
 [ApiController]
@@ -1113,13 +1113,13 @@ public class PerformanceMeterController : ControllerBase
         PerformanceMeter<PerformanceMeterController>.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
     }
 
-    // ... actions and others
+    // ... actions
 }
 ```
 
-### <a name="#SampleSetCacheTime"></a> Set the Cache Time
+### <a name="#SampleSettingCacheTime"></a> Setting the Cache Time
 
-You can set the Cache Time for the data of the performance measurements of methods, after which this data will be deleted. For each class for which measurement is made, this time is set separately. For example, the time can be set through the static constructor of the `PerformanceMeterController` controller class:
+You can set the Cache Time for storing the results of the method’s performance measurement, after which these results will be deleted. For each class that is to be measured, this time is set separately. For example, the time can be set through the static constructor of the `PerformanceMeterController` controller class:
 
 ```csharp
 [ApiController]
@@ -1135,17 +1135,17 @@ public class PerformanceMeterController : ControllerBase
         PerformanceMeter<PerformanceMeterController>.SetMethodCallsCacheTime(5);
     }
 
-    // ... actions and others
+    // ... actions
 }
 ```
 
-### <a name="SampleSetCallerAndSourceWithStop"></a> Adding caller and source place data (and stop watching)
+### <a name="SampleSetCallerAndSourceWithAborting"></a> Adding the info about the caller and call place origin (and aborting the measurement)
 
-* You can specify who is calling the method using the extension method `.CallerFrom("<caller_name>")` (either a string or *IHttpContextAccessor* is passed to it) or a special attribute `[MethodCaller ("<caller_name>")]` for the method. Moreover, if both the attribute and the extension method are used, then the value will be taken from the latter.
+* You can specify who is calling the method using the extension method `.CallerFrom("<caller_name>")` (either a string value or *IHttpContextAccessor* is passed to it) or a special attribute `[MethodCaller ("<caller_name>")]` for the method. Moreover, if both the attribute and the extension method are used, then the value will be taken from the latter.
 
-* To add a call source for measuring performance, use the extension method `.WithSettingData.CallerSourceData()`.
+* To add a call source for a performance measurement, use the extension method `.WithSettingData.CallerSourceData()`.
 
-* To stop measuring performance inside the *using* block, use the `.StopWatching()` extension method or the `Dispose()` method directly:
+* To stop/abort the performance measurement inside the *using* block, use the `.StopWatching()` extension method or the `Dispose()` method directly:
 
 ```csharp
 [HttpPost("StartWatchingWithCallerName")]
@@ -1160,7 +1160,7 @@ public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
             .CallerFrom("Test caller")
         .Start())
     {
-        pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
+        pm.StopWatching(); // stop watching here (or you can use "pm.Dispose();")
         Thread.Sleep(2000);
 
         return Ok(value);

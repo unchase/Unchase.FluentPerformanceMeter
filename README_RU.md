@@ -26,7 +26,7 @@
 
 * [**Добавлять свой обработчик исключений**](#SampleCustomExceptionHandler) для кода, выполняемого в контексте замера производительности метода (как общий для всех замеров, так и для каждого замера в отдельности);
 
-* [**Устанавливать время хранения результатов**](#SampleSetCacheTime) замеров производительности методов, по истечении которого результаты будут удалены;
+* [**Устанавливать время хранения результатов**](#SampleSettingCacheTime) замеров производительности методов, по истечении которого результаты будут удалены;
 
 * [**Добавить в результаты замера**](#SampleSetCallerAndSourceWithStop) данные о том, **кто вызывает метод** (Caller) через *IHttpContextAccesor* или задание Caller'а в коде (например, можно указать название внешнего сервиса, который вызвал метод);
 
@@ -68,7 +68,7 @@
 	* [Исключение из замера (Ignore)](#SampleIgnore)
 	* [Добавление команд (Commands) и действий (Actions)](#SampleCustomCommands)
 	* [Добавление обработчиков исключений (Exception Handlers)](#SampleCustomExceptionHandler)
-	* [Установка времени хранения данных (Set Cache Time)](#SampleSetCacheTime)
+	* [Установка времени хранения данных (Set Cache Time)](#SampleSettingCacheTime)
 	* [Добавление данных о вызывающем метод и месте вызова (прерывание замера производительности)](#SampleSetCallerAndSourceWithStop)
 
 ## <a name="Start"></a> Начало работы
@@ -110,7 +110,7 @@ public ActionResult SimpleWatchingMethodStart()
 
     using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
     {
-        // put your code with some logic there
+        // put your code with some logic here
 
         return Ok();
     }
@@ -785,7 +785,7 @@ public class PerformanceMeterController : ControllerBase
         PerformanceMeter<PerformanceMeterController>.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
     }
 
-    // ... actions and others
+    // ... actions
 }
 ```
 
@@ -810,7 +810,7 @@ public ActionResult SimpleStartWatchingWithSteps()
             })
         .Start())
     {
-        // put your code with some logic there
+        // put your code with some logic here
 
         // add "Step 1"
         using (pm.Step("Step 1"))
@@ -920,7 +920,7 @@ public ActionResult SimpleStartWatchingWithSteps()
 ```csharp
 using (var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
 {
-    // put your code with some logic there
+    // put your code with some logic here
 
     // sleep 1 sec
     Thread.Sleep(1000);
@@ -1121,11 +1121,11 @@ public class PerformanceMeterController : ControllerBase
         PerformanceMeter<PerformanceMeterController>.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
     }
 
-    // ... actions and others
+    // ... actions
 }
 ```
 
-### <a name="#SampleSetCacheTime"></a> Установка времени хранения данных (Set Cache Time)
+### <a name="#SampleSettingCacheTime"></a> Установка времени хранения данных (Set Cache Time)
 
 Вы можете установить время хранения данных замеров производительности методов, по истечении которого эти данные будут удалены. Для каждого класса, для которого производится замер, это время устанавливается отдельно. Например, время можно задать через статический конструктор класса-контроллера `PerformanceMeterController`:
 
@@ -1143,7 +1143,7 @@ public class PerformanceMeterController : ControllerBase
         PerformanceMeter<PerformanceMeterController>.SetMethodCallsCacheTime(5);
     }
 
-    // ... actions and others
+    // ... actions
 }
 ```
 
@@ -1168,7 +1168,7 @@ public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
             .CallerFrom("Test caller")
         .Start())
     {
-        pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
+        pm.StopWatching(); // stop watching here (or you can use "pm.Dispose();")
         Thread.Sleep(2000);
 
         return Ok(value);
