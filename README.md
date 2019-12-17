@@ -18,7 +18,7 @@ The library can be used in .NET Core and .NET Framework applications that suppor
 
 * [**Adding Custom Data**](#SampleCustomData) to the measurement results. For example, the input parameters’ values of the method and the result, or context of the method’s execution, or *corellationId*, that can be used for linking several measurements of the methods’ performance;
 
-* [**Splitting**](#SampleCustomData) the measurement of the method performance **into separate steps** and storing personal data for each step. In addition, you can [set the minimum execution time](#SampleIgnore) which will be used as a reference for saving the step into the measurement (if a step is completed faster, it will not be saved);
+* [**Splitting the measurement**](#SampleCustomData) of the method performance **into separate steps** and storing personal data for each step. In addition, you can [set the minimum execution time](#SampleIgnore) which will be used as a reference for saving the step into the measurement (if a step is completed faster, it will not be saved);
 
 * [**Excluding individual parts of the code**](#SampleIgnore) from the performance measurement (for example, calls to the individual methods the execution time of which does not  have to be saved for the measurement);
 
