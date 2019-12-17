@@ -120,7 +120,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start();
             using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
             {
-                // put your code with some logic there
+                // put your code with some logic here
 
                 return Ok();
             }
@@ -135,7 +135,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
             using (PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                // put your code with some logic there
+                // put your code with some logic here
 
                 return Ok();
             }
@@ -153,14 +153,14 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                 .WatchingMethod()
                 .WithSettingData
                     .CustomData("coins", 1)
-                    .CustomData("Coins sets", new 
-                    { 
+                    .CustomData("Coins sets", new
+                    {
                         Gold = "Many",
                         Silver = 5
                     })
                 .Start())
             {
-                // put your code with some logic there
+                // put your code with some logic here
 
                 // add "Step 1"
                 using (pm.Step("Step 1"))
@@ -214,7 +214,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
             using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                // put your code with some logic there
+                // put your code with some logic here
 
                 // sleep 1 sec
                 Thread.Sleep(1000);
@@ -265,7 +265,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
             using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                // put your code with some logic there
+                // put your code with some logic here
 
                 // sleep 1 sec
                 Thread.Sleep(1000);
@@ -310,7 +310,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
             using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                // put your code with some logic there
+                // put your code with some logic here
 
                 // execute action throws custom Exception with exception handler
                 pm.Executing<CustomException>()
@@ -526,7 +526,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     .CallerFrom("Test caller")
                 .Start())
             {
-                pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
+                pm.StopWatching(); // stop watching here (or you can use "pm.Dispose();")
                 Thread.Sleep(2000);
 
                 return Ok(value);
@@ -547,7 +547,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             // method performance info will reach with caller name (if internal HttpContextAccessor is null)
             using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                pm.StopWatching(); // stop watching there (or you can use "pm.Dispose();")
+                pm.StopWatching(); // stop watching here (or you can use "pm.Dispose();")
                 Thread.Sleep(2000);
 
                 return Ok(value);
