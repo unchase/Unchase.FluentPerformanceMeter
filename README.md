@@ -34,15 +34,7 @@ The library can be used in .NET Core and .NET Framework applications that suppor
 
 * [**Stop watching**](#SampleSetCallerAndSourceWithStop) method performance **before the end of its execution**.
 
-The data obtained as a result of measuring the methods performance can be used to analyze the performance of the application (its individual parts, and internal — native code, or external — the code of used libraries) and displayed in a graphical form convenient for you. For example:
-
-![Performance charts](img/charts1.png)
-
-![Performance charts](img/charts2.png)
-
-![Performance charts](img/charts3.png)
-
-![Performance charts](img/charts4.png)
+The data obtained as a result of measuring the methods performance can be used to analyze the performance of the application (its individual parts, and internal — native code, or external — the code of used libraries) and displayed in a graphical form convenient for you.
 
 > The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](https://github.com/unchase).
 
