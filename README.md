@@ -42,7 +42,7 @@ The data obtained as a result of the method’s performance measurement can be u
 
 |Status|Value|
 |:----|:---:|
-|Build|[![Build status](https://ci.appveyor.com/api/projects/status/5whpp549pnr3gs6n)](https://ci.appveyor.com/project/unchase/unchase.fluentperformancemeter)
+|Build|[![Build status](https://ci.appveyor.com/api/projects/status/9md9r7j6ex7xa0jf)](https://ci.appveyor.com/project/unchase/unchase.fluentperformancemeter)
 |Buid History|![Build history](https://buildstats.info/appveyor/chart/unchase/unchase-fluentperformancemeter)
 |GitHub Release|[![GitHub release](https://img.shields.io/github/release/unchase/Unchase.fluentperformancemeter.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
 |GitHub Release Date|[![GitHub Release Date](https://img.shields.io/github/release-date/unchase/Unchase.fluentperformancemeter.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
