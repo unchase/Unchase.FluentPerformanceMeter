@@ -923,7 +923,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().St
         Thread.Sleep(5000);
     }
 
-    // skip this step with minSaveMs (not save, but consider duration in method performance watching)
+    // skip this step with minSaveMs (do not save the step results, but take into account its duration)
     using (pm.StepIf("Skipped step", minSaveMs: 1000))
     {
         Thread.Sleep(500);
@@ -1057,7 +1057,7 @@ If you need to handle exceptions that may occur during the execution of a part o
 ```csharp
 using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
 {
-    // execute action throws Exception with exception handler
+    // execute an action that throws the exception to be handled by the exception handler
     pm.Executing()
         .WithExceptionHandler((ex) => Debug.WriteLine(ex.Message))
         .Start(() => throw new Exception("Exception"));
@@ -1152,7 +1152,7 @@ public class PerformanceMeterController : ControllerBase
 [MethodCaller("testCaller")]
 public ActionResult<string> StartWatchingWithCallerName([FromBody] string value)
 {
-    // method performance info will reach with caller name (if internal HttpContextAccessor is null)
+    // the method’s performance info will be amended with the caller's name (if internal HttpContextAccessor is null)
     using (var pm = PerformanceMeter<PerformanceMeterController>
         .WatchingMethod()
         .WithSettingData
