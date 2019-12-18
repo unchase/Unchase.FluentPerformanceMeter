@@ -18,7 +18,7 @@ deploy:
   auth_token:
     secure: 5YjB5tKbw0Z/mnSTKxo3WLD9TWuyGpGPhaNlSTA+cFA1oORUk46i6tPuyvekHaS9
   repository: unchase/Unchase.FluentPerformanceMeter
-  artifact: /.*\.nupkg/
+  artifact: /.*\.symbols\.nupkg/
   force_update: true
   # on:
     #branch: master                # release from master branch only
