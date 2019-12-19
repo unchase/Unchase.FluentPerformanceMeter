@@ -207,6 +207,8 @@ public ActionResult<IPerformanceInfo> GetThreadPerformanceInfo()
 }
 ```
 
+> Атрибут `IgnoreMethodPerformance` предназначен для того, чтобы помеченный им метод не учитывался при замере производительности.
+
 В ответе на вызов этого метода будет:
 
 ```json

@@ -124,6 +124,8 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
 }
 ```
 
+> The attribute `IgnoreMethodPerformance` is intended so that the method marked by it is not taken into account when measuring performance.
+
 After calling the method `SimpleWatchingMethodStart` and calling `GetPerformanceInfo` we receive:
 
 ```json
