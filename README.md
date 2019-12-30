@@ -87,6 +87,7 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 ### Method's performance measurement
 
 The following simple library usage example (without configuration and additional settings) meant to demonstrate how to measure a method’s performance (Action) `SimpleWatchingMethodStart` for the Controller `PerformanceMeterController` in *Asp.Net Core 2.2 WebAPI* application. You can use the extension method `.WatchingMethod().Start()` or `.StartWatching()` for this.
+Since v1.0.5, you can also use `.WatchingMethod().Start(SimpleWatchingMethodStart)` or `.StartWatching(SimpleWatchingMethodStart)` with the method name.
 
 > All examples of using the library can be found in the `Unchase.FluentPerformanceMeter.Test*` projects of this repository.
 

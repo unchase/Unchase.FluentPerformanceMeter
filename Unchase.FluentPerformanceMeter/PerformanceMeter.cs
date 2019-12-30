@@ -210,6 +210,422 @@ namespace Unchase.FluentPerformanceMeter
             return new PerformanceMeterBuilder<TClass>(new PerformanceMeter<TClass>(methodInfo));
         }
 
+        #region With Action
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod(Action action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T>(Action<T> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2>(Action<T1, T2> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3>(Action<T1, T2, T3> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action)
+        {
+            return WatchingMethod(action.Method);
+        }
+
+        #endregion
+
+        #region With Func
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<TResult>(Func<TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T, TResult>(Func<T, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, TResult>(Func<T1, T2, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult}"/></param>
+        /// <returns>
+        /// Returns an instance of the class with type <see cref="PerformanceMeterBuilder{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeterBuilder<TClass> WatchingMethod<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func)
+        {
+            return WatchingMethod(func.Method);
+        }
+
+        #endregion
+
         #endregion
 
         #region Additional
@@ -341,6 +757,8 @@ namespace Unchase.FluentPerformanceMeter
             return text.ToString();
         }
 
+        #region StartWatching
+
         /// <summary>
         /// Create an instance of the class to watching method performance.
         /// </summary>
@@ -365,6 +783,424 @@ namespace Unchase.FluentPerformanceMeter
         {
             return WatchingMethod(method).Start();
         }
+
+        #region With Action
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching(Action action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T>(Action<T> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2>(Action<T1, T2> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3>(Action<T1, T2, T3> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="action"><see cref="Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action)
+        {
+            return WatchingMethod(action.Method).Start();
+        }
+
+        #endregion
+
+        #region With Func
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<TResult>(Func<TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T, TResult>(Func<T, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, TResult>(Func<T1, T2, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        /// <summary>
+        /// Create an instance of the class to watching method performance.
+        /// </summary>
+        /// <param name="func"><see cref="Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult}"/>.</param>
+        /// <returns>
+        /// Returns <see cref="PerformanceMeter{TClass}"/>.
+        /// </returns>
+        public static PerformanceMeter<TClass> StartWatching<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func)
+        {
+            return WatchingMethod(func.Method).Start();
+        }
+
+        #endregion
+
+        #endregion
 
         /// <summary>
         /// Clear all performance watching information.

@@ -92,6 +92,11 @@
             Test GET method with simple performance watching.
             </summary>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.SimpleStartWatchingFuncMethod">
+            <summary>
+            Test GET method from Func with simple performance watching.
+            </summary>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.SimpleStartWatchingWithSteps">
             <summary>
             Test GET method with simple performance watching (with steps).
@@ -125,6 +130,14 @@
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.GetThreadSleepPerformance">
             <summary>
             Test GET method for public method <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> of the public class <see cref="T:System.Threading.Thread"/>.
+            </summary>
+            <returns>
+            Returns external method call elapsed time.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.GetThreadSleepFromActionPerformance">
+            <summary>
+            Test GET method from Action for public method <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> of the public class <see cref="T:System.Threading.Thread"/>.
             </summary>
             <returns>
             Returns external method call elapsed time.

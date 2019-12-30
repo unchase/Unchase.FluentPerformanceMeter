@@ -1026,6 +1026,312 @@
             Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod(System.Action)">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``1(System.Action{``0})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`1"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``2(System.Action{``0,``1})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`2"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``3(System.Action{``0,``1,``2})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`3"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``4(System.Action{``0,``1,``2,``3})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`4"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``5(System.Action{``0,``1,``2,``3,``4})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`5"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``6(System.Action{``0,``1,``2,``3,``4,``5})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`6"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``7(System.Action{``0,``1,``2,``3,``4,``5,``6})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`7"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`8"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``9(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`9"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``10(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`10"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``11(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`11"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``12(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`12"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``13(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`13"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``14(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`14"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``15(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`15"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``16(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`16"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``1(System.Func{``0})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`1"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``2(System.Func{``0,``1})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`2"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``3(System.Func{``0,``1,``2})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`3"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``4(System.Func{``0,``1,``2,``3})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`4"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``5(System.Func{``0,``1,``2,``3,``4})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`5"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``6(System.Func{``0,``1,``2,``3,``4,``5})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`6"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``7(System.Func{``0,``1,``2,``3,``4,``5,``6})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`7"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``8(System.Func{``0,``1,``2,``3,``4,``5,``6,``7})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`8"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``9(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`9"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``10(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`10"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``11(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`11"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``12(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`12"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``13(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`13"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``14(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`14"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``15(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`15"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``16(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`16"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod``17(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`17"/></param>
+            <returns>
+            Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.AddCustomData(System.String,System.Object)">
             <summary>
             Add common custom data of the class.
@@ -1093,6 +1399,312 @@
             <param name="method">Method with type <see cref="T:System.Reflection.MethodInfo"/>.</param>
             <returns>
             Returns an instance of the class with type <see cref="T:Unchase.FluentPerformanceMeter.Builders.PerformanceMeterBuilder`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching(System.Action)">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``1(System.Action{``0})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`1"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``2(System.Action{``0,``1})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`2"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``3(System.Action{``0,``1,``2})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`3"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``4(System.Action{``0,``1,``2,``3})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`4"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``5(System.Action{``0,``1,``2,``3,``4})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`5"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``6(System.Action{``0,``1,``2,``3,``4,``5})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`6"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``7(System.Action{``0,``1,``2,``3,``4,``5,``6})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`7"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`8"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``9(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`9"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``10(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`10"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``11(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`11"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``12(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`12"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``13(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`13"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``14(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`14"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``15(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`15"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``16(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="action"><see cref="T:System.Action`16"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``1(System.Func{``0})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`1"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``2(System.Func{``0,``1})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`2"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``3(System.Func{``0,``1,``2})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`3"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``4(System.Func{``0,``1,``2,``3})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`4"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``5(System.Func{``0,``1,``2,``3,``4})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`5"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``6(System.Func{``0,``1,``2,``3,``4,``5})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`6"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``7(System.Func{``0,``1,``2,``3,``4,``5,``6})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`7"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``8(System.Func{``0,``1,``2,``3,``4,``5,``6,``7})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`8"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``9(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`9"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``10(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`10"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``11(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`11"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``12(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`12"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``13(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`13"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``14(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`14"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``15(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`15"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``16(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`16"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching``17(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16})">
+            <summary>
+            Create an instance of the class to watching method performance.
+            </summary>
+            <param name="func"><see cref="T:System.Func`17"/>.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
             </returns>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Reset">

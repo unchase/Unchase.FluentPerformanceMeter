@@ -94,7 +94,8 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 
 ### Измерение производительности метода
 
-Далее приведён простейший пример использования библиотеки (без конфигурирования и дополнительных настроек) для замера производительности метода (Action) `SimpleWatchingMethodStart` контроллера (Controller) `PerformanceMeterController` *Asp.Net Core 2.2 WebAPI* приложения. Для это можно использовать метод расширения `.WatchingMethod().Start()` или аналогичный по функциональности `.StartWatching()`.
+Далее приведён простейший пример использования библиотеки (без конфигурирования и дополнительных настроек) для замера производительности метода (Action) `SimpleWatchingMethodStart` контроллера (Controller) `PerformanceMeterController` *Asp.Net Core 2.2 WebAPI* приложения. Для это можно использовать метод расширения `.WatchingMethod().Start()` или аналогичный по функциональности `.StartWatching()`. 
+С версии v1.0.5 также можно использовать `.WatchingMethod().Start(SimpleWatchingMethodStart)` или `.StartWatching(SimpleWatchingMethodStart)` с указанием имени метода. 
 
 > Все примеры использования библиотеки можно найти в проектах `Unchase.FluentPerformanceMeter.Test*` данного репозитория.
 

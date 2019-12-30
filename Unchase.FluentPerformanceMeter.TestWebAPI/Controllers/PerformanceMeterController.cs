@@ -142,6 +142,21 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
+        /// Test GET method from Func with simple performance watching.
+        /// </summary>
+        [HttpGet("SimpleStartWatchingFuncMethod")]
+        public ActionResult SimpleStartWatchingFuncMethod()
+        {
+            //using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching(SimpleStartWatchingFuncMethod);
+            using (PerformanceMeter<PerformanceMeterController>.StartWatching(SimpleStartWatchingFuncMethod))
+            {
+                // put your code with some logic here
+
+                return Ok();
+            }
+        }
+
+        /// <summary>
         /// Test GET method with simple performance watching (with steps).
         /// </summary>
         [HttpGet("SimpleStartWatchingWithSteps")]
@@ -363,6 +378,23 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         public ActionResult<string> GetThreadSleepPerformance()
         {
             using (PerformanceMeter<Thread>.WatchingMethod(nameof(Thread.Sleep)).Start())
+            {
+                Thread.Sleep(1000);
+            }
+
+            return Ok(PerformanceMeter<Thread>.PerformanceInfo.MethodCalls.FirstOrDefault(ta => ta.MethodName == nameof(Thread.Sleep))?.Elapsed);
+        }
+
+        /// <summary>
+        /// Test GET method from Action for public method <see cref="Thread.Sleep(int)"/> of the public class <see cref="Thread"/>.
+        /// </summary>
+        /// <returns>
+        /// Returns external method call elapsed time.
+        /// </returns>
+        [HttpGet("GetThreadSleepFromActionPerformance")]
+        public ActionResult<string> GetThreadSleepFromActionPerformance()
+        {
+            using (PerformanceMeter<Thread>.WatchingMethod<int>(Thread.Sleep).Start())
             {
                 Thread.Sleep(1000);
             }
