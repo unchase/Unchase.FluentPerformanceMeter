@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unchase.FluentPerformanceMeter.AspNetCore.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1">
+            <summary>
+            The class for watching performance with diagnostic source.
+            </summary>
+            <typeparam name="TClass">Class with public methods.</typeparam>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.IsMatch(System.String)">
+            <summary>
+            Check matching the name.
+            </summary>
+            <param name="name">Name.</param>
+            <returns>
+            Returns true if name is match.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnHttpRequestIn">
+            <summary>
+            On Microsoft.AspNetCore.Hosting.HttpRequestIn.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnBeforeAction(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
+            <summary>
+            On Microsoft.AspNetCore.Mvc.BeforeAction.
+            </summary>
+            <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="actionDescriptor"><see cref="T:Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnHttpRequestInStart(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            On Microsoft.AspNetCore.Hosting.HttpRequestIn.Start.
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnAfterAction(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
+            <summary>
+            On Microsoft.AspNetCore.Mvc.AfterAction.
+            </summary>
+            <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="actionDescriptor"><see cref="T:Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnHttpRequestInStop(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            On Microsoft.AspNetCore.Hosting.HttpRequestIn.Stop.
+            </summary>
+            <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase">
+            <summary>
+            The base class for performance diagnostic source.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase.IsMatch(System.String)">
+            <summary>
+            Check matching the name.
+            </summary>
+            <param name="name">Name.</param>
+            <returns>
+            Returns true if name is match.
+            </returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions">
+            <summary>
+            Extension methods for Diagnostic Source.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions.AddPerformanceDiagnosticObserver``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase"/> services.
+            </summary>
+            <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions.UsePerformanceDiagnosticObserver(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Use <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase"/> diagnostic source subscriptions.
+            </summary>
+            <param name="app"><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+        </member>
+    </members>
+</doc>

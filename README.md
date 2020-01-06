@@ -55,6 +55,7 @@ The data obtained as a result of the method’s performance measurement can be u
 * [Getting started](#Start)
 * [Examples of usage](#SimpleSamples)
 	* [Method's performance measurement](#SimpleSamples)
+	* [Method's performance measurement with `DiagnosticSource`](#DiagnosticSourceSample)
 	* [Measuring the performance of an external library method](#SampleExternal)
 	* [Adding Custom Data and spliting into Steps](#SampleCustomData)
 	* [Excluding the measurement](#SampleIgnore)
@@ -161,6 +162,60 @@ After calling the method `SimpleWatchingMethodStart` and calling `GetPerformance
   ],
   "customData": {},
   "timerFrequency": 10000000
+}
+```
+
+### <a name="DiagnosticSourceSample"></a> Method's performance measurement with `DiagnosticSource`
+
+Starting with *v1.1.0*, it became possible to measure the performance of methods in an *AspNetCore* application using the `DiagnosticSource` and the special `WatchingWithDiagnosticSourceAttribute` attribute. To do this, add the *NuGet* package [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc) to the project and add the following code to `Startap.cs`:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ...
+    
+    // allows to measure methods performance for class "MeasurableClass" and "MeasurableSecondClass"
+    services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<MeasurableClass>>();
+    services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<MeasurableSecondClass>>();
+    // ... the same for another classes
+
+    services.AddMvc();
+
+    // ...
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    // ...
+
+    app.UsePerformanceDiagnosticObserver();
+
+    app.UseMvc();
+}
+```
+
+Then mark with the attribute `WatchingWithDiagnosticSourceAttribute` either individual methods:
+
+```csharp
+[HttpGet("SimpleWatchingMethodStart")]
+[WatchingWithDiagnosticSource]
+public ActionResult SimpleWatchingMethodStart()
+{	
+    return Ok();
+}
+```
+
+or the whole class:
+
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+[Produces("application/json")]
+[SwaggerTag("Unchase.PerformanceMeter Test WebAPI Controller")]
+[WatchingWithDiagnosticSource]
+public class PerformanceMeterController : ControllerBase
+{
+    // measurable methods
 }
 ```
 

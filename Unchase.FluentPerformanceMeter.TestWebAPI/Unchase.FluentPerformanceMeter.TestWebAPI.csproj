@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Unchase.FluentPerformanceMeter\Unchase.FluentPerformanceMeter.csproj" />
+    <ProjectReference Include="..\Unchase.FluentPerformanceMeter.AspNetCore.Mvc\Unchase.FluentPerformanceMeter.AspNetCore.Mvc.csproj" />
   </ItemGroup>
 
 </Project>

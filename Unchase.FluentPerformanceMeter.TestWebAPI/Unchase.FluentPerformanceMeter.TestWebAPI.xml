@@ -176,7 +176,7 @@
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.StartWatchingWithCallerName(System.String)">
             <summary>
-            Test POST method with caller name and custom data (from attribute) and executed command.
+            Test POST method with caller name and custom data (from attribute).
             </summary>
             <param name="value">Some value from body.</param>
             <returns>
@@ -185,12 +185,18 @@
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.StartWatchingWithCallerNameFromAttribute(System.String)">
             <summary>
-            Test POST method with caller (from attribute) name and executed command.
+            Test POST method with caller name (from attribute).
             </summary>
             <param name="value">Some value from body.</param>
             <returns>
             Returns input value.
             </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.StartWatchingWithDiagnosticSource(System.String)">
+            <summary>
+            Test GET method watching with diagnostic source.
+            </summary>
+            <param name="s">Input string.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.CustomException">
             <summary>

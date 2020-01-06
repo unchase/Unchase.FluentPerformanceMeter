@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.1.0</Version>
+    <Authors>Unchase</Authors>
+    <Company>Unchase</Company>
+    <Description>Unchase Fluent Performance Meter is an open-source and cross-platform .Net Standart 2.0 library is designed for the method’s performance measurement.</Description>
+    <Copyright>Copyrigth © Unchase 2019</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/unchase/Unchase.PerformanceMeter</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/unchase/Unchase.PerformanceMeter</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <PackageTags>performance benchmark benchmarking csharp dot-net</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Unchase.FluentPerformanceMeter.AspNetCore.Mvc.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.DiagnosticAdapter" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Unchase.FluentPerformanceMeter\Unchase.FluentPerformanceMeter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\img\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

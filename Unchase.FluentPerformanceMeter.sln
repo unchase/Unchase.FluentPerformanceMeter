@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unchase.FluentPerformanceMe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unchase.FluentPerformanceMeter.TestWebAPI", "Unchase.FluentPerformanceMeter.TestWebAPI\Unchase.FluentPerformanceMeter.TestWebAPI.csproj", "{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.FluentPerformanceMeter.AspNetCore.Mvc", "Unchase.FluentPerformanceMeter.AspNetCore.Mvc\Unchase.FluentPerformanceMeter.AspNetCore.Mvc.csproj", "{4DBF1648-BD99-4E82-91B2-0C4B5CF38FCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F673B9A7-B949-49BA-AB2E-4DB8586D56F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DBF1648-BD99-4E82-91B2-0C4B5CF38FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DBF1648-BD99-4E82-91B2-0C4B5CF38FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DBF1648-BD99-4E82-91B2-0C4B5CF38FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DBF1648-BD99-4E82-91B2-0C4B5CF38FCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

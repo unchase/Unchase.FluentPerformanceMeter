@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes;
 using Unchase.FluentPerformanceMeter.Attributes;
 using Unchase.FluentPerformanceMeter.Builders;
 using Unchase.FluentPerformanceMeter.Extensions;
@@ -22,6 +23,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
     [Route("api/v1/[controller]")]
     [Produces("application/json")]
     [SwaggerTag("Unchase.PerformanceMeter Test WebAPI Controller")]
+    //[WatchingWithDiagnosticSource]
     public class PerformanceMeterController : ControllerBase
     {
         #region Fields
@@ -120,7 +122,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             //using var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start();
             using (PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start())
             {
-                // put your code with some logic here
+                //put your code with some logic here
 
                 return Ok();
             }
@@ -539,7 +541,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         #region With caller
 
         /// <summary>
-        /// Test POST method with caller name and custom data (from attribute) and executed command.
+        /// Test POST method with caller name and custom data (from attribute).
         /// </summary>
         /// <param name="value">Some value from body.</param>
         /// <returns>
@@ -566,7 +568,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
         }
 
         /// <summary>
-        /// Test POST method with caller (from attribute) name and executed command.
+        /// Test POST method with caller name (from attribute).
         /// </summary>
         /// <param name="value">Some value from body.</param>
         /// <returns>
@@ -579,11 +581,25 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             // the method’s performance info will be amended with the caller's name (if internal HttpContextAccessor is null)
             using (var pm = PerformanceMeter<PerformanceMeterController>.StartWatching())
             {
-                pm.StopWatching(); // stop watching here (or you can use "pm.Dispose();")
-                Thread.Sleep(2000);
-
                 return Ok(value);
             }
+        }
+
+        #endregion
+
+        #region WithDiagnosticSource
+
+        /// <summary>
+        /// Test GET method watching with diagnostic source.
+        /// </summary>
+        /// <param name="s">Input string.</param>
+        [HttpGet("StartWatchingWithDiagnosticSource")]
+        [MethodCaller("dsCaller")]
+        [MethodCustomData("customData!", "diagnosticSource")]
+        [WatchingWithDiagnosticSource]
+        public ActionResult StartWatchingWithDiagnosticSource(string s)
+        {
+            return Ok();
         }
 
         #endregion

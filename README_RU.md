@@ -63,6 +63,7 @@
 * [Начало работы](#Start)
 * [Примеры использования](#SimpleSamples)
 	* [Измерение производительности метода](#SimpleSamples)
+	* [Измерение производительности метода с помощью `DiagnosticSource`](#DiagnosticSourceSample)
 	* [Измерение производительности метода используемой библиотеки](#SampleExternal)
 	* [Добавление дополнительных данных (Custom Data) и разбиение на шаги (Steps)](#SampleCustomData)
 	* [Исключение из замера (Ignore)](#SampleIgnore)
@@ -167,6 +168,61 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
   ],
   "customData": {},
   "timerFrequency": 10000000
+}
+```
+
+### <a name="DiagnosticSourceSample"></a> Измерение производительности метода с помощью `DiagnosticSource`
+
+Начиная с версии *v1.1.0* появилась возможность мерять производительность методов в *AspNetCore* приложении с помощью `DiagnosticSource` и специального атрибута `WatchingWithDiagnosticSourceAttribute`.
+Для этого необходимо добавить в проект *NuGet* пакет [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc), и добавить в `Startap.cs` следующий код:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ...
+    
+    // allows to measure methods performance for class "MeasurableClass" and "MeasurableSecondClass"
+    services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<MeasurableClass>>();
+    services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<MeasurableSecondClass>>();
+    // ... the same for another classes
+
+    services.AddMvc();
+
+    // ...
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    // ...
+
+    app.UsePerformanceDiagnosticObserver();
+
+    app.UseMvc();
+}
+```
+
+После чего пометить атрибутом `WatchingWithDiagnosticSourceAttribute` либо отдельные методы:
+
+```csharp
+[HttpGet("SimpleWatchingMethodStart")]
+[WatchingWithDiagnosticSource]
+public ActionResult SimpleWatchingMethodStart()
+{	
+    return Ok();
+}
+```
+
+либо весь класс:
+
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+[Produces("application/json")]
+[SwaggerTag("Unchase.PerformanceMeter Test WebAPI Controller")]
+[WatchingWithDiagnosticSource]
+public class PerformanceMeterController : ControllerBase
+{
+    // measurable methods
 }
 ```
 

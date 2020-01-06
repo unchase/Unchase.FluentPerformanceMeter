@@ -47,6 +47,11 @@
             <param name="key"><see cref="P:Unchase.FluentPerformanceMeter.Attributes.MethodCustomDataAttribute.Key"/>.</param>
             <param name="value"><see cref="P:Unchase.FluentPerformanceMeter.Attributes.MethodCustomDataAttribute.Value"/>.</param>
         </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Attributes.WatchingWithDiagnosticSourceAttribute">
+            <summary>
+            Attribute to indicate that performance watching will be performed with diagnostic source.
+            </summary>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2">
             <summary>
             Class for configure and execute the code.
