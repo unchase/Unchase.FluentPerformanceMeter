@@ -57,6 +57,8 @@
 |GitHub Release Downloads|[![Github Releases](https://img.shields.io/github/downloads/unchase/Unchase.fluentperformancemeter/total.svg)](https://github.com/unchase/Unchase.fluentperformancemeter/releases/latest)
 |Nuget Version|[![NuGet Version](http://img.shields.io/nuget/v/Unchase.fluentperformancemeter.svg?style=flat)](https://www.nuget.org/packages/Unchase.fluentperformancemeter/) 
 |Nuget Downloads|[![Nuget Downloads](https://img.shields.io/nuget/dt/Unchase.fluentperformancemeter.svg)](https://www.nuget.org/packages/Unchase.fluentperformancemeter/)
+|Nuget Version (AspNetCore.MVC)|[![NuGet Version](http://img.shields.io/nuget/v/Unchase.fluentperformancemeter.aspnetcore.mvc.svg?style=flat)](https://www.nuget.org/packages/Unchase.fluentperformancemeter.aspnetcore.mvc/) 
+|Nuget Downloads (AspNetCore.MVC)|[![Nuget Downloads](https://img.shields.io/nuget/dt/Unchase.fluentperformancemeter.aspnetcore.mvc.svg)](https://www.nuget.org/packages/Unchase.fluentperformancemeter.aspnetcore.mvc/)
 
 ## Содержание
 
