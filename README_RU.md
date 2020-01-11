@@ -894,6 +894,9 @@ public ActionResult SimpleStartWatchingWithSteps()
             // get and remove custom data from "Step 2"
             var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
         
+            // get custom data from "Step 2" (without removing)
+            var anotherCustomData = pmStep.GetCustomData<string>("step2 another custom data");
+
             // ...
         }
     }
@@ -986,7 +989,7 @@ using (var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().St
     // sleep 1 sec
     Thread.Sleep(1000);
 
-	// ignore this block in performance watching
+    // ignore this block in performance watching
     using (pm.Ignore())
     {
         Thread.Sleep(5000);

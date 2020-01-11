@@ -215,6 +215,9 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
                     // get and remove custom data from "Step 2"
                     var customData = pmStep.GetAndRemoveCustomData<string>("step2 custom data");
                     Debug.WriteLine($"{customData}!!!");
+
+                    // get custom data from "Step 2" (without removing)
+                    var anotherCustomData = pmStep.GetCustomData<string>("step2 another custom data");
                 }
 
                 return Ok();

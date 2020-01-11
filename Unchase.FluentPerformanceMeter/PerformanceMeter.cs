@@ -667,6 +667,27 @@ namespace Unchase.FluentPerformanceMeter
         }
 
         /// <summary>
+        /// Get custom data from performance meter information.
+        /// </summary>
+        /// <typeparam name="TResult">Type of custom data result.</typeparam>
+        /// <param name="key">Key.</param>
+        /// <returns>
+        /// Returns typed result.
+        /// </returns>
+        public TResult GetCustomData<TResult>(string key)
+        {
+            if (this.CustomData.ContainsKey(key))
+            {
+                if (this.CustomData.TryRemove(key, out var result) && result is TResult typedResult)
+                {
+                    this.CustomData.TryAdd(key, typedResult);
+                    return typedResult;
+                }
+            }
+            return default;
+        }
+
+        /// <summary>
         /// Remove common custom data of the class.
         /// </summary>
         /// <param name="key">Key.</param>

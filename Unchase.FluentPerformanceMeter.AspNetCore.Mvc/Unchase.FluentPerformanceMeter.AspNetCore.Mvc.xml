@@ -4,6 +4,11 @@
         <name>Unchase.FluentPerformanceMeter.AspNetCore.Mvc</name>
     </assembly>
     <members>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes.WatchingWithDiagnosticSourceAttribute">
+            <summary>
+            Attribute to indicate that performance watching will be performed with diagnostic source.
+            </summary>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1">
             <summary>
             The class for watching performance with diagnostic source.

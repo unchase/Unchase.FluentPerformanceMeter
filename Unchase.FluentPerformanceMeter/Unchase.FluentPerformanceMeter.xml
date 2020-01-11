@@ -47,11 +47,6 @@
             <param name="key"><see cref="P:Unchase.FluentPerformanceMeter.Attributes.MethodCustomDataAttribute.Key"/>.</param>
             <param name="value"><see cref="P:Unchase.FluentPerformanceMeter.Attributes.MethodCustomDataAttribute.Value"/>.</param>
         </member>
-        <member name="T:Unchase.FluentPerformanceMeter.Attributes.WatchingWithDiagnosticSourceAttribute">
-            <summary>
-            Attribute to indicate that performance watching will be performed with diagnostic source.
-            </summary>
-        </member>
         <member name="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2">
             <summary>
             Class for configure and execute the code.
@@ -926,6 +921,16 @@
             Returns typed result.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.GetCustomData``1(System.String)">
+            <summary>
+            Get custom data from performance meter step information.
+            </summary>
+            <typeparam name="TResult">Type of custom data result.</typeparam>
+            <param name="key">Key.</param>
+            <returns>
+            Returns typed result.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1.ClearCustomData">
             <summary>
             Clear custom data to performance meter step information.
@@ -1347,6 +1352,16 @@
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.GetAndRemoveCustomData``1(System.String)">
             <summary>
             Get and remove custom data from performance meter information.
+            </summary>
+            <typeparam name="TResult">Type of custom data result.</typeparam>
+            <param name="key">Key.</param>
+            <returns>
+            Returns typed result.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.GetCustomData``1(System.String)">
+            <summary>
+            Get custom data from performance meter information.
             </summary>
             <typeparam name="TResult">Type of custom data result.</typeparam>
             <param name="key">Key.</param>
