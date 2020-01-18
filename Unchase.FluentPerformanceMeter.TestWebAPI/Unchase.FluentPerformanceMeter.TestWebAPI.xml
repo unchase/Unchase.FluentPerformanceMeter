@@ -198,6 +198,22 @@
             </summary>
             <param name="s">Input string.</param>
         </member>
+        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.DTOArgument">
+            <summary>
+            Test DTO for POST method.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.DTOArgument.Data">
+            <summary>
+            Test Data.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.StartWatchingWithDiagnosticSourceAndArguments(Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController.DTOArgument)">
+            <summary>
+            Test POST method watching with diagnostic source (add arguments to custom data).
+            </summary>
+            <param name="arg">Input DTO.</param>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.CustomException">
             <summary>
             Custom exception.

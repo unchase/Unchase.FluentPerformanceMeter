@@ -169,7 +169,7 @@ After calling the method `SimpleWatchingMethodStart` and calling `GetPerformance
 
 ### <a name="DiagnosticSourceSample"></a> Method's performance measurement with `DiagnosticSource`
 
-Starting with *v1.1.0*, it became possible to measure the performance of methods in an *AspNetCore* application using the `DiagnosticSource` and the special `WatchingWithDiagnosticSourceAttribute` attribute. To do this, add the *NuGet* package [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc) to the project and add the following code to `Startap.cs`:
+Starting with *v1.1.0*, it became possible to measure the performance of methods in an *AspNetCore MVC* application using the `DiagnosticSource` and the special `WatchingWithDiagnosticSourceAttribute` attribute. To do this, add the *NuGet* package [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc) to the project and add the following code to `Startap.cs`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -218,6 +218,61 @@ or the whole class:
 public class PerformanceMeterController : ControllerBase
 {
     // measurable methods
+}
+```
+
+Starting with version *v1.2.0*, it became possible to add invocation arguments to custom method performance measurement data in an *AspNetCore MVC* application using the special `AddMethodArgumentsToCustomDataAttribute` attribute in conjunction with the `WatchingWithDiagnosticSourceAttribute` attribute:
+
+```csharp
+[HttpPost("SimpleWatchingMethodStartWithArgs")]
+[WatchingWithDiagnosticSource]
+[AddMethodArgumentsToCustomData("actionArguments")]
+public ActionResult SimpleWatchingMethodStartWithArgs(DTOArgument arg)
+{
+    return Ok();
+}
+```
+
+After calling the method `SimpleWatchingMethodStartWithArgs` and calling `GetPerformanceInfo` we receive:
+
+```json
+{
+  "methodCalls": [
+    {
+      "methodName": "SimpleWatchingMethodStartWithArgs",
+      "elapsed": "00:00:00.0016350",
+      "caller": "unknown",
+      "startTime": "2019-12-06T10:27:27.3385385Z",
+      "endTime": "2019-12-06T10:27:27.3401735Z",
+      "customData": {
+        "actionArguments": {
+          "arg": {
+            "data": "<string_in_DTOArgument>"
+          }
+        }
+      },
+      "steps": []
+    }
+  ],
+  "totalActivity": [
+    {
+      "methodName": "SimpleWatchingMethodStartWithArgs",
+      "callsCount": 1
+    }
+  ],
+  "currentActivity": [
+    {
+      "methodName": "SimpleWatchingMethodStartWithArgs",
+      "callsCount": 0
+    }
+  ],
+  "uptimeSince": "2019-12-06T10:27:27.3370183Z",
+  "className": "Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController",
+  "methodNames": [
+    "SimpleWatchingMethodStartWithArgs"
+  ],
+  "customData": {},
+  "timerFrequency": 10000000
 }
 ```
 

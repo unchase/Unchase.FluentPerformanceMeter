@@ -5,11 +5,16 @@
 
 # Change log
 
-These are the changes to each version that has been released on the official [NuGet Gallery](https://www.nuget.org/Unchase.FluentPerformanceMeter).
+These are the changes to each version that has been released on the official [NuGet Gallery (Common)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter) and [NuGet Gallery (MVC)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter.AspNetCore.Mvc).
+
+## v1.2.0 `(2020-01-18)`
+
+- [x] Add `TryAddCustomData` method into `PerformanceMeter` class
+- [x] Add `AddMethodArgumentsToCustomDataAttribute` attribute for adding arguments to measurement custom data with `DiagnosticSource`
 
 ## v1.1.2 `(2020-01-11)`
 
-- [x] Add "GetCustomData" method into "PerformanceMeter" and "PerformanceInfoStep" classes 
+- [x] Add `GetCustomData` method into `PerformanceMeter` and `PerformanceInfoStep` classes 
 
 ## v1.1.0 `(2020-01-06)`
 
@@ -21,4 +26,4 @@ These are the changes to each version that has been released on the official [Nu
 
 ## v1.0.0 `(2019-12-11)`
 
-- [x] Release version of `Unchase Fluent Performance Meter` *NuGet* package on the official [NuGet Gallery](https://www.nuget.org/Unchase.FluentPerformanceMeter) 
+- [x] Release version of `Unchase Fluent Performance Meter` *NuGet* package on the official [NuGet Gallery](https://www.nuget.org/Unchase.FluentPerformanceMeter)

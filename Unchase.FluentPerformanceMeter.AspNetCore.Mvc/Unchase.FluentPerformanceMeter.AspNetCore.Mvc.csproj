@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.2</Version>
+    <Version>1.2.0</Version>
     <Authors>Unchase</Authors>
     <Company>Unchase</Company>
     <Description>Unchase Fluent Performance Meter is an open-source and cross-platform .Net Standart 2.0 library is designed for the method’s performance measurement.</Description>
@@ -16,6 +16,8 @@
     <RepositoryType>Github</RepositoryType>
     <PackageTags>performance benchmark benchmarking csharp dot-net</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

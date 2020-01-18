@@ -1395,6 +1395,16 @@
             </summary>
             <param name="minutes">Time in minutes to clear list of the method calls.</param>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.TryAddCustomData(System.String,System.Object)">
+            <summary>
+            Attempts to add the specified key and value to the custom data.
+            </summary>
+            <param name="key">Key.</param>
+            <param name="value">Value.</param>
+            <returns>
+            Returns true if custom data was added.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Print">
             <summary>
             Print performance information for this class.

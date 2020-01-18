@@ -739,6 +739,19 @@ namespace Unchase.FluentPerformanceMeter
         #region Main
 
         /// <summary>
+        /// Attempts to add the specified key and value to the custom data.
+        /// </summary>
+        /// <param name="key">Key.</param>
+        /// <param name="value">Value.</param>
+        /// <returns>
+        /// Returns true if custom data was added.
+        /// </returns>
+        public bool TryAddCustomData(string key, object value)
+        {
+            return this.CustomData.TryAdd(key, value);
+        }
+
+        /// <summary>
         /// Print performance information for this class.
         /// </summary>
         /// <returns>

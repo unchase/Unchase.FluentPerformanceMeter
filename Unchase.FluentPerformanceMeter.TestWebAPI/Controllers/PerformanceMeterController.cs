@@ -605,6 +605,31 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Test DTO for POST method.
+        /// </summary>
+        public class DTOArgument
+        {
+            /// <summary>
+            /// Test Data.
+            /// </summary>
+            public string Data { get; set; }
+        }
+
+        /// <summary>
+        /// Test POST method watching with diagnostic source (add arguments to custom data).
+        /// </summary>
+        /// <param name="arg">Input DTO.</param>
+        [HttpPost("StartWatchingWithDiagnosticSourceAndArguments")]
+        [MethodCaller("dsCaller2")]
+        [MethodCustomData("customData!", "diagnosticSourcePOST")]
+        [WatchingWithDiagnosticSource]
+        [AddMethodArgumentsToCustomData]
+        public ActionResult StartWatchingWithDiagnosticSourceAndArguments(DTOArgument arg)
+        {
+            return Ok();
+        }
+
         #endregion
 
         #endregion
