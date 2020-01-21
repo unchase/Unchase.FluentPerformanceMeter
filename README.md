@@ -10,9 +10,9 @@
 ----------
 
 
-**Unchase Fluent Performance Meter** is an open-source and cross-platform *.Net Standart 2.0* library that is designed for the method’s performance measurement.
+**Unchase Fluent Performance Meter** is an open-source and cross-platform *.Net Standard 2.0* library that is designed for the method’s performance measurement.
 
-The library can be used in .NET Core and .NET Framework applications that support *.Net Standart 2.0*, and it allows for:
+The library can be used in .NET Core and .NET Framework applications that support *.Net Standard 2.0*, and it allows for:
 
 * [**Making the exact performance measurements**](#SimpleSamples) of the ***public* methods** for ***public* classes** in your code and in the [codes of the utilized libraries](#SampleExternal) (and recording the exact start and end times of the measurements);
 
