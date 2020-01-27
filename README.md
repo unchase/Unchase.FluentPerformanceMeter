@@ -1,5 +1,8 @@
-![Unchase Fluent Performance Meter Logo](img/logo.png)
-
+<p align="center">
+  <a href="https://www.nuget.org/packages/Unchase.FluentPerformanceMeter/">
+    <img src="img/logo.png" alt="Unchase Fluent Performance Meter Logo">
+  </a>
+</p>
 
 ----------
 
