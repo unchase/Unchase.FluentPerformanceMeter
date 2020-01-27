@@ -1,4 +1,3 @@
-#
 ![Unchase Fluent Performance Meter Logo](img/logo.png)
 
 
