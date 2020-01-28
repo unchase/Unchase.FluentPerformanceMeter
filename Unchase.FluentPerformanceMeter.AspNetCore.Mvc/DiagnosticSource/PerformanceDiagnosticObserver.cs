@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DiagnosticAdapter;
+using System;
 using System.Linq;
 using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes;
 using Unchase.FluentPerformanceMeter.Attributes;
@@ -13,7 +14,7 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
     /// The class for watching performance with diagnostic source.
     /// </summary>
     /// <typeparam name="TClass">Class with public methods.</typeparam>
-    public sealed class PerformanceClassDiagnosticObserver<TClass> : PerformanceDiagnosticObserverBase where TClass : class
+    public sealed class PerformanceDiagnosticObserver<TClass> : PerformanceDiagnosticObserverBase where TClass : class
     {
         #region Methods
 
@@ -102,6 +103,16 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
                 return;
 
             ((PerformanceMeter<TClass>)performanceMeter).Dispose();
+        }
+
+        /// <summary>
+        /// Handle the Exception.
+        /// </summary>
+        /// <param name="error">Exception.</param>
+        protected override void HandleException(Exception error)
+        {
+            var exceptionHandler = PerformanceMeter<TClass>.GetDefaultExceptionHandler();
+            exceptionHandler(error);
         }
 
         #endregion

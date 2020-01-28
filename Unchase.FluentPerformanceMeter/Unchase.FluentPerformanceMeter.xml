@@ -1395,6 +1395,22 @@
             </summary>
             <param name="minutes">Time in minutes to clear list of the method calls.</param>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.GetExceptionHandler">
+            <summary>
+            Get exception handler.
+            </summary>
+            <returns>
+            Returns exception handler.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.GetDefaultExceptionHandler">
+            <summary>
+            Get default exception handler.
+            </summary>
+            <returns>
+            Returns default exception handler.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.TryAddCustomData(System.String,System.Object)">
             <summary>
             Attempts to add the specified key and value to the custom data.

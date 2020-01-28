@@ -26,13 +26,13 @@
             Attribute to indicate that performance watching will be performed with diagnostic source.
             </summary>
         </member>
-        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1">
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1">
             <summary>
             The class for watching performance with diagnostic source.
             </summary>
             <typeparam name="TClass">Class with public methods.</typeparam>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.IsMatch(System.String)">
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.IsMatch(System.String)">
             <summary>
             Check matching the name.
             </summary>
@@ -41,36 +41,42 @@
             Returns true if name is match.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnHttpRequestIn">
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.OnHttpRequestIn">
             <summary>
             On Microsoft.AspNetCore.Hosting.HttpRequestIn.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnBeforeAction(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.OnBeforeAction(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
             <summary>
             On Microsoft.AspNetCore.Mvc.BeforeAction.
             </summary>
             <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
             <param name="actionDescriptor"><see cref="T:Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor"/>.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnHttpRequestInStart(Microsoft.AspNetCore.Http.HttpContext)">
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.OnHttpRequestInStart(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
             On Microsoft.AspNetCore.Hosting.HttpRequestIn.Start.
             </summary>
             <param name="httpContext"></param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnAfterAction(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.OnAfterAction(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
             <summary>
             On Microsoft.AspNetCore.Mvc.AfterAction.
             </summary>
             <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
             <param name="actionDescriptor"><see cref="T:Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor"/>.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceClassDiagnosticObserver`1.OnHttpRequestInStop(Microsoft.AspNetCore.Http.HttpContext)">
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.OnHttpRequestInStop(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
             On Microsoft.AspNetCore.Hosting.HttpRequestIn.Stop.
             </summary>
             <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.HandleException(System.Exception)">
+            <summary>
+            Handle the Exception.
+            </summary>
+            <param name="error">Exception.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase">
             <summary>
@@ -85,6 +91,12 @@
             <returns>
             Returns true if name is match.
             </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase.HandleException(System.Exception)">
+            <summary>
+            Handle the exception.
+            </summary>
+            <param name="error">Exception.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions">
             <summary>

@@ -177,8 +177,8 @@ public void ConfigureServices(IServiceCollection services)
     // ...
     
     // allows to measure methods performance for class "MeasurableClass" and "MeasurableSecondClass"
-    services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<MeasurableClass>>();
-    services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<MeasurableSecondClass>>();
+    services.AddPerformanceDiagnosticObserver<MeasurableClass>();
+    services.AddPerformanceDiagnosticObserver<MeasurableSecondClass>();
     // ... the same for another classes
 
     services.AddMvc();

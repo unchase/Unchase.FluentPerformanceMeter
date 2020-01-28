@@ -17,9 +17,9 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions
         /// Register <see cref="PerformanceDiagnosticObserverBase"/> services.
         /// </summary>
         /// <param name="services"><see cref="IServiceCollection"/>.</param>
-        public static void AddPerformanceDiagnosticObserver<TDiagnosticObserver>(this IServiceCollection services) where TDiagnosticObserver : PerformanceDiagnosticObserverBase
+        public static void AddPerformanceDiagnosticObserver<TClass>(this IServiceCollection services) where TClass : class
         {
-            services.TryAddEnumerable(ServiceDescriptor.Transient<PerformanceDiagnosticObserverBase, TDiagnosticObserver>());
+            services.TryAddEnumerable(ServiceDescriptor.Transient<PerformanceDiagnosticObserverBase, PerformanceDiagnosticObserver<TClass>>());
         }
 
         /// <summary>

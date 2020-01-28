@@ -37,7 +37,7 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
 
         void IObserver<DiagnosticListener>.OnError(Exception error)
         {
-            // ToDo: add exception handler
+            HandleException(error);
         }
 
         void IObserver<DiagnosticListener>.OnCompleted()
@@ -45,6 +45,12 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
             _subscriptions.ForEach(x => x.Dispose());
             _subscriptions.Clear();
         }
+
+        /// <summary>
+        /// Handle the exception.
+        /// </summary>
+        /// <param name="error">Exception.</param>
+        protected abstract void HandleException(Exception error);
 
         #endregion
     }

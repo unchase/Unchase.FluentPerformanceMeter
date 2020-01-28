@@ -7,6 +7,16 @@
 
 These are the changes to each version that has been released on the official [NuGet Gallery (Common)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter) and [NuGet Gallery (MVC)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter.AspNetCore.Mvc).
 
+## v1.2.1 `(2020-01-28)`
+
+- [x] Add `HandleException` to `PerformanceDiagnosticObserver` class
+- [x] Add `GetExceptionHandler` and `GetDefaultExceptionHandler` methods to `PerformanceMeter` class
+
+**BREAKING CHANGES:**
+
+- [x] Rename `PerformanceClassDiagnosticObserver` to `PerformanceDiagnosticObserver`
+- [x] Should use `services.AddPerformanceDiagnosticObserver<MeasurableClass>();` instead of `services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<MeasurableClass>>();` in `ConfigureServices` method in `Startup.cs`
+
 ## v1.2.0 `(2020-01-18)`
 
 - [x] Add `TryAddCustomData` method into `PerformanceMeter` class

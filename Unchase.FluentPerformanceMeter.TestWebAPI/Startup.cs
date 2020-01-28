@@ -7,7 +7,6 @@ using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
-using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource;
 using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions;
 using Unchase.FluentPerformanceMeter.TestWebAPI.Controllers;
 using Unchase.FluentPerformanceMeter.TestWebAPI.SwaggerExamples;
@@ -42,7 +41,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI
         {
             services.AddHttpContextAccessor();
 
-            services.AddPerformanceDiagnosticObserver<PerformanceClassDiagnosticObserver<PerformanceMeterController>>();
+            services.AddPerformanceDiagnosticObserver<PerformanceMeterController>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

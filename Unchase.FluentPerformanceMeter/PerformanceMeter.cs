@@ -739,6 +739,28 @@ namespace Unchase.FluentPerformanceMeter
         #region Main
 
         /// <summary>
+        /// Get exception handler.
+        /// </summary>
+        /// <returns>
+        /// Returns exception handler.
+        /// </returns>
+        public Action<Exception> GetExceptionHandler()
+        {
+            return this.ExceptionHandler;
+        }
+
+        /// <summary>
+        /// Get default exception handler.
+        /// </summary>
+        /// <returns>
+        /// Returns default exception handler.
+        /// </returns>
+        public static Action<Exception> GetDefaultExceptionHandler()
+        {
+            return DefaultExceptionHandler;
+        }
+
+        /// <summary>
         /// Attempts to add the specified key and value to the custom data.
         /// </summary>
         /// <param name="key">Key.</param>
