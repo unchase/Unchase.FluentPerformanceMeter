@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [NuGet Gallery (Common)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter) and [NuGet Gallery (MVC)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter.AspNetCore.Mvc).
 
+## v1.2.2 `(2020-02-20)`
+
+- [x] Add xml-comments to nuget packages
+
 ## v1.2.1 `(2020-01-28)`
 
 - [x] Add `HandleException` to `PerformanceDiagnosticObserver` class
