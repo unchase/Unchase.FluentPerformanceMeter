@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Unchase.FluentPerformanceMeter.Models;
 
-namespace Unchase.FluentPerformanceMeter.TestWebAPI.Commands
+namespace Unchase.FluentPerformanceMeter.Test.Common.Commands
 {
     /// <summary>
     /// Custom executed command which work with method calls custom data.

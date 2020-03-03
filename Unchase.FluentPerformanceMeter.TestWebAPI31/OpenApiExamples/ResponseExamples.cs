@@ -5,7 +5,7 @@ using System.Reflection;
 using Swashbuckle.AspNetCore.Filters;
 using Unchase.FluentPerformanceMeter.Models;
 
-namespace Unchase.FluentPerformanceMeter.TestWebAPI.SwaggerExamples
+namespace Unchase.FluentPerformanceMeter.TestWebAPI31.OpenApiExamples
 {
     internal class ResponseExamples
     {
@@ -28,12 +28,12 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.SwaggerExamples
             IDictionary<string, object> IPerformanceInfo.CustomData { get => new Dictionary<string, object>(); }
         }
 
-        internal class GetPerformanceInfoResponse200Example : IExamplesProvider
+        internal class GetPerformanceInfoResponse200Example : IExamplesProvider<object>
         {
             /// <summary>
             /// Get examples.
             /// </summary>
-            object IExamplesProvider.GetExamples()
+            public object GetExamples()
             {
                 return new PerformanceInfoExample();
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using Unchase.FluentPerformanceMeter.Attributes;
 using Unchase.FluentPerformanceMeter.Models;
 
@@ -72,7 +73,7 @@ namespace Unchase.FluentPerformanceMeter
         {
             var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
             if (currentActivity != null)
-                currentActivity.CallsCount++;
+                Interlocked.CompareExchange(ref currentActivity._callsCount, currentActivity._callsCount + 1, currentActivity._callsCount);
         }
 
         /// <summary>
@@ -88,12 +89,12 @@ namespace Unchase.FluentPerformanceMeter
         {
             var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
             if (currentActivity != null)
-                currentActivity.CallsCount--;
+                Interlocked.CompareExchange(ref currentActivity._callsCount, currentActivity._callsCount - 1, currentActivity._callsCount);
             if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
                 PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, elapsed, caller, dateStart, customData, steps));
             var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
             if (totalActivity != null)
-                totalActivity.CallsCount++;
+                Interlocked.CompareExchange(ref totalActivity._callsCount, totalActivity._callsCount + 1, totalActivity._callsCount);
             return PerformanceInfo;
         }
 

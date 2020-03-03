@@ -93,24 +93,14 @@ namespace Unchase.FluentPerformanceMeter
             }
         }
 
-        private Collection<IPerformanceCommand> _registeredComands;
+        private Collection<IPerformanceCommand> _registeredCommands;
         /// <summary>
         /// Collection of registered executed commands.
         /// </summary>
         /// <remarks>
         /// <see cref="IPerformanceCommand"/>.
         /// </remarks>
-        internal Collection<IPerformanceCommand> RegisteredCommands
-        {
-            get
-            {
-                if (this._registeredComands == null)
-                {
-                    this._registeredComands = new Collection<IPerformanceCommand>();
-                }
-                return this._registeredComands;
-            }
-        }
+        internal Collection<IPerformanceCommand> RegisteredCommands => this._registeredCommands ?? (this._registeredCommands = new Collection<IPerformanceCommand>());
 
         private Collection<Action<IPerformanceInfo>> _registeredActions;
         /// <summary>
@@ -1383,7 +1373,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Returns <see cref="Task"/>.
         /// </returns>
-        public async Task InlineAsync(Task task)
+        public async ValueTask InlineAsync(ValueTask task)
         {
             await new CodeExecutorBuilder<TClass, Exception>(this).StartAsync(task);
         }
@@ -1411,7 +1401,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Resturns Task of result.
         /// </returns>
-        public async Task<TResult> InlineAsync<TResult>(Task<TResult> task, TResult defaultResult = default)
+        public async ValueTask<TResult> InlineAsync<TResult>(ValueTask<TResult> task, TResult defaultResult = default)
         {
             return await new CodeExecutorBuilder<TClass, Exception>(this).StartAsync(task, defaultResult);
         }
@@ -1436,7 +1426,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Returns <see cref="Task"/>.
         /// </returns>
-        public async Task InlineIgnoredAsync(Task task)
+        public async ValueTask InlineIgnoredAsync(ValueTask task)
         {
             await new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().StartAsync(task);
         }
@@ -1464,7 +1454,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Resturns Task of result.
         /// </returns>
-        public async Task<TResult> InlineIgnoredAsync<TResult>(Task<TResult> task, TResult defaultResult = default)
+        public async ValueTask<TResult> InlineIgnoredAsync<TResult>(ValueTask<TResult> task, TResult defaultResult = default)
         {
             return await new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().StartAsync(task, defaultResult);
         }

@@ -59,10 +59,10 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI
                     }
                 });
 
-                // подключаем фильтры с примерами для запросов (ответов)
+                // add OpenApi filters with examples
                 c.ExampleFilters();
 
-                // добавляем в документацию данные из комментариев в xml-файлах сборок
+                // add documentation from xml-file comments from assemblies
                 foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
                 {
                     if (!assembly.IsDynamic)
@@ -74,10 +74,10 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI
                     }
                 }
 
-                // подключаем аннотации для swagger'а
+                // add OpenApi Annotations
                 c.EnableAnnotations();
 
-                // сортируем действия контроллеров по имени контроллера и относительного пути
+                // sort actions by routeValue and relativePath
                 c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.RelativePath}");
             });
 

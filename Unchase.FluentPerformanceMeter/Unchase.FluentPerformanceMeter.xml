@@ -93,7 +93,7 @@
             Returns result.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync``1(System.Threading.Tasks.Task{``0},``0)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync``1(System.Threading.Tasks.ValueTask{``0},``0)">
             <summary>
             Execute the Task.
             </summary>
@@ -110,7 +110,7 @@
             </summary>
             <param name="action">Executed Action.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync(System.Threading.Tasks.Task)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync(System.Threading.Tasks.ValueTask)">
             <summary>
             Execute the Task.
             </summary>
@@ -153,7 +153,7 @@
             <param name="codeExecutorBuilder"><see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <param name="action">Executed Action.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``2(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.Task)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``2(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.ValueTask)">
             <summary>
             Execute the Task.
             </summary>
@@ -176,7 +176,7 @@
             Returns result.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``3(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.Task{``2},``2)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``3(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.ValueTask{``2},``2)">
             <summary>
             Execute the Task.
             </summary>
@@ -1797,7 +1797,7 @@
             </summary>
             <param name="action">Executed Action.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync(System.Threading.Tasks.Task)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync(System.Threading.Tasks.ValueTask)">
             <summary>
             Execute the Task.
             </summary>
@@ -1817,7 +1817,7 @@
             Returns result.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync``1(System.Threading.Tasks.Task{``0},``0)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync``1(System.Threading.Tasks.ValueTask{``0},``0)">
             <summary>
             Execute the Func.
             </summary>
@@ -1834,7 +1834,7 @@
             </summary>
             <param name="action">Executed Action.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync(System.Threading.Tasks.Task)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync(System.Threading.Tasks.ValueTask)">
             <summary>
             Execute the Task.
             </summary>
@@ -1854,7 +1854,7 @@
             Returns result.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync``1(System.Threading.Tasks.Task{``0},``0)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync``1(System.Threading.Tasks.ValueTask{``0},``0)">
             <summary>
             Execute the Func.
             </summary>

@@ -26,11 +26,17 @@ namespace Unchase.FluentPerformanceMeter.Models
         [DataMember]
         public string MethodName => Method?.Name;
 
+        internal long _callsCount;
+
         /// <summary>
         /// Method calls count.
         /// </summary>
         [DataMember]
-        public long CallsCount { get; internal set; }
+        public long CallsCount
+        {
+            get => _callsCount;
+            private set => _callsCount = value;
+        }
 
         #endregion
 

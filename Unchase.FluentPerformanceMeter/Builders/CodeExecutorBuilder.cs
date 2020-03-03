@@ -124,7 +124,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <returns>
         /// Returns result.
         /// </returns>
-        internal async Task<TResult> ExecuteAsync<TResult>(Task<TResult> task, TResult defaultResult = default)
+        internal async ValueTask<TResult> ExecuteAsync<TResult>(ValueTask<TResult> task, TResult defaultResult = default)
         {
             if (this._useExceptionHandler)
             {
@@ -205,7 +205,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// Execute the Task.
         /// </summary>
         /// <param name="task">Executed Task.</param>
-        internal async Task ExecuteAsync(Task task)
+        internal async ValueTask ExecuteAsync(ValueTask task)
         {
             if (this._useExceptionHandler)
             {
@@ -298,7 +298,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <typeparam name="TException">Type of exception of the exception handler.</typeparam>
         /// <param name="codeExecutorBuilder"><see cref="CodeExecutorBuilder{TClass, TException}"/>.</param>
         /// <param name="task">Executed Task.</param>
-        public static async Task StartAsync<TClass, TException>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, Task task) where TClass : class where TException : Exception
+        public static async ValueTask StartAsync<TClass, TException>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, ValueTask task) where TClass : class where TException : Exception
         {
             await codeExecutorBuilder.ExecuteAsync(task).ConfigureAwait(false);
         }
@@ -332,7 +332,7 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <returns>
         /// Returns result.
         /// </returns>
-        public static async Task<TResult> StartAsync<TClass, TException, TResult>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, Task<TResult> task, TResult defaultResult = default) where TClass : class where TException : Exception
+        public static async ValueTask<TResult> StartAsync<TClass, TException, TResult>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, ValueTask<TResult> task, TResult defaultResult = default) where TClass : class where TException : Exception
         {
             return await codeExecutorBuilder.ExecuteAsync(task, defaultResult).ConfigureAwait(false);
         }

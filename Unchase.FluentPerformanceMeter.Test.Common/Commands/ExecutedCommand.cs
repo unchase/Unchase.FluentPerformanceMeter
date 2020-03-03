@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using Unchase.FluentPerformanceMeter.Models;
 
-namespace Unchase.FluentPerformanceMeter.TestWebAPI.Commands
+namespace Unchase.FluentPerformanceMeter.Test.Common.Commands
 {
     /// <summary>
     /// Custom executed command.
     /// </summary>
-    internal class ExecutedCommand : IPerformanceCommand
+    public class ExecutedCommand : IPerformanceCommand
     {
         /// <summary>
         /// Executed commad name.
@@ -24,7 +24,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI.Commands
         /// You can pass any data through the command constructor.
         /// </remarks>
         /// <param name="customString"></param>
-        public ExecutedCommand(string customString) 
+        public ExecutedCommand(string customString)
         {
             this._customString = customString;
         }

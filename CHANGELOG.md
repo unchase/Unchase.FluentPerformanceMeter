@@ -7,6 +7,12 @@
 
 These are the changes to each version that has been released on the official [NuGet Gallery (Common)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter) and [NuGet Gallery (MVC)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter.AspNetCore.Mvc).
 
+## v1.2.3 `(2020-03-03)`
+
+- [x] Replace all `Task` by `ValueTask`
+- [x] Add `Unchase.FluentPerformanceMeter.TestWebAPI31` (.NET Core 3.1 WebApi example project)
+- [x] Add `Interlocked.CompareExchange` for incrementing and decrementing calls counter
+
 ## v1.2.2 `(2020-02-20)`
 
 - [x] Add xml-comments to nuget packages

@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Unchase.FluentPerformanceMeter.TestWebAPI
+namespace Unchase.FluentPerformanceMeter.Test.Common
 {
     /// <summary>
     /// Custom exception.
     /// </summary>
-    internal class CustomException : Exception
+    public class CustomException : Exception
     {
         public CustomException(string message) : base(message) { }
 

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Unchase.FluentPerformanceMeter.TestWebAPI
+namespace Unchase.FluentPerformanceMeter.Test.Common
 {
     /// <summary>
     /// Fake service class.
@@ -10,7 +10,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI
         /// <summary>
         /// Fake method 1.
         /// </summary>
-        public static void FakeMethod1() 
+        public static void FakeMethod1()
         {
             for (int i = 0; i < 1000000; i++)
             {
