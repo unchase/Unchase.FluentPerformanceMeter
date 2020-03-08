@@ -36,10 +36,10 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes
         /// <param name="context"><see cref="ActionExecutingContext"/>.</param>
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (context.HttpContext.Items.TryGetValue("PerformanceMeter", out object performanceMeter))
+            if (context.HttpContext.Items.TryGetValue("PerformanceMeter", out var performanceMeter))
             {
                 var tryAddCustomDataMethod = performanceMeter.GetType().GetMethod("TryAddCustomData");
-                tryAddCustomDataMethod.Invoke(performanceMeter, new object[] { this._argumentsKey, context.ActionArguments });
+                tryAddCustomDataMethod?.Invoke(performanceMeter, new object[] { this._argumentsKey, context.ActionArguments });
             }
 
             base.OnActionExecuting(context);

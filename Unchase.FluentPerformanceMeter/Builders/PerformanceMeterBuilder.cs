@@ -55,9 +55,13 @@ namespace Unchase.FluentPerformanceMeter.Builders
         {
             try
             {
-                Performance<TClass>.Input(this.PerformanceMeter.MethodInfo);
-                this.PerformanceMeter.InnerStopwatch = Stopwatch.StartNew();
-                this.PerformanceMeter.DateStart = DateTime.UtcNow - this.PerformanceMeter.InnerStopwatch.Elapsed;
+                if (PerformanceMeter<TClass>.DefaultOptions?.ExcludedMethods?.Contains(this.PerformanceMeter.MethodInfo
+                    .Name) != true)
+                {
+                    Performance<TClass>.Input(this.PerformanceMeter.MethodInfo);
+                    this.PerformanceMeter.InnerStopwatch = Stopwatch.StartNew();
+                    this.PerformanceMeter.DateStart = DateTime.UtcNow - this.PerformanceMeter.InnerStopwatch.Elapsed;
+                }
             }
             catch (Exception ex)
             {

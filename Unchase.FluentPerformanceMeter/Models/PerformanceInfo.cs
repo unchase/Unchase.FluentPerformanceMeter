@@ -89,7 +89,10 @@ namespace Unchase.FluentPerformanceMeter.Models
             CurrentActivity = new List<MethodCallsCount<MethodInfo>>();
             var methodInfos = typeof(TClass)
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-                .Where(mi => !mi.IsSpecialName && mi.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
+                .Where(mi =>
+                    !mi.IsSpecialName &&
+                    (PerformanceMeter<TClass>.DefaultOptions?.UseIgnoreMethodPerformanceAttribute != true ||
+                     mi.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null))
                 .ToArray();
             MethodNames = methodInfos.Select(mi => mi.Name).Distinct().ToList();
             foreach (var method in methodInfos)

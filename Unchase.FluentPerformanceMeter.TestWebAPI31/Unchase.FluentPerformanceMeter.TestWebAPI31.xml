@@ -173,6 +173,11 @@
             </summary>
             <param name="arg">Input DTO.</param>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.SimpleWatchingMethodStartWatchingPerformanceAttribute">
+            <summary>
+            Test GET method with WatchingPerformance attribute.
+            </summary>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.OpenApiExamples.ResponseExamples.GetPerformanceInfoResponse200Example.GetExamples">
             <summary>
             Get examples.

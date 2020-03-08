@@ -90,7 +90,7 @@ namespace Unchase.FluentPerformanceMeter
             var currentActivity = PerformanceInfo.CurrentActivity.Find(x => x.Method == method);
             if (currentActivity != null)
                 Interlocked.CompareExchange(ref currentActivity._callsCount, currentActivity._callsCount - 1, currentActivity._callsCount);
-            if (method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
+            if (PerformanceMeter<TClass>.DefaultOptions?.UseIgnoreMethodPerformanceAttribute != true || method.GetCustomAttribute<IgnoreMethodPerformanceAttribute>() == null)
                 PerformanceInfo.MethodCalls.Add(new MethodCallInfo<MethodInfo>(method, elapsed, caller, dateStart, customData, steps));
             var totalActivity = PerformanceInfo.TotalActivity.Find(x => x.Method == method);
             if (totalActivity != null)

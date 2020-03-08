@@ -66,6 +66,7 @@
 * [Примеры использования](#SimpleSamples)
 	* [Измерение производительности метода](#SimpleSamples)
 	* [Измерение производительности метода с помощью `DiagnosticSource`](#DiagnosticSourceSample)
+    * [Измерение производительности метода с помощью атрибута `WatchingPerformanceAttribute`](#WatchingPerformanceSample)
 	* [Измерение производительности метода используемой библиотеки](#SampleExternal)
 	* [Добавление дополнительных данных (Custom Data) и разбиение на шаги (Steps)](#SampleCustomData)
 	* [Исключение из замера (Ignore)](#SampleIgnore)
@@ -280,6 +281,103 @@ public ActionResult SimpleWatchingMethodStartWithArgs(DTOArgument arg)
   ],
   "customData": {},
   "timerFrequency": 10000000
+}
+```
+
+### <a name="WatchingPerformanceSample"></a> Измерение производительности метода с помощью атрибута `WatchingPerformanceAttribute`
+
+Начиная с версии [*v2.0.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v2.0.0) появилась возможность мерять производительность методов в *AspNetCore MVC* приложении с помощью специального атрибута `WatchingPerformanceAttribute`, а также конфигурировать сбор производительности методов контроллера в `Startup.cs`.
+Для этого необходимо добавить в проект *NuGet* пакет [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc), и добавить в `Startap.cs` следующий код:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ...
+    
+    // allows to measure methods performance for class "MeasurableController" with configuring options
+    services.AddPerformanceMeter<MeasurableController>(options => 
+    {
+        // ALL of this is optional. You can simply call .AddPerformanceMeter<MeasurableController>() for all defaults
+        // Defaults: In-Memory for 5 minutes, everything watched, every user can see
+
+        // excludes a method from performance watching
+        options.ExcludeMethod(nameof(PerformanceMeterController.SimpleWatchingMethodStartWatchingPerformanceAttribute));
+
+        // to control which requests are watched, use the Func<HttpRequest, bool> option:
+        options.ShouldWatching = request => request.HttpContext.User.IsInRole("Dev");
+
+        // allows to add custom data from custom attributes ("MethodCustomDataAttribute", "MethodCallerAttribute") to performance watching
+        options.AddCustomDataFromCustomAttributes = false;
+
+        // allows to use "IgnoreMethodPerformanceAttribute" for excluding from performance watching
+        options.UseIgnoreMethodPerformanceAttribute = false;
+
+        // allows to watch actions performance annotated with special attribute ("WatchingPerformanceAttribute")
+        options.WatchForAnnotatedWithAttributeOnly = false;
+
+        // excludes a path from being watched
+        options.IgnorePath("/some_path");
+
+        // allows to add route path to custom data (with "pm_path" key)
+        options.AddRoutePathToCustomData = false;
+
+        // set cache time for the watched performance results for the controller class
+        options.SetMethodCallsCacheTime(5);
+
+        // adds common custom data (anonymous class) to class performance information
+        options.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
+
+        // set default exception handler for the controller class
+        options.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
+    });
+    // ... and for "MeasurableSecondController" (without configuring options)
+    services.AddPerformanceMeter<MeasurableSecondController>();
+    // ... the same for another controllers
+
+    services.AddMvc();
+
+    // ...
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    // ...
+
+    app.UseRouting();
+
+    app.UseEndpoints(c =>
+    {
+        c.MapControllers();
+
+        // use performance watching for concrete controller (for example, "MeasurableController")
+        app.UsePerformanceMeterFor<MeasurableController>();
+        // ... the same for another controllers
+    });
+}
+```
+
+После чего пометить атрибутом `WatchingPerformanceAttribute` либо отдельные методы:
+
+```csharp
+[HttpGet("SimpleWatchingMethodStartWatchingPerformanceAttribute")]
+[WatchingPerformance]
+public ActionResult SimpleWatchingMethodStartWatchingPerformanceAttribute()
+{	
+    return Ok();
+}
+```
+
+либо весь класс:
+
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+[Produces("application/json")]
+[SwaggerTag("Unchase.PerformanceMeter Test WebAPI Controller")]
+[WatchingPerformance]
+public class PerformanceMeterController : ControllerBase
+{
+    // measurable methods (actions)
 }
 ```
 

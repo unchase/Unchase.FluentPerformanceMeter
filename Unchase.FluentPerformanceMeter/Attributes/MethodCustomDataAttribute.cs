@@ -8,6 +8,8 @@ namespace Unchase.FluentPerformanceMeter.Attributes
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class MethodCustomDataAttribute : Attribute
     {
+        #region Properties
+
         /// <summary>
         /// Key.
         /// </summary>
@@ -17,6 +19,10 @@ namespace Unchase.FluentPerformanceMeter.Attributes
         /// Value.
         /// </summary>
         public object Value { get; }
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Constructor for <see cref="MethodCustomDataAttribute"/>.
@@ -28,5 +34,7 @@ namespace Unchase.FluentPerformanceMeter.Attributes
             this.Key = key;
             this.Value = value;
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Filters;
+using Unchase.FluentPerformanceMeter.AspNetCore.Mvc;
 using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions;
+using Unchase.FluentPerformanceMeter.Extensions;
 using Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers;
 using Unchase.FluentPerformanceMeter.TestWebAPI31.OpenApiExamples;
 
@@ -21,7 +24,46 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31
         {
             services.AddHttpContextAccessor();
 
-            services.AddPerformanceDiagnosticObserver<PerformanceMeterController>();
+            services.AddPerformanceMeter<PerformanceMeterController>(options =>
+            {
+                // ALL of this is optional. You can simply call .AddPerformanceMeter<MeasurableController>() for all defaults
+                // Defaults: In-Memory for 5 minutes, everything watched, every user can see
+
+                // excludes a method from performance watching
+                //options.ExcludeMethod(nameof(PerformanceMeterController.SimpleWatchingMethodStartWatchingPerformanceAttribute));
+
+                // to control which requests are watched, use the Func<HttpRequest, bool> option:
+                //options.ShouldWatching = request => request.HttpContext.User.IsInRole("Dev");
+
+                // allows to add custom data from custom attributes ("MethodCustomDataAttribute", "MethodCallerAttribute") to performance watching
+                //options.AddCustomDataFromCustomAttributes = false;
+
+                // allows to use "IgnoreMethodPerformanceAttribute" for excluding from performance watching
+                //options.UseIgnoreMethodPerformanceAttribute = false;
+
+                // allows to watch actions performance annotated with special attribute ("WatchingPerformanceAttribute")
+                //options.WatchForAnnotatedWithAttributeOnly = false;
+
+                // excludes a path from being watched
+                //options.IgnorePath("/some_path");
+
+                // allows to add route path to custom data (with "pm_path" key)
+                //options.AddRoutePathToCustomData = false;
+
+                // set cache time for the watched performance results for the controller class
+                //options.SetMethodCallsCacheTime(5);
+
+                // adds common custom data (anonymous class) to class performance information
+                //options.AddCustomData("Custom anonymous class", new { Name = "Custom Name", Value = 1 });
+
+                // set default exception handler for the controller class
+                //options.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
+            });
+
+            //services.AddPerformanceDiagnosticObserver<PerformanceMeterController>(options =>
+            //{
+            //    // the same options like in "AddPerformanceMeter<PerformanceMeterController>(options => {...})"
+            //});
 
             services.AddMvc().AddNewtonsoftJson(options =>
             {
@@ -70,7 +112,9 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31
             services.AddSwaggerExamplesFromAssemblyOf<ResponseExamples>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -85,13 +129,16 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31
                 c.ConfigObject.DisplayRequestDuration = true;
             });
 
-            app.UsePerformanceDiagnosticObserver();
+            //app.UsePerformanceDiagnosticObserver();
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(c =>
             {
-                endpoints.MapControllers();
+                c.MapControllers();
+
+                // use performance watching for concrete controller
+                app.UsePerformanceMeterFor<PerformanceMeterController>();
             });
         }
     }

@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DiagnosticAdapter;
 using System;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes;
-using Unchase.FluentPerformanceMeter.Attributes;
+using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Common;
 using Unchase.FluentPerformanceMeter.Builders;
 
 namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
@@ -14,8 +15,29 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
     /// The class for watching performance with diagnostic source.
     /// </summary>
     /// <typeparam name="TClass">Class with public methods.</typeparam>
-    public sealed class PerformanceDiagnosticObserver<TClass> : PerformanceDiagnosticObserverBase where TClass : class
+    public sealed class PerformanceDiagnosticObserver<TClass> : PerformanceDiagnosticObserverBase where TClass : ControllerBase
     {
+        #region Fields
+
+        private readonly IOptions<PerformanceMeterMvcOptions<TClass>> _options;
+
+        internal PerformanceMeterMvcOptions<TClass> Options => _options.Value;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Constructor for <see cref="PerformanceDiagnosticObserver{PerformanceMeterOptions}"/>.
+        /// </summary>
+        /// <param name="options">The options, containing the rules to apply.</param>
+        public PerformanceDiagnosticObserver(IOptions<PerformanceMeterMvcOptions<TClass>> options)
+        {
+            _options = options ?? throw new ArgumentNullException(nameof(options));
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -44,43 +66,45 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
         [DiagnosticName("Microsoft.AspNetCore.Mvc.BeforeAction")]
         public void OnBeforeAction(HttpContext httpContext, ActionDescriptor actionDescriptor)
         {
-            var controllerActionDescriptor = (ControllerActionDescriptor)actionDescriptor;
-
-            if (!controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(WatchingWithDiagnosticSourceAttribute), false).Any()
-                && !controllerActionDescriptor.ControllerTypeInfo.GetCustomAttributes(typeof(WatchingWithDiagnosticSourceAttribute), false).Any())
-                return;
-
-            if (controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IgnoreMethodPerformanceAttribute), false).Any())
-                return;
-
-            var performanceMeterBuilder = PerformanceMeter<TClass>
-                .WatchingMethod(controllerActionDescriptor.ActionName)
-                .WithSettingData;
-
-            // add custom data from attributes
-            foreach (MethodCustomDataAttribute methodCustomData in controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(MethodCustomDataAttribute), false))
+            if (PerformanceMeterCommonMethods.ShouldWatching(httpContext.Request, Options))
             {
-                performanceMeterBuilder = performanceMeterBuilder.CustomData(methodCustomData.Key, methodCustomData.Value);
-            }
-            if (httpContext.Request.QueryString.HasValue)
-                performanceMeterBuilder = performanceMeterBuilder.CustomData("queryString", httpContext.Request.QueryString.Value);
-            if (httpContext.User.Identity.IsAuthenticated)
-                performanceMeterBuilder = performanceMeterBuilder.CustomData("userIdentityName", httpContext.User.Identity.Name);
+                if (actionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
+                {
+                    if (PerformanceMeterCommonMethods.CheckExcludedMethods(controllerActionDescriptor, Options))
+                    {
+                        return;
+                    }
 
-            // add caller from attributes
-            performanceMeterBuilder = performanceMeterBuilder.CallerFrom(httpContext.Connection?.RemoteIpAddress?.ToString() ?? httpContext.Connection?.LocalIpAddress?.ToString());
-            foreach (MethodCallerAttribute methodCaller in controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(MethodCallerAttribute), false))
-            {
-                performanceMeterBuilder = performanceMeterBuilder.CallerFrom(methodCaller.Caller);
-            }
+                    if (PerformanceMeterCommonMethods.CheckAnnotatedAttribute(controllerActionDescriptor, Options,
+                        typeof(WatchingWithDiagnosticSourceAttribute)))
+                    {
+                        return;
+                    }
 
-            httpContext.Items["PerformanceMeter"] = performanceMeterBuilder.Start();
+                    if (PerformanceMeterCommonMethods.CheckIgnoreMethodPerformanceAttribute(controllerActionDescriptor,
+                        Options))
+                    {
+                        return;
+                    }
+
+                    var performanceMeterBuilder = PerformanceMeter<TClass>
+                        .WatchingMethod(controllerActionDescriptor.ActionName)
+                        .WithSettingData;
+
+                    // add custom data from custom attributes
+                    performanceMeterBuilder =
+                        performanceMeterBuilder.AddCustomDataFromCustomAttributes(httpContext, controllerActionDescriptor,
+                            Options);
+
+                    httpContext.Items["PerformanceMeter"] = performanceMeterBuilder.Start();
+                }
+            }
         }
 
         /// <summary>
         /// On Microsoft.AspNetCore.Hosting.HttpRequestIn.Start.
         /// </summary>
-        /// <param name="httpContext"></param>
+        /// <param name="httpContext"><see cref="HttpContext"/>.</param>
         [DiagnosticName("Microsoft.AspNetCore.Hosting.HttpRequestIn.Start")]
         public void OnHttpRequestInStart(HttpContext httpContext) { }
 
@@ -99,7 +123,7 @@ namespace Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource
         [DiagnosticName("Microsoft.AspNetCore.Hosting.HttpRequestIn.Stop")]
         public void OnHttpRequestInStop(HttpContext httpContext)
         {
-            if (!httpContext.Items.TryGetValue("PerformanceMeter", out object performanceMeter))
+            if (!httpContext.Items.TryGetValue("PerformanceMeter", out var performanceMeter))
                 return;
 
             ((PerformanceMeter<TClass>)performanceMeter).Dispose();

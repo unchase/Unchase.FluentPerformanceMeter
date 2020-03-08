@@ -21,6 +21,11 @@
             </summary>
             <param name="context"><see cref="T:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext"/>.</param>
         </member>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes.WatchingPerformanceAttribute">
+            <summary>
+            Attribute to indicate that performance watching will be performed with diagnostic source.
+            </summary>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes.WatchingWithDiagnosticSourceAttribute">
             <summary>
             Attribute to indicate that performance watching will be performed with diagnostic source.
@@ -31,6 +36,12 @@
             The class for watching performance with diagnostic source.
             </summary>
             <typeparam name="TClass">Class with public methods.</typeparam>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.#ctor(Microsoft.Extensions.Options.IOptions{Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{`0}})">
+            <summary>
+            Constructor for <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1"/>.
+            </summary>
+            <param name="options">The options, containing the rules to apply.</param>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.IsMatch(System.String)">
             <summary>
@@ -57,7 +68,7 @@
             <summary>
             On Microsoft.AspNetCore.Hosting.HttpRequestIn.Start.
             </summary>
-            <param name="httpContext"></param>
+            <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserver`1.OnAfterAction(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor)">
             <summary>
@@ -103,17 +114,131 @@
             Extension methods for Diagnostic Source.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions.AddPerformanceDiagnosticObserver``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions.AddPerformanceDiagnosticObserver``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{``0}})">
             <summary>
             Register <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase"/> services.
             </summary>
             <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+            <param name="configureOptions">An <see cref="T:System.Action`1"/> to configure options for Unchase.FluentPerformanceMeter.</param>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions.UsePerformanceDiagnosticObserver(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             Use <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.DiagnosticSource.PerformanceDiagnosticObserverBase"/> diagnostic source subscriptions.
             </summary>
             <param name="app"><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions.AddPerformanceMeter``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{``0}})">
+            <summary>
+            Register Unchase.FluentPerformanceMeter services.
+            </summary>
+            <param name="services"><see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+            <param name="configureOptions">An <see cref="T:System.Action`1"/> to configure options for Unchase.FluentPerformanceMeter.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceDiagnosticSourceExtensions.UsePerformanceMeterFor``1(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Use middleware for watching methods performance.
+            </summary>
+            <param name="app"><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceMeterMvcOptionsExtensions">
+            <summary>
+            Handy extensions for <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1"/>.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceMeterMvcOptionsExtensions.IgnorePath``1(Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{``0},System.String)">
+            <summary>
+            Excludes a path from being watched, convenience method for chaining, basically <see cref="P:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1.IgnoredPaths"/>.Add(assembly)
+            </summary>
+            <typeparam name="TClass">Type of the controller.</typeparam>
+            <param name="options">The options to exclude the type on.</param>
+            <param name="path">The path to exclude from profiled.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceMeterMvcOptionsExtensions.AddCustomData``1(Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{``0},System.String,System.Object)">
+            <summary>
+            Add common custom data of the controller.
+            </summary>
+            <typeparam name="TClass">Type of the controller.</typeparam>
+            <param name="options">The options.</param>
+            <param name="key">Key.</param>
+            <param name="value">Value.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceMeterMvcOptionsExtensions.SetMethodCallsCacheTime``1(Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{``0},System.Int32)">
+            <summary>
+            Set the time in minutes to clear collection of the method calls.
+            </summary>
+            <typeparam name="TClass">Type of the controller.</typeparam>
+            <param name="options">The options.</param>
+            <param name="minutes">Time in minutes to clear list of the method calls.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1"/>.
+            </returns>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions.PerformanceMeterMvcOptionsExtensions.SetDefaultExceptionHandler``1(Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{``0},System.Action{System.Exception})">
+            <summary>
+            Set Action to handle exceptions that occur by default.
+            </summary>
+            <typeparam name="TClass">Type of the controller.</typeparam>
+            <param name="options">The options.</param>
+            <param name="exceptionHandler">Action to handle exceptions that occur.</param>
+            <returns>
+            Returns <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1"/>.
+            </returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMiddleware`1">
+            <summary>
+            Represents a middleware that starts and stops an Unchase.FluentPerformanceMeter.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMiddleware`1.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Options.IOptions{Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions{`0}})">
+            <summary>
+            Creates a new instance of <see cref="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMiddleware`1"/>
+            </summary>
+            <param name="next">The delegate representing the next middleware in the request pipeline.</param>
+            <param name="options">The middleware options, containing the rules to apply.</param>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="next"/>, or <paramref name="options"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMiddleware`1.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Executes the Unchase.FluentPerformanceMeter-wrapped middleware.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> for the current request.</param>
+            <returns>A task that represents the execution of the MiniProfiler-wrapped middleware.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws when <paramref name="context"/> is <c>null</c>.</exception>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1">
+            <summary>
+            Options for configuring Unchase.FluentPerformanceMeter.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1.IgnoredPaths">
+            <summary>
+            When <see cref="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.StartWatching(System.String)"/> is called, if the current request URL contains any items in this property,
+            no performance watching will be instantiated and no results will be displayed.
+            Default value is { "/content/", "/scripts/", "/favicon.ico" }.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1.ShouldWatching">
+            <summary>
+            Set a function to control whether a given request should be watching at all.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1.WatchForAnnotatedWithAttributeOnly">
+            <summary>
+            Watch actions performance annotated with special attribute.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.AspNetCore.Mvc.PerformanceMeterMvcOptions`1.AddRoutePathToCustomData">
+            <summary>
+            Add route path to custom data.
+            Default value is true.
+            </summary>
         </member>
     </members>
 </doc>

@@ -8,10 +8,16 @@ namespace Unchase.FluentPerformanceMeter.Attributes
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class MethodCallerAttribute : Attribute
     {
+        #region Properties
+
         /// <summary>
         /// Caller.
         /// </summary>
         public string Caller { get; }
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Constructor for <see cref="MethodCallerAttribute"/>.
@@ -21,5 +27,7 @@ namespace Unchase.FluentPerformanceMeter.Attributes
         {
             this.Caller = caller;
         }
+
+        #endregion
     }
 }

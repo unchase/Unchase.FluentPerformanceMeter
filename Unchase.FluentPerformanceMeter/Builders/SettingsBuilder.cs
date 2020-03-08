@@ -20,16 +20,21 @@ namespace Unchase.FluentPerformanceMeter.Builders
         public SettingsBuilder(PerformanceMeter<TClass> performanceMeter)
         {
             this.PerformanceMeter = performanceMeter;
-            foreach (var performanceCustomDataAttribute in performanceMeter.MethodInfo.GetCustomAttributes(typeof(MethodCustomDataAttribute), false))
+            if (PerformanceMeter<TClass>.DefaultOptions?.AddCustomDataFromCustomAttributes ?? true)
             {
-                if (performanceCustomDataAttribute is MethodCustomDataAttribute customDataAttribute)
-                    AddCustomData(customDataAttribute.Key, customDataAttribute.Value);
-            }
+                foreach (var performanceCustomDataAttribute in performanceMeter.MethodInfo.GetCustomAttributes(
+                    typeof(MethodCustomDataAttribute), false))
+                {
+                    if (performanceCustomDataAttribute is MethodCustomDataAttribute customDataAttribute)
+                        AddCustomData(customDataAttribute.Key, customDataAttribute.Value);
+                }
 
-            foreach (var methodCallerAttribute in performanceMeter.MethodInfo.GetCustomAttributes(typeof(MethodCallerAttribute), false))
-            {
-                if (methodCallerAttribute is MethodCallerAttribute caller)
-                    WithCaller(caller.Caller);
+                foreach (var methodCallerAttribute in performanceMeter.MethodInfo.GetCustomAttributes(
+                    typeof(MethodCallerAttribute), false))
+                {
+                    if (methodCallerAttribute is MethodCallerAttribute caller)
+                        WithCaller(caller.Caller);
+                }
             }
         }
 

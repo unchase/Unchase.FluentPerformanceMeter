@@ -109,17 +109,15 @@ namespace Unchase.FluentPerformanceMeter
         /// <remarks>
         /// <see cref="IPerformanceCommand"/>.
         /// </remarks>
-        internal Collection<Action<IPerformanceInfo>> RegisteredActions
-        {
-            get
-            {
-                if (this._registeredActions == null)
-                {
-                    this._registeredActions = new Collection<Action<IPerformanceInfo>>();
-                }
-                return this._registeredActions;
-            }
-        }
+        internal Collection<Action<IPerformanceInfo>> RegisteredActions =>
+            this._registeredActions ??
+            (this._registeredActions = new Collection<Action<IPerformanceInfo>>());
+
+        /// <summary>
+        /// Settings for context-less settings access.
+        /// For example, every <see cref="PerformanceMeter{TClass}"/> deserialized from a store would have these settings.
+        /// </summary>
+        internal static PerformanceMeterBaseOptions DefaultOptions { get; private set; } = new PerformanceMeterBaseOptions();
 
         #endregion
 
@@ -158,6 +156,23 @@ namespace Unchase.FluentPerformanceMeter
         #endregion
 
         #region Methods
+
+        #region Configure options
+
+        /// <summary>
+        /// Saves the given <paramref name="options"/> as the global <see cref="DefaultOptions"/> available for use globally.
+        /// These are intended to be used by global/background operations where normal context access isn't available.
+        /// </summary>
+        /// <typeparam name="T">The specific type of <see cref="PerformanceMeterBaseOptions"/> to use.</typeparam>
+        /// <param name="options">The options object to set for background access.</param>
+        public static T Configure<T>(T options) where T : PerformanceMeterBaseOptions
+        {
+            DefaultOptions = options ?? throw new ArgumentNullException(nameof(options));
+            options.Configure(); // Event handler of sorts
+            return options;
+        }
+
+        #endregion
 
         #region WatchingMethod
 

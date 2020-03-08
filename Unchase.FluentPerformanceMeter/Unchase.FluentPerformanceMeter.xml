@@ -440,6 +440,20 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.SettingsBuilder`1"/>.
             </returns>
         </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Extensions.CommonExtensions">
+            <summary>
+            Common extension methods to use only in this project
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Extensions.CommonExtensions.Contains(System.String,System.String,System.StringComparison)">
+            <summary>
+            Checks if a string contains another one.
+            </summary>
+            <param name="s">The string to check for presence in.</param>
+            <param name="value">The value to check presence of.</param>
+            <param name="comparison">The <see cref="T:System.StringComparison"/> to use when comparing.</param>
+            <returns>Whether <paramref name="value"/> is contained in <paramref name="s"/>.</returns>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.Extensions.PerformanceInfoStepExtensions">
             <summary>
             Extension methods for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
@@ -466,6 +480,19 @@
             <returns>
             Returns <see cref="T:Unchase.FluentPerformanceMeter.PerformanceInfoStep`1"/>.
             </returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Extensions.PerformanceMeterBaseOptionsExtensions">
+            <summary>
+            Handy extensions for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.Extensions.PerformanceMeterBaseOptionsExtensions.ExcludeMethod``1(``0,System.String)">
+            <summary>
+            Excludes a method from performance watching, convenience method for chaining, basically <see cref="P:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.ExcludedMethods"/>.Add(name)
+            </summary>
+            <typeparam name="T">The subtype of <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions"/> to use (inferred for common usage).</typeparam>
+            <param name="options">The options to exclude the method on.</param>
+            <param name="method">The method name to exclude from performance watching.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.Extensions.PerformanceMeterExtensions">
             <summary>
@@ -1003,6 +1030,12 @@
             <see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceCommand"/>.
             </remarks>
         </member>
+        <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeter`1.DefaultOptions">
+            <summary>
+            Settings for context-less settings access.
+            For example, every <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/> deserialized from a store would have these settings.
+            </summary>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.#ctor(System.Reflection.MethodInfo)">
             <summary>
             Private constructor for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
@@ -1017,6 +1050,14 @@
             <summary>
             Destructor for <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeter`1"/>.
             </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Configure``1(``0)">
+            <summary>
+            Saves the given <paramref name="options"/> as the global <see cref="P:Unchase.FluentPerformanceMeter.PerformanceMeter`1.DefaultOptions"/> available for use globally.
+            These are intended to be used by global/background operations where normal context access isn't available.
+            </summary>
+            <typeparam name="T">The specific type of <see cref="T:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions"/> to use.</typeparam>
+            <param name="options">The options object to set for background access.</param>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.WatchingMethod(System.Reflection.MethodInfo)">
             <summary>
@@ -1864,6 +1905,75 @@
             <returns>
             Resturns Task of result.
             </returns>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions">
+            <summary>
+            Various configuration properties for Unchase.FluentPerformanceMeter.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.Version">
+            <summary>
+            Assembly version of the Unchase.FluentPerformanceMeter.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.VersionHash">
+            <summary>
+            The hash to use for file cache breaking, this is automatically calculated.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.ExcludedMethods">
+            <summary>
+            Methods to exclude from performance watching.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.UseIgnoreMethodPerformanceAttribute">
+            <summary>
+            Allow to use <see cref="T:Unchase.FluentPerformanceMeter.Attributes.IgnoreMethodPerformanceAttribute"/> for excluding from performance watching.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.AddCustomDataFromCustomAttributes">
+            <summary>
+            Add custom data from custom attributes.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.OnConfigure">
+            <summary>
+            Called when passed to <see cref="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Configure``1(``0)"/>.
+            </summary>
+        </member>
+        <member name="T:Unchase.FluentPerformanceMeter.StringBuilderCache">
+            <summary>
+            Provides optimized access to StringBuilder instances
+            Credit: Marc Gravell (@marcgravell), Stack Exchange Inc.
+            </summary>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.StringBuilderCache.Get(System.Int32)">
+            <summary>
+            Obtain a StringBuilder instance; this could be a recycled instance, or could be new
+            </summary>
+            <param name="capacity">The capacity to start the fetched <see cref="T:System.Text.StringBuilder"/> at.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.StringBuilderCache.ToStringRecycle(System.Text.StringBuilder)">
+            <summary>
+            Get the string contents of a StringBuilder and recycle the instance at the same time
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to recycle.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.StringBuilderCache.ToStringRecycle(System.Text.StringBuilder,System.Int32,System.Int32)">
+            <summary>
+            Get the string contents of a StringBuilder and recycle the instance at the same time
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to recycle.</param>
+            <param name="startIndex">The index to start at.</param>
+            <param name="length">The amount of characters to get.</param>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.StringBuilderCache.Recycle(System.Text.StringBuilder)">
+            <summary>
+            Recycles a StringBuilder instance if possible
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to recycle.</param>
         </member>
     </members>
 </doc>

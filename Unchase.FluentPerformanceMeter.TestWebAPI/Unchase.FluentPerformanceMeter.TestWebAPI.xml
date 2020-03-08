@@ -4,47 +4,6 @@
         <name>Unchase.FluentPerformanceMeter.TestWebAPI</name>
     </assembly>
     <members>
-        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand">
-            <summary>
-            Custom executed command which work with method calls custom data.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.CommandName">
-            <summary>
-            Executed command name.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.CustomDataCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
-            <summary>
-            Execute command.
-            </summary>
-            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.</param>
-        </member>
-        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand">
-            <summary>
-            Custom executed command.
-            </summary>
-        </member>
-        <member name="P:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.CommandName">
-            <summary>
-            Executed commad name.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.#ctor(System.String)">
-            <summary>
-            Constructor.
-            </summary>
-            <remarks>
-            You can pass any data through the command constructor.
-            </remarks>
-            <param name="customString"></param>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.Commands.ExecutedCommand.Execute(Unchase.FluentPerformanceMeter.Models.IPerformanceInfo)">
-            <summary>
-            Execute command.
-            </summary>
-            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.</param>
-        </member>
         <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Controllers.PerformanceMeterController">
             <summary>
             Unchase.PerformanceMeter Test WebAPI Controller.
@@ -213,29 +172,6 @@
             Test POST method watching with diagnostic source (add arguments to custom data).
             </summary>
             <param name="arg">Input DTO.</param>
-        </member>
-        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.CustomException">
-            <summary>
-            Custom exception.
-            </summary>
-        </member>
-        <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService">
-            <summary>
-            Fake service class.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService.FakeMethod1">
-            <summary>
-            Fake method 1.
-            </summary>
-        </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI.FakeService.FakeMethod2(System.String)">
-            <summary>
-            Fake method 2.
-            </summary>
-            <returns>
-            Return string.
-            </returns>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.TestWebAPI.Program">
             <summary>

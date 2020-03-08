@@ -118,10 +118,11 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
         /// Test GET method with simple performance watching.
         /// </summary>
         [HttpGet("SimpleWatchingMethodStart")]
+        [WatchingPerformance]
         public ActionResult SimpleWatchingMethodStart()
         {
             using var pm = PerformanceMeter<PerformanceMeterController>.WatchingMethod().Start();
-            
+
             //put your code with some logic here
 
             return Ok();
@@ -134,7 +135,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
         public ActionResult SimpleStartWatching()
         {
             using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
-            
+
             // put your code with some logic here
 
             return Ok();
@@ -147,7 +148,7 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
         public ActionResult SimpleStartWatchingFuncMethod()
         {
             using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching(SimpleStartWatchingFuncMethod);
-            
+
             // put your code with some logic here
 
             return Ok();
@@ -601,6 +602,23 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
         [AddMethodArgumentsToCustomData]
         public ActionResult StartWatchingWithDiagnosticSourceAndArguments(DTOArgument arg)
         {
+            return Ok();
+        }
+
+        #endregion
+
+        #region WithWatchingPerformanceAttribute
+
+        /// <summary>
+        /// Test GET method with WatchingPerformance attribute.
+        /// </summary>
+        [HttpGet("SimpleWatchingMethodStartWatchingPerformanceAttribute")]
+        [WatchingPerformance]
+        public ActionResult SimpleWatchingMethodStartWatchingPerformanceAttribute()
+        {
+            //put your code with some logic here
+            Thread.Sleep(1000);
+
             return Ok();
         }
 
