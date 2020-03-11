@@ -301,7 +301,7 @@ public void ConfigureServices(IServiceCollection services)
         // Defaults: In-Memory for 5 minutes, everything watched, every user can see
 
         // excludes a method from performance watching
-        options.ExcludeMethod(nameof(PerformanceMeterController.SimpleWatchingMethodStartWatchingPerformanceAttribute));
+        options.ExcludeMethod(nameof(MeasurableController.MeasurableAction));
 
         // to control which requests are watched, use the Func<HttpRequest, bool> option:
         options.ShouldWatching = request => request.HttpContext.User.IsInRole("Dev");
