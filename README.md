@@ -59,7 +59,7 @@ The data obtained as a result of the method’s performance measurement can be u
 * [Getting started](#Start)
 * [Examples of usage](#SimpleSamples)
 	* [Method's performance measurement](#SimpleSamples)
-      * [Using DI to Get Performance watching results (v2.1.0)](#UsingDISamples)
+      * [Using DI to Get Performance measurement results (v2.1.0)](#UsingDISamples)
 	* [Method's performance measurement with `DiagnosticSource` (v1.1.0)](#DiagnosticSourceSample)
     * [Method's performance measurement with `WatchingPerformanceAttribute` attribute (v2.0.0)](#WatchingPerformanceSample)
 	* [Measuring the performance of an external library method](#SampleExternal)
@@ -171,7 +171,7 @@ After calling the method `SimpleWatchingMethodStart` and calling `GetPerformance
 }
 ```
 
-#### <a name="UsingDISample"></a> Using DI to Get Performance watching results
+#### <a name="UsingDISample"></a> Using DI to Get Performance measurement results
 
 Starting with [*v2.1.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v2.1.0), it became possible to get the performance measurements results of public methods of the class using the built-in **DI** in *ASP.NET Core* application.
 To do this, add the following code to `Startap.cs`:
