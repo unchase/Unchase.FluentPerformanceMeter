@@ -175,7 +175,7 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
 }
 ```
 
-#### <a name="UsingDISample"></a> Использование DI для получения результатов замера производительности
+#### <a name="UsingDISamples"></a> Использование DI для получения результатов замера производительности
 
 Начиная с версии [*v2.1.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v2.1.0) появилась возможность получать результаты замеров производительности методов класса, используя встроенный **DI** в *ASP.NET Core* приложении.
 Для этого необходимо добавить в `Startap.cs` следующий код:
