@@ -64,9 +64,10 @@
 
 * [Начало работы](#Start)
 * [Примеры использования](#SimpleSamples)
-	* [Измерение производительности метода](#SimpleSamples)
-	* [Измерение производительности метода с помощью `DiagnosticSource`](#DiagnosticSourceSample)
-    * [Измерение производительности метода с помощью атрибута `WatchingPerformanceAttribute`](#WatchingPerformanceSample)
+	* [Измерение производительности метода (v2.1.0)](#SimpleSamples)
+      * [Использование DI для получения результатов замера производительности](#UsingDISamples)
+	* [Измерение производительности метода с помощью `DiagnosticSource` (v1.1.0)](#DiagnosticSourceSample)
+    * [Измерение производительности метода с помощью атрибута `WatchingPerformanceAttribute` (v2.0.0)](#WatchingPerformanceSample)
 	* [Измерение производительности метода используемой библиотеки](#SampleExternal)
 	* [Добавление дополнительных данных (Custom Data) и разбиение на шаги (Steps)](#SampleCustomData)
 	* [Исключение из замера (Ignore)](#SampleIgnore)
@@ -99,7 +100,7 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 ### Измерение производительности метода
 
 Далее приведён простейший пример использования библиотеки (без конфигурирования и дополнительных настроек) для замера производительности метода (Action) `SimpleWatchingMethodStart` контроллера (Controller) `PerformanceMeterController` *Asp.Net Core 2.2 WebAPI* приложения. Для это можно использовать метод расширения `.WatchingMethod().Start()` или аналогичный по функциональности `.StartWatching()`. 
-С версии v1.0.5 также можно использовать `.WatchingMethod().Start(SimpleWatchingMethodStart)` или `.StartWatching(SimpleWatchingMethodStart)` с указанием имени метода. 
+С версии [*v1.0.5*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v1.0.5) также можно использовать `.WatchingMethod().Start(SimpleWatchingMethodStart)` или `.StartWatching(SimpleWatchingMethodStart)` с указанием имени метода. 
 
 > Все примеры использования библиотеки можно найти в проектах `Unchase.FluentPerformanceMeter.Test*` данного репозитория.
 
@@ -174,9 +175,58 @@ public ActionResult<IPerformanceInfo> GetPerformanceInfo()
 }
 ```
 
+#### <a name="UsingDISample"></a> Использование DI для получения результатов замера производительности
+
+Начиная с версии [*v2.1.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v2.1.0) появилась возможность получать результаты замеров производительности методов класса, используя встроенный **DI** в *ASP.NET Core* приложении.
+Для этого необходимо добавить в `Startap.cs` следующий код:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ...
+    
+    // adds a singleton service to the specified IPerformanceInfo<MeasurableController> with DI
+    services.AddSingleton(s => PerformanceMeter<MeasurableController>.PerformanceInfo);
+    // ... the same for another classes (controllers)
+
+    // ...
+}
+```
+
+После чего, используя DI, можно получить результаты, например, следующим образом:
+
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+public class PerformanceMeterController : ControllerBase
+{
+    private readonly IPerformanceInfo<PerformanceMeterController> _performanceInfo;
+
+    public PerformanceMeterController(IPerformanceInfo<PerformanceMeterController> performanceInfo)
+    {
+        _performanceInfo = performanceInfo;
+    }
+
+    // ...
+
+    /// <summary>
+    /// Get methods performance info for this controller.
+    /// </summary>
+    /// <returns>Returns methods performance info.</returns>
+    [HttpGet("GetPerformanceInfoV2")]
+    [IgnoreMethodPerformance]
+    public ActionResult<IPerformanceInfo> GetPerformanceInfoV2()
+    {
+        return Ok(_performanceInfo);
+    }
+
+    // ...
+}
+```
+
 ### <a name="DiagnosticSourceSample"></a> Измерение производительности метода с помощью `DiagnosticSource`
 
-Начиная с версии *v1.1.0* появилась возможность мерять производительность методов в *AspNetCore MVC* приложении с помощью `DiagnosticSource` и специального атрибута `WatchingWithDiagnosticSourceAttribute`.
+Начиная с версии [*v1.1.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v1.1.0) появилась возможность мерять производительность методов в *AspNetCore MVC* приложении с помощью `DiagnosticSource` и специального атрибута `WatchingWithDiagnosticSourceAttribute`.
 Для этого необходимо добавить в проект *NuGet* пакет [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc), и добавить в `Startap.cs` следующий код:
 
 ```csharp
@@ -229,7 +279,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-Начиная с версии *v1.2.0* появилась возможность добавлять аргументы вызова к пользовательским данным замера производительности методов в *AspNetCore MVC* приложении с помощью специального атрибута `AddMethodArgumentsToCustomDataAttribute` в связке с атрибутом `WatchingWithDiagnosticSourceAttribute`:
+Начиная с версии [*v1.2.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v1.2.0) появилась возможность добавлять аргументы вызова к пользовательским данным замера производительности методов в *AspNetCore MVC* приложении с помощью специального атрибута `AddMethodArgumentsToCustomDataAttribute` в связке с атрибутом `WatchingWithDiagnosticSourceAttribute`:
 
 ```csharp
 [HttpPost("SimpleWatchingMethodStartWithArgs")]

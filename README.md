@@ -59,8 +59,9 @@ The data obtained as a result of the method’s performance measurement can be u
 * [Getting started](#Start)
 * [Examples of usage](#SimpleSamples)
 	* [Method's performance measurement](#SimpleSamples)
-	* [Method's performance measurement with `DiagnosticSource`](#DiagnosticSourceSample)
-    * [Method's performance measurement with `WatchingPerformanceAttribute` attribute](#WatchingPerformanceSample)
+      * [Using DI to Get Performance watching results (v2.1.0)](#UsingDISamples)
+	* [Method's performance measurement with `DiagnosticSource` (v1.1.0)](#DiagnosticSourceSample)
+    * [Method's performance measurement with `WatchingPerformanceAttribute` attribute (v2.0.0)](#WatchingPerformanceSample)
 	* [Measuring the performance of an external library method](#SampleExternal)
 	* [Adding Custom Data and spliting into Steps](#SampleCustomData)
 	* [Excluding the measurement](#SampleIgnore)
@@ -93,7 +94,7 @@ dotnet add package Unchase.FluentPerformanceMeter --version {version}
 ### Method's performance measurement
 
 The following simple library usage example (without configuration and additional settings) meant to demonstrate how to measure a method’s performance (Action) `SimpleWatchingMethodStart` for the Controller `PerformanceMeterController` in *Asp.Net Core 2.2 WebAPI* application. You can use the extension method `.WatchingMethod().Start()` or `.StartWatching()` for this.
-Since v1.0.5, you can also use `.WatchingMethod().Start(SimpleWatchingMethodStart)` or `.StartWatching(SimpleWatchingMethodStart)` with the method name.
+Since [*v1.0.5*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v1.0.5), you can also use `.WatchingMethod().Start(SimpleWatchingMethodStart)` or `.StartWatching(SimpleWatchingMethodStart)` with the method name.
 
 > All examples of using the library can be found in the `Unchase.FluentPerformanceMeter.Test*` projects of this repository.
 
@@ -170,9 +171,58 @@ After calling the method `SimpleWatchingMethodStart` and calling `GetPerformance
 }
 ```
 
+#### <a name="UsingDISample"></a> Using DI to Get Performance watching results
+
+Starting with [*v2.1.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v2.1.0), it became possible to get the performance measurements results of public methods of the class using the built-in **DI** in *ASP.NET Core* application.
+To do this, add the following code to `Startap.cs`:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ...
+    
+    // adds a singleton service to the specified IPerformanceInfo<MeasurableController> with DI
+    services.AddSingleton(s => PerformanceMeter<MeasurableController>.PerformanceInfo);
+    // ... the same for another classes (controllers)
+
+    // ...
+}
+```
+
+Then, using DI, you can get the results, for example, as follows:
+
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+public class PerformanceMeterController : ControllerBase
+{
+    private readonly IPerformanceInfo<PerformanceMeterController> _performanceInfo;
+
+    public PerformanceMeterController(IPerformanceInfo<PerformanceMeterController> performanceInfo)
+    {
+        _performanceInfo = performanceInfo;
+    }
+
+    // ...
+
+    /// <summary>
+    /// Get methods performance info for this controller.
+    /// </summary>
+    /// <returns>Returns methods performance info.</returns>
+    [HttpGet("GetPerformanceInfoV2")]
+    [IgnoreMethodPerformance]
+    public ActionResult<IPerformanceInfo> GetPerformanceInfoV2()
+    {
+        return Ok(_performanceInfo);
+    }
+
+    // ...
+}
+```
+
 ### <a name="DiagnosticSourceSample"></a> Method's performance measurement with `DiagnosticSource`
 
-Starting with *v1.1.0*, it became possible to measure the performance of methods in an *AspNetCore MVC* application using the `DiagnosticSource` and the special `WatchingWithDiagnosticSourceAttribute` attribute. To do this, add the *NuGet* package [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc) to the project and add the following code to `Startap.cs`:
+Starting with [*v1.1.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v1.1.0), it became possible to measure the performance of methods in an *AspNetCore MVC* application using the `DiagnosticSource` and the special `WatchingWithDiagnosticSourceAttribute` attribute. To do this, add the *NuGet* package [`Unchase.FluentPerformanceMeter.AspNetCore.Mvc`](https://www.nuget.org/Unchase.FluentPerformanceMeter.AspNetCore.Mvc) to the project and add the following code to `Startap.cs`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -224,7 +274,7 @@ public class PerformanceMeterController : ControllerBase
 }
 ```
 
-Starting with version *v1.2.0*, it became possible to add invocation arguments to custom method performance measurement data in an *AspNetCore MVC* application using the special `AddMethodArgumentsToCustomDataAttribute` attribute in conjunction with the `WatchingWithDiagnosticSourceAttribute` attribute:
+Starting with version [*v1.2.0*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v1.2.0), it became possible to add invocation arguments to custom method performance measurement data in an *AspNetCore MVC* application using the special `AddMethodArgumentsToCustomDataAttribute` attribute in conjunction with the `WatchingWithDiagnosticSourceAttribute` attribute:
 
 ```csharp
 [HttpPost("SimpleWatchingMethodStartWithArgs")]

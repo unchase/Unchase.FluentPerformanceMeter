@@ -14,13 +14,21 @@
             Static constructor.
             </summary>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Unchase.FluentPerformanceMeter.Models.IPerformanceInfo{Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController})">
             <summary>
             Constructor.
             </summary>
             <param name="httpContextAccessor"><see cref="T:Microsoft.AspNetCore.Http.IHttpContextAccessor"/>.</param>
+            <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo`1"/>.</param>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.GetPerformanceInfo">
+            <summary>
+            Get methods performance info for this controller.
+            </summary>
+            <returns>Returns methods performance info.</returns>
+            <response code="200">Returns methods performance info.</response>
+        </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.GetPerformanceInfoV2">
             <summary>
             Get methods performance info for this controller.
             </summary>

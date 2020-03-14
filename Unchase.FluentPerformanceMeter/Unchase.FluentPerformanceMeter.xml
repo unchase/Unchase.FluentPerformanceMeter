@@ -547,6 +547,12 @@
             </summary>
             <param name="performanceInfo"><see cref="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo"/>.</param>
         </member>
+        <member name="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo`1">
+            <summary>
+            Method performance information for specific class.
+            </summary>
+            <typeparam name="TClass">Class with public methods.</typeparam>
+        </member>
         <member name="T:Unchase.FluentPerformanceMeter.Models.IPerformanceInfo">
             <summary>
             Method performance information.

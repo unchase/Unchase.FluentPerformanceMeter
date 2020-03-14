@@ -31,6 +31,8 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        private readonly IPerformanceInfo<PerformanceMeterController> _performanceInfo;
+
         #endregion
 
         #region Constructors
@@ -57,9 +59,11 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
         /// Constructor.
         /// </summary>
         /// <param name="httpContextAccessor"><see cref="IHttpContextAccessor"/>.</param>
-        public PerformanceMeterController(IHttpContextAccessor httpContextAccessor)
+        /// <param name="performanceInfo"><see cref="IPerformanceInfo{TController}"/>.</param>
+        public PerformanceMeterController(IHttpContextAccessor httpContextAccessor, IPerformanceInfo<PerformanceMeterController> performanceInfo)
         {
             _httpContextAccessor = httpContextAccessor;
+            _performanceInfo = performanceInfo;
         }
 
         #endregion
@@ -80,6 +84,20 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
         public ActionResult<IPerformanceInfo> GetPerformanceInfo()
         {
             return Ok(PerformanceMeter<PerformanceMeterController>.PerformanceInfo);
+        }
+
+        /// <summary>
+        /// Get methods performance info for this controller.
+        /// </summary>
+        /// <returns>Returns methods performance info.</returns>
+        /// <response code="200">Returns methods performance info.</response>
+        [HttpGet("GetPerformanceInfoV2")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(ResponseExamples.GetPerformanceInfoResponse200Example))]
+        [IgnoreMethodPerformance]
+        public ActionResult<IPerformanceInfo> GetPerformanceInfoV2()
+        {
+            return Ok(_performanceInfo);
         }
 
         /// <summary>

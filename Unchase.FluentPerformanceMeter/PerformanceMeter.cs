@@ -36,7 +36,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <returns>
         /// Return method performance information with type <see cref="PerformanceInfo{TClass}"/>.
         /// </returns>
-        public static IPerformanceInfo PerformanceInfo => Performance<TClass>.PerformanceInfo;
+        public static IPerformanceInfo<TClass> PerformanceInfo => Performance<TClass>.PerformanceInfo;
 
         /// <summary>
         /// Time in minutes to clear list of the method calls.

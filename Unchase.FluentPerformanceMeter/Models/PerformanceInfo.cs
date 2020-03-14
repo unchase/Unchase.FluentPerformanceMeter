@@ -13,7 +13,7 @@ namespace Unchase.FluentPerformanceMeter.Models
     /// </summary>
     /// <typeparam name="TClass">Class with public methods.</typeparam>
     [DataContract]
-    internal class PerformanceInfo<TClass> : IPerformanceInfo where TClass : class
+    public class PerformanceInfo<TClass> : IPerformanceInfo<TClass> where TClass : class
     {
         #region Properties
 

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,9 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Filters;
-using Unchase.FluentPerformanceMeter.AspNetCore.Mvc;
 using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Extensions;
-using Unchase.FluentPerformanceMeter.Extensions;
 using Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers;
 using Unchase.FluentPerformanceMeter.TestWebAPI31.OpenApiExamples;
 
@@ -23,6 +20,10 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
+
+            // adds a singleton service to the specified IPerformanceInfo<PerformanceMeterController> with DI
+            services.AddSingleton(s => PerformanceMeter<PerformanceMeterController>.PerformanceInfo);
+            // ... the same for another classes (controllers)
 
             services.AddPerformanceMeter<PerformanceMeterController>(options =>
             {

@@ -5,6 +5,12 @@ using System.Reflection;
 namespace Unchase.FluentPerformanceMeter.Models
 {
     /// <summary>
+    /// Method performance information for specific class.
+    /// </summary>
+    /// <typeparam name="TClass">Class with public methods.</typeparam>
+    public interface IPerformanceInfo<TClass> : IPerformanceInfo where TClass : class { }
+
+    /// <summary>
     /// Method performance information.
     /// </summary>
     public interface IPerformanceInfo

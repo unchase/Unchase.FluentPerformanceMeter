@@ -25,11 +25,11 @@ namespace Unchase.FluentPerformanceMeter
 
         #region Properties
 
-        private static IPerformanceInfo _performanceInfo;
+        private static IPerformanceInfo<TClass> _performanceInfo;
         /// <summary>
         /// Methods performance information.
         /// </summary>
-        internal static IPerformanceInfo PerformanceInfo
+        internal static IPerformanceInfo<TClass> PerformanceInfo
         {
             get
             {
