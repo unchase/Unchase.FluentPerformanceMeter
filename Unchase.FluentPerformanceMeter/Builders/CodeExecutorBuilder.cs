@@ -166,7 +166,8 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// Execute the Action.
         /// </summary>
         /// <param name="action">Executed Action.</param>
-        internal void Execute(Action action)
+        /// <param name="iterations">Number of executing Action iterations.</param>
+        internal void Execute(Action action, uint iterations = 1)
         {
             if (this._useExceptionHandler)
             {
@@ -174,7 +175,10 @@ namespace Unchase.FluentPerformanceMeter.Builders
                     this.PerformanceMeter.InnerStopwatch.Stop();
                 try
                 {
-                    action();
+                    for (var i = 0; i < iterations; i++)
+                    {
+                        action();
+                    }
                 }
                 catch (TException ex)
                 {
@@ -196,7 +200,10 @@ namespace Unchase.FluentPerformanceMeter.Builders
             {
                 if (this._stopWatching)
                     this.PerformanceMeter.InnerStopwatch.Stop();
-                action();
+                for (var i = 0; i < iterations; i++)
+                {
+                    action();
+                }
                 this.PerformanceMeter.InnerStopwatch.Start();
             }
         }
@@ -205,7 +212,8 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// Execute the Task.
         /// </summary>
         /// <param name="task">Executed Task.</param>
-        internal async ValueTask ExecuteAsync(ValueTask task)
+        /// <param name="iterations">Number of executing Task iterations.</param>
+        internal async ValueTask ExecuteAsync(ValueTask task, uint iterations = 1)
         {
             if (this._useExceptionHandler)
             {
@@ -213,7 +221,10 @@ namespace Unchase.FluentPerformanceMeter.Builders
                     this.PerformanceMeter.InnerStopwatch.Stop();
                 try
                 {
-                    await task;
+                    for (var i = 0; i < iterations; i++)
+                    {
+                        await task;
+                    }
                 }
                 catch (TException ex)
                 {
@@ -235,7 +246,10 @@ namespace Unchase.FluentPerformanceMeter.Builders
             {
                 if (this._stopWatching)
                     this.PerformanceMeter.InnerStopwatch.Stop();
-                await task;
+                for (var i = 0; i < iterations; i++)
+                {
+                    await task;
+                }
                 this.PerformanceMeter.InnerStopwatch.Start();
             }
         }
@@ -286,9 +300,10 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <typeparam name="TException">Type of exception of the exception handler.</typeparam>
         /// <param name="codeExecutorBuilder"><see cref="CodeExecutorBuilder{TClass, TException}"/>.</param>
         /// <param name="action">Executed Action.</param>
-        public static void Start<TClass, TException>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, Action action) where TClass : class where TException : Exception
+        /// <param name="iterations">Number of executing Action iterations.</param>
+        public static void Start<TClass, TException>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, Action action, uint iterations = 1) where TClass : class where TException : Exception
         {
-            codeExecutorBuilder.Execute(action);
+            codeExecutorBuilder.Execute(action, iterations);
         }
 
         /// <summary>
@@ -298,9 +313,10 @@ namespace Unchase.FluentPerformanceMeter.Builders
         /// <typeparam name="TException">Type of exception of the exception handler.</typeparam>
         /// <param name="codeExecutorBuilder"><see cref="CodeExecutorBuilder{TClass, TException}"/>.</param>
         /// <param name="task">Executed Task.</param>
-        public static async ValueTask StartAsync<TClass, TException>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, ValueTask task) where TClass : class where TException : Exception
+        /// <param name="iterations">Number of executing Task iterations.</param>
+        public static async ValueTask StartAsync<TClass, TException>(this CodeExecutorBuilder<TClass, TException> codeExecutorBuilder, ValueTask task, uint iterations = 1) where TClass : class where TException : Exception
         {
-            await codeExecutorBuilder.ExecuteAsync(task).ConfigureAwait(false);
+            await codeExecutorBuilder.ExecuteAsync(task, iterations).ConfigureAwait(false);
         }
 
         /// <summary>

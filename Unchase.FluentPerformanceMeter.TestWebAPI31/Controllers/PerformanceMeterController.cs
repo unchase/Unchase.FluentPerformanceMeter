@@ -285,6 +285,21 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
         }
 
         /// <summary>
+        /// Test GET method with simple performance watching (with executing some iterated code (Action)).
+        /// </summary>
+        [HttpGet("SimpleStartWatchingWithActionAndIterations")]
+        public ActionResult PublicTestGetSimpleMethodWithActionAndIterations(uint iterations = 1)
+        {
+            using var pm = PerformanceMeter<PerformanceMeterController>.StartWatching();
+
+            // execute an action that throws the exception to be handled by the exception handler
+            pm.Executing()
+                .Start(() => Debug.WriteLine($"Iterations: {iterations}"), iterations);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Test GET method with simple performance watching (with executing some code (Action and Func{string}) without performance watching).
         /// </summary>
         [HttpGet("SimpleStartWatchingWithoutWatching")]

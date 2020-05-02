@@ -1376,21 +1376,23 @@ namespace Unchase.FluentPerformanceMeter
         /// Execute the Action.
         /// </summary>
         /// <param name="action">Executed Action.</param>
-        public void Inline(Action action)
+        /// <param name="iterations">Number of executing Action iterations.</param>
+        public void Inline(Action action, uint iterations = 1)
         {
-            new CodeExecutorBuilder<TClass, Exception>(this).Start(action);
+            new CodeExecutorBuilder<TClass, Exception>(this).Start(action, iterations);
         }
 
         /// <summary>
         /// Execute the Task.
         /// </summary>
         /// <param name="task">Executed Task.</param>
+        /// <param name="iterations">Number of executing Task iterations.</param>
         /// <returns>
         /// Returns <see cref="Task"/>.
         /// </returns>
-        public async ValueTask InlineAsync(ValueTask task)
+        public async ValueTask InlineAsync(ValueTask task, uint iterations = 1)
         {
-            await new CodeExecutorBuilder<TClass, Exception>(this).StartAsync(task);
+            await new CodeExecutorBuilder<TClass, Exception>(this).StartAsync(task, iterations);
         }
 
         /// <summary>
@@ -1414,7 +1416,7 @@ namespace Unchase.FluentPerformanceMeter
         /// <param name="task">Executed Task.</param>
         /// <param name="defaultResult">Default result if exception will occured.</param>
         /// <returns>
-        /// Resturns Task of result.
+        /// Returns Task of result.
         /// </returns>
         public async ValueTask<TResult> InlineAsync<TResult>(ValueTask<TResult> task, TResult defaultResult = default)
         {
@@ -1429,21 +1431,23 @@ namespace Unchase.FluentPerformanceMeter
         /// Execute the Action.
         /// </summary>
         /// <param name="action">Executed Action.</param>
-        public void InlineIgnored(Action action)
+        /// <param name="iterations">Number of executing Action iterations.</param>
+        public void InlineIgnored(Action action, uint iterations = 1)
         {
-            new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().Start(action);
+            new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().Start(action, iterations);
         }
 
         /// <summary>
         /// Execute the Task.
         /// </summary>
         /// <param name="task">Executed Task.</param>
+        /// <param name="iterations">Number of executing Task iterations.</param>
         /// <returns>
         /// Returns <see cref="Task"/>.
         /// </returns>
-        public async ValueTask InlineIgnoredAsync(ValueTask task)
+        public async ValueTask InlineIgnoredAsync(ValueTask task, uint iterations = 1)
         {
-            await new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().StartAsync(task);
+            await new CodeExecutorBuilder<TClass, Exception>(this).WithoutWatching().StartAsync(task, iterations);
         }
 
         /// <summary>

@@ -79,6 +79,11 @@
             Test GET method with simple performance watching (with executing some code (Action) throws the exception) with exception handler.
             </summary>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.PublicTestGetSimpleMethodWithActionAndIterations(System.UInt32)">
+            <summary>
+            Test GET method with simple performance watching (with executing some iterated code (Action)).
+            </summary>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.SimpleStartWatchingWithoutWatching">
             <summary>
             Test GET method with simple performance watching (with executing some code (Action and Func{string}) without performance watching).

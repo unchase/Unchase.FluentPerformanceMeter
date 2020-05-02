@@ -7,6 +7,11 @@
 
 These are the changes to each version that has been released on the official [NuGet Gallery (Common)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter) and [NuGet Gallery (MVC)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter.AspNetCore.Mvc).
 
+## v2.1.1 `(2020-05-02)`
+
+- [x] Add feature: allows to iterate executing Actions with `iterations` parameter in `Start` extension methods
+- [x] Update nuget-dependencies
+
 ## v2.1.0 `(2020-03-14)`
 
 - [x] Add feature: allows to to get the performance measurements results using the built-in **DI**

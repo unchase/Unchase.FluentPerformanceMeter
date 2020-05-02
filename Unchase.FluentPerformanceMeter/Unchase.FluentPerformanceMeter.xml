@@ -104,17 +104,19 @@
             Returns result.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.Execute(System.Action)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.Execute(System.Action,System.UInt32)">
             <summary>
             Execute the Action.
             </summary>
             <param name="action">Executed Action.</param>
+            <param name="iterations">Number of executing Action iterations.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync(System.Threading.Tasks.ValueTask)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2.ExecuteAsync(System.Threading.Tasks.ValueTask,System.UInt32)">
             <summary>
             Execute the Task.
             </summary>
             <param name="task">Executed Task.</param>
+            <param name="iterations">Number of executing Task iterations.</param>
         </member>
         <member name="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions">
             <summary>
@@ -144,7 +146,7 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.Start``2(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Action)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.Start``2(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Action,System.UInt32)">
             <summary>
             Execute the Action.
             </summary>
@@ -152,8 +154,9 @@
             <typeparam name="TException">Type of exception of the exception handler.</typeparam>
             <param name="codeExecutorBuilder"><see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <param name="action">Executed Action.</param>
+            <param name="iterations">Number of executing Action iterations.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``2(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.ValueTask)">
+        <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.StartAsync``2(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Threading.Tasks.ValueTask,System.UInt32)">
             <summary>
             Execute the Task.
             </summary>
@@ -161,6 +164,7 @@
             <typeparam name="TException">Type of exception of the exception handler.</typeparam>
             <param name="codeExecutorBuilder"><see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.</param>
             <param name="task">Executed Task.</param>
+            <param name="iterations">Number of executing Task iterations.</param>
         </member>
         <member name="M:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilderExtensions.Start``3(Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder{``0,``1},System.Func{``2},``2)">
             <summary>
@@ -1838,17 +1842,19 @@
             Returns <see cref="T:Unchase.FluentPerformanceMeter.Builders.CodeExecutorBuilder`2"/>.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Inline(System.Action)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Inline(System.Action,System.UInt32)">
             <summary>
             Execute the Action.
             </summary>
             <param name="action">Executed Action.</param>
+            <param name="iterations">Number of executing Action iterations.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync(System.Threading.Tasks.ValueTask)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineAsync(System.Threading.Tasks.ValueTask,System.UInt32)">
             <summary>
             Execute the Task.
             </summary>
             <param name="task">Executed Task.</param>
+            <param name="iterations">Number of executing Task iterations.</param>
             <returns>
             Returns <see cref="T:System.Threading.Tasks.Task"/>.
             </returns>
@@ -1872,20 +1878,22 @@
             <param name="task">Executed Task.</param>
             <param name="defaultResult">Default result if exception will occured.</param>
             <returns>
-            Resturns Task of result.
+            Returns Task of result.
             </returns>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnored(System.Action)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnored(System.Action,System.UInt32)">
             <summary>
             Execute the Action.
             </summary>
             <param name="action">Executed Action.</param>
+            <param name="iterations">Number of executing Action iterations.</param>
         </member>
-        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync(System.Threading.Tasks.ValueTask)">
+        <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.InlineIgnoredAsync(System.Threading.Tasks.ValueTask,System.UInt32)">
             <summary>
             Execute the Task.
             </summary>
             <param name="task">Executed Task.</param>
+            <param name="iterations">Number of executing Task iterations.</param>
             <returns>
             Returns <see cref="T:System.Threading.Tasks.Task"/>.
             </returns>
