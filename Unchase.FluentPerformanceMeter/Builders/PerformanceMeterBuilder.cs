@@ -70,6 +70,14 @@ namespace Unchase.FluentPerformanceMeter.Builders
                 else
                     throw;
             }
+
+            if (PerformanceMeter<TClass>.DefaultOptions?.RegisterPerformanceMeterScope == true)
+            {
+                var httpContext = this.PerformanceMeter.HttpContextAccessor?.HttpContext;
+                if (httpContext != null)
+                    httpContext.Items[$"PerformanceMeter{httpContext.TraceIdentifier}"] = this.PerformanceMeter;
+            }
+
             return this.PerformanceMeter;
         }
 

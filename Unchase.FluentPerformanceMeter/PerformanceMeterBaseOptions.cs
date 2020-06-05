@@ -43,6 +43,12 @@ namespace Unchase.FluentPerformanceMeter
         /// </summary>
         public bool AddCustomDataFromCustomAttributes { get; set; } = true;
 
+        /// <summary>
+        /// Adds a scope service of the PerformanceMeter of Class.
+        /// Default value is true.
+        /// </summary>
+        public bool RegisterPerformanceMeterScope { get; set; } = true;
+
         #endregion
 
         #region Methods

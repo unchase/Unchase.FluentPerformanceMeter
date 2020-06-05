@@ -66,6 +66,7 @@
 * [Примеры использования](#SimpleSamples)
 	* [Измерение производительности метода](#SimpleSamples)
       * [Использование DI для получения результатов замера производительности (v2.1.0)](#UsingDISamples)
+      * [Использование DI для получения экземпляра текущего замера производительности (v2.1.2)](#UsingDIInstanceSamples)
 	* [Измерение производительности метода с помощью `DiagnosticSource` (v1.1.0)](#DiagnosticSourceSample)
     * [Измерение производительности метода с помощью атрибута `WatchingPerformanceAttribute` (v2.0.0)](#WatchingPerformanceSample)
 	* [Измерение производительности метода используемой библиотеки](#SampleExternal)
@@ -218,6 +219,65 @@ public class PerformanceMeterController : ControllerBase
     public ActionResult<IPerformanceInfo> GetPerformanceInfoV2()
     {
         return Ok(_performanceInfo);
+    }
+
+    // ...
+}
+```
+
+#### <a name="UsingDIInstanceSamples"></a> Использование DI для получения экземпляра текущего замера производительности
+
+Начиная с версии [*v2.1.2*](https://github.com/unchase/Unchase.FluentPerformanceMeter/releases/tag/v2.1.2) появилась возможность получать текущий экземпляр замера производительности методов класса, используя встроенный **DI** в *ASP.NET Core* приложении.
+Для этого необходимо добавить в `Startap.cs` следующий код:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ...
+
+    services.AddPerformanceMeter<PerformanceMeterController>(options =>
+    {
+        // ...
+
+        // adds a scope service of the PerformanceMeter of concrete class for DI
+        // use it with ".WithSettingData.CallerFrom(IHttpContextAccessor)"
+        options.RegisterPerformanceMeterScope = true;
+    }
+
+    // ...
+}
+```
+
+После чего, используя DI, можно получить текущий экземпляр замера производительности, например, следующим образом:
+
+```csharp
+[ApiController]
+[Route("api/v1/[controller]")]
+public class PerformanceMeterController : ControllerBase
+{
+    [HttpGet("WatchingMethodUsingDI")]
+    public IActionResult WatchingMethodUsingDI()
+    {
+        // method performance info will reach with HttpContextAccessor (required for DI)
+        using (PerformanceMeter<PerformanceMeterController>
+            .WatchingMethod(nameof(WatchingMethodUsingDI))
+            .WithSettingData
+                .CallerFrom(_httpContextAccessor)
+            .Start())
+        {
+            GetPerformanceMeterUsingDI();
+
+            return Ok();
+        }
+    }
+
+    private void GetPerformanceMeterUsingDI()
+    {
+        // get instance of PerformanceMeter<PerformanceMeterController> using DI
+        var pm = HttpContext.RequestServices.GetRequiredService(typeof(PerformanceMeter<PerformanceMeterController>)) as PerformanceMeter<PerformanceMeterController>;
+
+        // we can use "pm" for adding steps or for other operations
+        // ...
     }
 
     // ...

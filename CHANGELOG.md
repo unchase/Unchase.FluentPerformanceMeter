@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [NuGet Gallery (Common)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter) and [NuGet Gallery (MVC)](https://www.nuget.org/packages/Unchase.FluentPerformanceMeter.AspNetCore.Mvc).
 
+## v2.1.2 `(2020-06-05)`
+
+- [x] Add feature: allows to get PerformanceMeter of concrete class using DI with `RegisterPerformanceMeterScope` option setted to true (by default is true)
+
 ## v2.1.1 `(2020-05-02)`
 
 - [x] Add feature: allows to iterate executing Actions with `iterations` parameter in `Start` extension methods

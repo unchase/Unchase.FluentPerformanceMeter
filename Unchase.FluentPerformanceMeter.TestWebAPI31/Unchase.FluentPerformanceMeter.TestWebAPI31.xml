@@ -123,6 +123,15 @@
             Return elapsed total milliseconds for all steps.
             </returns>
         </member>
+        <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.WatchingMethodUsingDI(System.UInt32)">
+            <summary>
+            Test GET method with using HttpContextAccessor and adding step with DI.
+            </summary>
+            <param name="value">Some value.</param>
+            <returns>
+            Returns input value.
+            </returns>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers.PerformanceMeterController.WatchingMethodWithExecutedCommands(System.UInt32)">
             <summary>
             Test GET method with using HttpContextAccessor and adding custom data.

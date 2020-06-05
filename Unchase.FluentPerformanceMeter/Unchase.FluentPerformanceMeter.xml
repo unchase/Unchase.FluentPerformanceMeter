@@ -1952,6 +1952,12 @@
             Default value is true.
             </summary>
         </member>
+        <member name="P:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.RegisterPerformanceMeterScope">
+            <summary>
+            Adds a scope service of the PerformanceMeter of Class.
+            Default value is true.
+            </summary>
+        </member>
         <member name="M:Unchase.FluentPerformanceMeter.PerformanceMeterBaseOptions.OnConfigure">
             <summary>
             Called when passed to <see cref="M:Unchase.FluentPerformanceMeter.PerformanceMeter`1.Configure``1(``0)"/>.

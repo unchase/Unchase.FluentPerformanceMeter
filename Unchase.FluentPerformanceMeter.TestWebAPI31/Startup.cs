@@ -59,6 +59,10 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31
 
                 // set default exception handler for the controller class
                 //options.SetDefaultExceptionHandler((ex) => Debug.WriteLine(ex.Message));
+
+                // adds a scope service of the PerformanceMeter of concrete class for DI
+                // use it with ".WithSettingData.CallerFrom(IHttpContextAccessor)"
+                //options.RegisterPerformanceMeterScope = false;
             });
 
             //services.AddPerformanceDiagnosticObserver<PerformanceMeterController>(options =>

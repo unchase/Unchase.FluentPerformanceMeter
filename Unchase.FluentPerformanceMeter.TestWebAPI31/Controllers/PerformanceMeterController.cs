@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using Unchase.FluentPerformanceMeter.AspNetCore.Mvc.Attributes;
@@ -472,6 +473,46 @@ namespace Unchase.FluentPerformanceMeter.TestWebAPI31.Controllers
             }
 
             return Ok(PerformanceMeter<FakeService>.PerformanceInfo.MethodCalls.Where(mc => mc.MethodName.StartsWith("Fake")).Sum(mc => mc.Elapsed.TotalMilliseconds));
+        }
+
+        #endregion
+
+        #region DI
+
+        /// <summary>
+        /// Test GET method with using HttpContextAccessor and adding step with DI.
+        /// </summary>
+        /// <param name="value">Some value.</param>
+        /// <returns>
+        /// Returns input value.
+        /// </returns>
+        [HttpGet("WatchingMethodUsingDI")]
+        public ActionResult<string> WatchingMethodUsingDI(uint value)
+        {
+            // method performance info will reach with HttpContextAccessor (required for DI)
+            using (PerformanceMeter<PerformanceMeterController>
+                .WatchingMethod(nameof(WatchingMethodUsingDI))
+                .WithSettingData
+                    .CallerFrom(_httpContextAccessor)
+                .Start())
+            {
+                // adds step to PerformanceMeter using DI
+                AddStepWithDI();
+
+                return Ok($"{value}");
+            }
+        }
+
+        private void AddStepWithDI()
+        {
+            // get instance of PerformanceMeter<PerformanceMeterController> using DI
+            var pm = HttpContext.RequestServices.GetRequiredService(typeof(PerformanceMeter<PerformanceMeterController>)) as PerformanceMeter<PerformanceMeterController>;
+
+            // add "Step (DI)"
+            using (pm?.Step("Step (DI)"))
+            {
+                Thread.Sleep(1000);
+            }
         }
 
         #endregion

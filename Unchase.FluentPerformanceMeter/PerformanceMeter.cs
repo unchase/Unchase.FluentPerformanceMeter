@@ -1335,6 +1335,13 @@ namespace Unchase.FluentPerformanceMeter
 
                         foreach (var performanceAction in this.RegisteredActions)
                             performanceAction(PerformanceInfo);
+
+                        if (DefaultOptions.RegisterPerformanceMeterScope)
+                        {
+                            var httpContext = this.HttpContextAccessor?.HttpContext;
+                            if (httpContext != null && httpContext.Items.ContainsKey($"PerformanceMeter{httpContext.TraceIdentifier}"))
+                                httpContext.Items.Remove($"PerformanceMeter{httpContext.TraceIdentifier}");
+                        }
                     }
                 }
             }
